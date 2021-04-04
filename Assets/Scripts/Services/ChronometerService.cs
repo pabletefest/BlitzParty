@@ -1,12 +1,18 @@
-﻿using UnityEngine;
-public class ChronometerService :ITimer 
+﻿using System;
+using System.Collections;
+using UnityEngine;
+public class ChronometerService : ITimer 
 {
     MonoBehaviour monoBehaviour;
-    private float time; 
+    IEnumerator coroutine;
+    private float time;
+    private float currentTime;
+
+    public event Action OnTimerOver;
 
     public ChronometerService()
     {
-        time = 0;
+        SetTimeInSeconds(0f);
     }
 
     public void SetMonobehaviour(MonoBehaviour monoBehaviour)
@@ -19,23 +25,40 @@ public class ChronometerService :ITimer
         time = timeInSeconds;
     }
 
+    public float GetCurrentTime() => currentTime;
+
     public void StartTimer()
     {
-        throw new System.NotImplementedException();
+        coroutine = StartCountdown();
+        monoBehaviour.StartCoroutine(coroutine);
     }
 
     public void StopTimer()
     {
-        throw new System.NotImplementedException();
+        monoBehaviour.StopCoroutine(coroutine);
     }
 
     public void ResetTimer()
     {
-        throw new System.NotImplementedException();
+        currentTime = time;
     }
 
     private IEnumerator StartCountdown()
     {
-        
+        currentTime = time;
+
+        while (currentTime > 0f)
+        {
+            //Debug.Log($"CurrentTime Timer: {currentTime}");
+            currentTime -= Time.deltaTime;
+            yield return null;
+        }
+
+        if (currentTime <= 0f)
+        {
+            currentTime = 0f;
+            OnTimerOver?.Invoke();
+        }
     }
+
 }

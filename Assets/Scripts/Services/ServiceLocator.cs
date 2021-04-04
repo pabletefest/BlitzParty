@@ -4,8 +4,8 @@ using UnityEngine.Assertions;
 
 public class ServiceLocator
 {
-    private ServiceLocator instance;
-    public ServiceLocator Instance => instance ?? (instance = new ServiceLocator());
+    private static ServiceLocator instance;
+    public static ServiceLocator Instance => instance ?? (instance = new ServiceLocator());
 
     private Dictionary<Type, object> services;
 
