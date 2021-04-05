@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine;
 public class ChronometerService : ITimer 
 {
+    [SerializeField]
+    private TimeChronometerSO timeChronometerSO;
     MonoBehaviour monoBehaviour;
     IEnumerator coroutine;
     private float time;
@@ -10,9 +12,10 @@ public class ChronometerService : ITimer
 
     public event Action OnTimerOver;
 
-    public ChronometerService()
+    public ChronometerService(TimeChronometerSO timeChronometerSO)
     {
-        SetTimeInSeconds(0f);
+        this.timeChronometerSO = timeChronometerSO;
+        SetTimeInSeconds(this.timeChronometerSO.TimeInSeconds); //Initial time set on ScriptableObject
     }
 
     public void SetMonobehaviour(MonoBehaviour monoBehaviour)

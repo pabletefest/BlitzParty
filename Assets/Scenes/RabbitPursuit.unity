@@ -690,7 +690,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeText: {fileID: 1848823099}
   resultPanel: {fileID: 463597891}
-  timeGameplay: 10
+  timeGameplay: 0
 --- !u!1 &571345213
 GameObject:
   m_ObjectHideFlags: 0

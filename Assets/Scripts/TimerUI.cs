@@ -9,8 +9,8 @@ public class TimerUI : MonoBehaviour
     [SerializeField]
     private GameObject resultPanel;
 
-    [SerializeField]
-    private float timeGameplay;
+    //[SerializeField]
+    //private float timeGameplay;
 
     private string formattedTime;
     private float time;
@@ -18,7 +18,8 @@ public class TimerUI : MonoBehaviour
 
     private void Awake() 
     {
-        timeGameplay = 10f;
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
+        //timeGameplay = 10f;
         chronometer = ServiceLocator.Instance.GetService<ITimer>();    
     }
 
@@ -36,7 +37,7 @@ public class TimerUI : MonoBehaviour
     void Start()
     {
         time = 0f;
-        chronometer.SetTimeInSeconds(timeGameplay);
+        //chronometer.SetTimeInSeconds(timeGameplay);
         chronometer.StartTimer();
     }
 
@@ -62,5 +63,6 @@ public class TimerUI : MonoBehaviour
     private void EnableResultPanel()
     {
         resultPanel.SetActive(true);
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ArrowImpact");
     }
 }
