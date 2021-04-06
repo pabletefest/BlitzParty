@@ -690,7 +690,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeText: {fileID: 1848823099}
   resultPanel: {fileID: 463597891}
-  timeGameplay: 0
 --- !u!1 &571345213
 GameObject:
   m_ObjectHideFlags: 0
@@ -2087,12 +2086,12 @@ PrefabInstance:
     - target: {fileID: 8170153791668043268, guid: 0d230cc8be529a542a08cb878ab14b18,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 960
+      value: 2286.3596
       objectReference: {fileID: 0}
     - target: {fileID: 8170153791668043268, guid: 0d230cc8be529a542a08cb878ab14b18,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 645
+      value: 1287.3267
       objectReference: {fileID: 0}
     - target: {fileID: 8170153791668043268, guid: 0d230cc8be529a542a08cb878ab14b18,
         type: 3}

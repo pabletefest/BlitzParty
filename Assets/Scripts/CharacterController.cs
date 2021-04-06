@@ -17,24 +17,22 @@ public class CharacterController : MonoBehaviour
 		m_Rigidbody2D = GetComponent<Rigidbody2D>();		
 	}
 
-    public void Move(float move)
+	public void Move(float moveH, float moveV)
 	{
-			
-			Vector3 targetVelocity = new Vector2(move * 10f, m_Rigidbody2D.velocity.y);
+		Vector3 targetVelocity = new Vector2(moveH * 10f, moveV * 10f);
 
-			m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
+		m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 
-			if (move > 0 && !isFacingRight)
-			{
-				Flip();
-			}
-			else if (move < 0 && isFacingRight)
-			{
-				Flip();
-			}
-			
+		if (moveH > 0 && !isFacingRight)
+		{
+			Flip();
+		}
+		else if (moveH < 0 && isFacingRight)
+		{
+			Flip();
+		}
 	}
-	
+
 
 
 	private void Flip()

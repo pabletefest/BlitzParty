@@ -18,8 +18,8 @@ public class PlayerMovement : MonoBehaviour
     {
 		m_Animator = gameObject.GetComponent<Animator>();
 	}
-    // Update is called once per frame
-    void Update()
+	// Update is called once per frame
+	void Update()
 	{
 		if (floatingJoystick.Horizontal >= .2f)
 		{
@@ -33,15 +33,33 @@ public class PlayerMovement : MonoBehaviour
 		{
 			horizontalMove = 0f;
 		}
-		m_Animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 
-		
-		//verticalMove = Input.GetAxisRaw("Vertical") * runSpeed;
+		if (floatingJoystick.Vertical >= .2f)
+		{
+			verticalMove = runSpeed;
+		}
+		else if (floatingJoystick.Vertical <= -.2f)
+		{
+			verticalMove = -runSpeed;
+		}
+		else
+		{
+			verticalMove = 0f;
+		}
+
+		if (horizontalMove != 0f)
+		{
+			m_Animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+		}
+		else
+		{
+			m_Animator.SetFloat("Speed", Mathf.Abs(verticalMove));
+		}
 
 	}
 
 	void FixedUpdate()
 	{
-		controller.Move(horizontalMove * Time.fixedDeltaTime);
+		controller.Move(horizontalMove * Time.fixedDeltaTime, verticalMove * Time.fixedDeltaTime);
 	}
 }
