@@ -170,6 +170,7 @@ MonoBehaviour:
   sounds:
   - {fileID: 11400000, guid: 9683291ecedc88d4ab4e4b3ac7327a6c, type: 2}
   - {fileID: 11400000, guid: 2126cbda45aadde4ba49a6375eb6ca44, type: 2}
+  - {fileID: 0}
   mainThemeSource: {fileID: 330961947}
   soundFXSource: {fileID: 330961946}
 --- !u!82 &330961946

@@ -19,7 +19,8 @@ public class CharacterController : MonoBehaviour
 
 	public void Move(float moveH, float moveV)
 	{
-		Vector3 targetVelocity = new Vector2(moveH * 10f, moveV * 10f);
+		Vector2 direction = new Vector2(moveH, moveV).normalized;
+		Vector3 targetVelocity = new Vector2(direction.x * 5f, direction.y * 5f);
 
 		m_Rigidbody2D.velocity = Vector3.SmoothDamp(m_Rigidbody2D.velocity, targetVelocity, ref m_Velocity, m_MovementSmoothing);
 

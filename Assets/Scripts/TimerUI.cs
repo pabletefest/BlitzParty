@@ -9,6 +9,9 @@ public class TimerUI : MonoBehaviour
     [SerializeField]
     private GameObject resultPanel;
 
+    [SerializeField]
+    private GameObject joysStick;
+
     //[SerializeField]
     //private float timeGameplay;
 
@@ -64,5 +67,6 @@ public class TimerUI : MonoBehaviour
     {
         resultPanel.SetActive(true);
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ArrowImpact");
+        joysStick.SetActive(false);
     }
 }
