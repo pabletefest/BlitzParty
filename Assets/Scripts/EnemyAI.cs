@@ -10,10 +10,7 @@ public class EnemyAI : MonoBehaviour
     public Transform opossumGFX;
     public Vector2 target;
 
-    [SerializeField]
-    private LayerMask playerMask;
-    
-    private Vector2 enemyDirection;
+
     Path path;
     int currentWaypoint = 0;
     bool reachedEndOfPath = false;
@@ -27,7 +24,7 @@ public class EnemyAI : MonoBehaviour
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
 
-        InvokeRepeating("UpdatePath", 0f, 1f);
+        InvokeRepeating("UpdatePath", 0f, 1.5f);
         
     }
 
@@ -37,17 +34,6 @@ public class EnemyAI : MonoBehaviour
         {
             target.x = Random.Range(-8.3f, 8.3f);
             target.y = Random.Range(-4.4f, 3.3f);
-
-            float distancePlayer = Mathf.Abs(Vector2.Distance(player.position, transform.position));
-            
-            enemyDirection = target - (Vector2) transform.position;
-            
-            RaycastHit2D ray = Physics2D.Raycast(transform.position, enemyDirection, 20f, playerMask);
-
-            if (distancePlayer < 3f && ray.collider != null)
-            {
-                UpdatePath();
-            }
 
             /*
             if(player.position.x > 0f)
@@ -112,10 +98,5 @@ public class EnemyAI : MonoBehaviour
         {
             opossumGFX.localScale = new Vector3(1f, 1f, 1f);
         }
-    }
-
-    private void OnDrawGizmos() 
-    {
-        Gizmos.DrawLine(transform.position, enemyDirection);
     }
 }

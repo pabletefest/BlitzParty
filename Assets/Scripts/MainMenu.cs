@@ -24,6 +24,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     public GameObject settingsMenu;
 
+    [SerializeField]
+    private GameObject levelsMenu;
+
 
     //Buttons that need to be disabled when settings is active
     [SerializeField]
@@ -46,6 +49,14 @@ public class MainMenu : MonoBehaviour
 
     [SerializeField]
     public Button playButton;
+
+    [SerializeField]
+    private Button rabbitPursuitButton;
+
+    private void Awake()
+    {
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
+    }
 
     public void HideTabs() 
     {
@@ -108,8 +119,22 @@ public class MainMenu : MonoBehaviour
 
     public void StartButtonHandler()
     {
+        if (levelsMenu.activeSelf)
+        {
+            levelsMenu.SetActive(false);
+            ButtonsEnabled(true);
+        }
+        else
+        {
+            levelsMenu.SetActive(true);
+            ButtonsEnabled(false);
+        }
+    }
+
+
+    public void StartRabbitPursuitGame()
+    {
         SceneManager.LoadScene("RabbitPursuit", LoadSceneMode.Additive);
         SceneManager.UnloadSceneAsync("MainMenu");
     }
-
 }

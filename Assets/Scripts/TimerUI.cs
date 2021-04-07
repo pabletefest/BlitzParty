@@ -21,9 +21,9 @@ public class TimerUI : MonoBehaviour
 
     private void Awake() 
     {
-        ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
         //timeGameplay = 10f;
-        chronometer = ServiceLocator.Instance.GetService<ITimer>();    
+        chronometer = ServiceLocator.Instance.GetService<ITimer>(); 
+        chronometer.StartTimer();   
     }
 
     private void OnEnable()
@@ -36,24 +36,10 @@ public class TimerUI : MonoBehaviour
         chronometer.OnTimerOver -= EnableResultPanel;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        time = 0f;
-        //chronometer.SetTimeInSeconds(timeGameplay);
-        chronometer.StartTimer();
-    }
-
     // Update is called once per frame
     void Update()
     {
-        time = chronometer.GetCurrentTime();
-        int minutes = (int) time / 60;
-        int seconds = (int) time % 60;
-        //Debug.Log($"Current seconds: {seconds}");
-        FormatTime(minutes, seconds);
-        //Debug.Log($"FormattedTime: {formattedTime}");
-        timeText.text = formattedTime;
+        UpdateTimer();
     }
 
     private void FormatTime(int minutes, int seconds)
@@ -68,5 +54,16 @@ public class TimerUI : MonoBehaviour
         resultPanel.SetActive(true);
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ArrowImpact");
         joysStick.SetActive(false);
+    }
+
+    private void UpdateTimer()
+    {
+        time = chronometer.GetCurrentTime();
+        int minutes = (int) time / 60;
+        int seconds = Mathf.CeilToInt(time % 60);
+        //Debug.Log($"Current seconds: {seconds}");
+        FormatTime(minutes, seconds);
+        //Debug.Log($"FormattedTime: {formattedTime}");
+        timeText.text = formattedTime;
     }
 }

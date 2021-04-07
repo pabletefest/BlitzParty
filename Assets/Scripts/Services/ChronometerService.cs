@@ -29,6 +29,7 @@ public class ChronometerService : ITimer
     }
 
     public float GetCurrentTime() => currentTime;
+    public float GetTotalTime() => time;
 
     public void StartTimer()
     {

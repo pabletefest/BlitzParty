@@ -11,10 +11,12 @@ public class CharacterController : MonoBehaviour
 	private bool isFacingRight = true; 
 	private Vector3 m_Velocity = Vector3.zero;
 
+	private Collider2D playerCollider;
 
 	private void Awake()
 	{
-		m_Rigidbody2D = GetComponent<Rigidbody2D>();		
+		m_Rigidbody2D = GetComponent<Rigidbody2D>();	
+		playerCollider = GetComponent<Collider2D>();	
 	}
 
 	public void Move(float moveH, float moveV)
@@ -44,4 +46,12 @@ public class CharacterController : MonoBehaviour
 		theScale.x *= -1;
 		transform.localScale = theScale;
 	}
+
+	private void OnCollisionEnter2D(Collision2D other)	
+    {
+      if (other.gameObject.tag == "Player2")
+      {
+        Physics2D.IgnoreCollision(other.collider, playerCollider);
+      }
+    }
 }
