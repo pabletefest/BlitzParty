@@ -47,7 +47,7 @@ public class Player2AI : MonoBehaviour
         animator = gameObject.GetComponentInChildren<Animator>();
         player2Collider = GetComponent<Collider2D>();
 
-        InvokeRepeating("UpdatePath", 0f, 1.5f);
+        InvokeRepeating("UpdatePath", 0f, 0.5f);
         
     }
 
@@ -65,9 +65,12 @@ public class Player2AI : MonoBehaviour
 
             foreach (Transform enemy in enemiesList)
             {
-                if (Vector2.Distance(enemy.position, transform.position) < nearestDistance)
+                if (enemy != null)
                 {
-                    nearestEnemy = enemy;
+                    if (Vector2.Distance(enemy.position, transform.position) < nearestDistance)
+                    {
+                        nearestEnemy = enemy;
+                    }
                 }
             }
 

@@ -14,9 +14,16 @@ public class PlayerMovement : MonoBehaviour
 	float horizontalMove = 0f;
 	float verticalMove = 0f;
 
+	bool touchingRabbit = false;
+
+	PlayersScore scoreController;
+
+	GameObject objectCollided;
+
     private void Start()
     {
 		m_Animator = gameObject.GetComponent<Animator>();
+		scoreController = GameObject.Find("ScoreController").GetComponent<PlayersScore>();
 	}
 	// Update is called once per frame
 	void Update()
@@ -62,4 +69,31 @@ public class PlayerMovement : MonoBehaviour
 	{
 		controller.Move(horizontalMove * Time.fixedDeltaTime, verticalMove * Time.fixedDeltaTime);
 	}
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Rabbit")
+        {
+			touchingRabbit = false;
+        }
+		objectCollided = null;
+    }
+
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		if (collision.gameObject.tag == "Rabbit")
+		{
+			touchingRabbit = true;
+		}
+		objectCollided = collision.gameObject;
+	}
+
+	public void CatchButtonHandler()
+    {
+        if (touchingRabbit)
+        {
+			Destroy(objectCollided);
+			scoreController.P1ScorePoint();
+		}
+    }
 }

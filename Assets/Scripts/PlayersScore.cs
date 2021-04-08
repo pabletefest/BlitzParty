@@ -3,6 +3,10 @@ using UnityEngine.UI;
 
 public class PlayersScore : MonoBehaviour
 {
+
+    private int p1Score;
+    private int p2Score;
+
     [SerializeField]
     private Text Player1Score;
 
@@ -24,17 +28,18 @@ public class PlayersScore : MonoBehaviour
 
     private void OnEnable()
     {
-        chronometer.OnTimerOver += UpdatePanelScore;
+        chronometer.OnTimerOver += UpdateScore;
     }
 
     private void OnDisable()
     {
-        chronometer.OnTimerOver -= UpdatePanelScore;
+        chronometer.OnTimerOver -= UpdateScore;
     }
     // Start is called before the first frame update
     void Start()
     {
-        
+        ResetScore();
+        UpdateScore();
     }
 
     // Update is called once per frame
@@ -43,9 +48,37 @@ public class PlayersScore : MonoBehaviour
         
     }
 
-    private void UpdatePanelScore()
+    private void UpdateScore()
     {
+        Player1Score.text = p1Score.ToString();
+        Player2Score.text = p2Score.ToString();
         Player1ScorePanel.text = Player1Score.text;
         Player2ScorePanel.text = Player2Score.text;
+
+    }
+
+    public void P1ScorePoint()
+    {
+        p1Score++;
+        UpdateScore();
+    }
+
+    public void P2ScorePoint()
+    {
+        p2Score++;
+        UpdateScore();
+    }
+
+    public void ResetScore()
+    {
+        p1Score = 0;
+        p2Score = 0;
+    }
+
+    public RabbitPursuitResults FindWinner()
+    {
+        if (p1Score > p2Score) return RabbitPursuitResults.PLAYER1WIN;
+        else if (p1Score == p2Score) return RabbitPursuitResults.DRAW;
+        else return RabbitPursuitResults.PLAYER2WIN;
     }
 }

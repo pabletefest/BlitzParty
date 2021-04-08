@@ -19,11 +19,15 @@ public class TimerUI : MonoBehaviour
     private float time;
     private ITimer chronometer;
 
+    [SerializeField]
+    private PanelHandler panelHandler;
+
     private void Awake() 
     {
         //timeGameplay = 10f;
+        Time.timeScale = 1;
         chronometer = ServiceLocator.Instance.GetService<ITimer>(); 
-        chronometer.StartTimer();   
+        chronometer.StartTimer();
     }
 
     private void OnEnable()
@@ -51,9 +55,10 @@ public class TimerUI : MonoBehaviour
 
     private void EnableResultPanel()
     {
-        resultPanel.SetActive(true);
+        panelHandler.ShowPanel();
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ArrowImpact");
-        joysStick.SetActive(false);
+        Time.timeScale = 0;
+        
     }
 
     private void UpdateTimer()

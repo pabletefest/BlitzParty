@@ -1,0 +1,67 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+public class PanelHandler : MonoBehaviour
+{
+
+    [SerializeField]
+    private GameObject joystick;
+
+    [SerializeField]
+    private PlayersScore scoreController;
+
+    [SerializeField]
+    private Image resultTitle;
+
+    [SerializeField]
+    private Sprite victoryImage;
+
+    [SerializeField]
+    private Sprite defeatImage;
+
+    [SerializeField]
+    private Sprite drawImage;
+
+    public void RestartButtonHandler()
+    {
+        SceneManager.UnloadSceneAsync("RabbitPursuit");
+        SceneManager.LoadScene("RabbitPursuit", LoadSceneMode.Additive);
+    }
+
+    public void MenuButtonHandler()
+    {
+        SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
+        SceneManager.UnloadSceneAsync("RabbitPursuit");
+    }
+
+    public void ShowPanel()
+    {
+        gameObject.SetActive(true);
+        joystick.SetActive(false);
+        GameObject.Find("CatchButton").SetActive(false);
+        CheckResult();
+
+    }
+
+    private void CheckResult()
+    {
+        RabbitPursuitResults winner = scoreController.FindWinner();
+
+        if(winner == RabbitPursuitResults.PLAYER1WIN)
+        {
+            resultTitle.sprite = victoryImage;
+        }
+        else if(winner == RabbitPursuitResults.PLAYER2WIN)
+        {
+            resultTitle.sprite = defeatImage;
+        }
+        else
+        {
+            resultTitle.sprite = drawImage;
+        }
+
+    }
+}
