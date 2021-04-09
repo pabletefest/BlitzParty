@@ -32,23 +32,25 @@ public class Player2AI : MonoBehaviour
     private void OnEnable()
     {
         EnemySpawner.OnEnemySpawn += EnemySpawned;
+        RabbitCapture.OnEnemyCaptured += EnemyCaptured;
     }
 
     private void OnDisable()
     {
         EnemySpawner.OnEnemySpawn -= EnemySpawned;
+        RabbitCapture.OnEnemyCaptured -= EnemyCaptured;
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        enemiesList = new List<Transform>();
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponentInChildren<Animator>();
         player2Collider = GetComponent<Collider2D>();
 
         InvokeRepeating("UpdatePath", 0f, 0.5f);
-        
     }
 
     private void EnemySpawned(GameObject enemy)
@@ -56,6 +58,11 @@ public class Player2AI : MonoBehaviour
         enemiesList.Add(enemy.transform);
         UpdatePath();
     }
+    private void EnemyCaptured(GameObject enemy)
+    {
+        enemiesList.Remove(enemy.transform);
+    }
+
     private void UpdatePath()
     {
         if (seeker.IsDone())

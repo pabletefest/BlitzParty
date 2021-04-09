@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ServiceInstaller : MonoBehaviour
@@ -15,6 +16,9 @@ public class ServiceInstaller : MonoBehaviour
     [SerializeField]
     private AudioSource soundFXSource;
 
+    [SerializeField]
+    private List<ObjectPool> pools;
+
     private void Awake()
     {
         var chronometerService = new ChronometerService(timeChronometerSO);
@@ -25,6 +29,10 @@ public class ServiceInstaller : MonoBehaviour
         var audioController = new AudioController(sounds, mainThemeSource, soundFXSource);
 
         ServiceLocator.Instance.RegisterService<ISoundAdapter>(audioController);
+
+        var objectPoolerService = new ObjectPoolerService(pools);
+
+        ServiceLocator.Instance.RegisterService<IObjectPooler>(objectPoolerService);
 
         //SceneManager.LoadScene("RabbitPursuit", LoadSceneMode.Additive);
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);

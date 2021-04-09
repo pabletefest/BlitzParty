@@ -92,7 +92,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (touchingRabbit)
         {
-			Destroy(objectCollided);
+			//Destroy(objectCollided);
+			objectCollided.SetActive(false);
 			scoreController.P1ScorePoint();
 		}
     }

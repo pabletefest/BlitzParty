@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RabbitCapture : MonoBehaviour
 {
 
+    public static event Action<GameObject> OnEnemyCaptured;
     PlayersScore scoreController;
 
 
@@ -12,8 +14,10 @@ public class RabbitCapture : MonoBehaviour
     {
         if(collision.gameObject.tag == "Rabbit")
         {
-            Destroy(collision.gameObject);
+            //Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
             scoreController.P2ScorePoint();
+            OnEnemyCaptured?.Invoke(collision.gameObject);
         }
     }
 
@@ -21,11 +25,5 @@ public class RabbitCapture : MonoBehaviour
     void Start()
     {
         scoreController = GameObject.Find("ScoreController").GetComponent<PlayersScore>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: MainTheme
   Clip: {fileID: 8300000, guid: 335c895461a275d4da1415687e95fe58, type: 3}
-  Volume: 0.5
+  Volume: 0.25
   Pitch: 1
   Loop: 1
   IsMainTheme: 1

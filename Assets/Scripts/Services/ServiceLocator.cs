@@ -7,7 +7,7 @@ public class ServiceLocator
     private static ServiceLocator instance;
     public static ServiceLocator Instance => instance ?? (instance = new ServiceLocator());
 
-    private Dictionary<Type, object> services;
+    private readonly Dictionary<Type, object> services;
 
     private ServiceLocator()
     {

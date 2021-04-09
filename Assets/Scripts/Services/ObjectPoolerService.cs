@@ -1,0 +1,49 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ObjectPoolerService : IObjectPooler
+{
+    private List<ObjectPool> pools;
+    private readonly Dictionary<string, Queue<GameObject>> poolDictionary;
+
+    public ObjectPoolerService(List<ObjectPool> pools)
+    {
+        poolDictionary = new Dictionary<string, Queue<GameObject>>();
+        this.pools = new List<ObjectPool>();
+        this.pools.AddRange(pools);
+
+        foreach (ObjectPool pool in pools)
+        {
+            Queue<GameObject> objectPoolQueue = new Queue<GameObject>();
+
+            for (int i = 0; i < pool.Size; i++)
+            {
+                GameObject objectInstantiated = GameObject.Instantiate(pool.Prefab);
+                objectInstantiated.SetActive(false);
+
+                objectPoolQueue.Enqueue(objectInstantiated);
+            }
+
+            poolDictionary.Add(pool.Tag, objectPoolQueue);
+        }
+    }
+
+    public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
+    {
+        if (!poolDictionary.ContainsKey(tag))
+        {
+            Debug.LogWarning($"Pool with tag {tag} doesn't exist.");
+            return null;
+        }
+
+        GameObject objectToSpawn = poolDictionary[tag].Dequeue();
+
+        objectToSpawn.SetActive(true);
+        objectToSpawn.transform.position = position;
+        objectToSpawn.transform.rotation = rotation;
+
+        poolDictionary[tag].Enqueue(objectToSpawn);
+
+        return objectToSpawn;
+    }
+}

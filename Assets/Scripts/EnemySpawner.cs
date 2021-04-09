@@ -24,9 +24,12 @@ public class EnemySpawner : MonoBehaviour
 
     private ITimer chronometerService;
 
+    private IObjectPooler objectPoolerService;
+
     private void Start()
     {
         chronometerService = ServiceLocator.Instance.GetService<ITimer>();
+        objectPoolerService = ServiceLocator.Instance.GetService<IObjectPooler>();
         time = spawnTime;
         SpawnEnemy(1); //Initial spawn
     }
@@ -76,7 +79,8 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < numberOfEnemies; i++)
         {
             int randomSpot = UnityEngine.Random.Range(0, spawnPoints.Length);
-            GameObject enemy = Instantiate(enemyPrefab, spawnPoints[randomSpot].transform.position, Quaternion.identity);
+            //GameObject enemy = Instantiate(enemyPrefab, spawnPoints[randomSpot].transform.position, Quaternion.identity);
+            GameObject enemy = objectPoolerService.SpawnFromPool("RabbitPursuit", spawnPoints[randomSpot].transform.position, Quaternion.identity);
             OnEnemySpawn?.Invoke(enemy);
         }
     }

@@ -173,6 +173,8 @@ MonoBehaviour:
   - {fileID: 0}
   mainThemeSource: {fileID: 330961947}
   soundFXSource: {fileID: 330961946}
+  pools:
+  - {fileID: 11400000, guid: 359f86741f0c6b9478c81391e674bac3, type: 2}
 --- !u!82 &330961946
 AudioSource:
   m_ObjectHideFlags: 0
