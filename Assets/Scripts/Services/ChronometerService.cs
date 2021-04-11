@@ -26,6 +26,7 @@ public class ChronometerService : ITimer
     public void SetTimeInSeconds(float timeInSeconds)
     {
         time = timeInSeconds;
+        currentTime = time;
     }
 
     public float GetCurrentTime() => currentTime;
@@ -45,6 +46,12 @@ public class ChronometerService : ITimer
     public void ResetTimer()
     {
         currentTime = time;
+    }
+
+    public void RestartTimer()
+    {
+        ResetTimer();
+        StartTimer();
     }
 
     private IEnumerator StartCountdown()

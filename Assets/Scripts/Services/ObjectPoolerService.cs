@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +12,11 @@ public class ObjectPoolerService : IObjectPooler
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
         this.pools = new List<ObjectPool>();
         this.pools.AddRange(pools);
+    }
+
+    public void InstanciatePools()
+    {
+        poolDictionary.Clear();
 
         foreach (ObjectPool pool in pools)
         {
@@ -45,5 +51,15 @@ public class ObjectPoolerService : IObjectPooler
         poolDictionary[tag].Enqueue(objectToSpawn);
 
         return objectToSpawn;
+    }
+
+    public void DisableObjectInPool(string poolTag)
+    {
+        Queue<GameObject> poolQueue = poolDictionary[poolTag];
+
+        foreach (GameObject objectPool in poolQueue)
+        {
+            objectPool.SetActive(false);
+        }
     }
 }

@@ -8,4 +8,5 @@ public interface ITimer
     void StartTimer();
     void StopTimer();
     void ResetTimer();
+    void RestartTimer();
 }

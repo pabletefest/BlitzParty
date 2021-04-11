@@ -42,12 +42,6 @@ public class PlayersScore : MonoBehaviour
         UpdateScore();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void UpdateScore()
     {
         Player1Score.text = p1Score.ToString();
@@ -73,6 +67,7 @@ public class PlayersScore : MonoBehaviour
     {
         p1Score = 0;
         p2Score = 0;
+        UpdateScore();
     }
 
     public RabbitPursuitResults FindWinner()

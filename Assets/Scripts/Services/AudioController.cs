@@ -16,7 +16,6 @@ public class AudioController : ISoundAdapter
         this.soundFXSource = soundFXSource;
 
         Sound mainThemeSound = Array.Find(sounds, sound => sound.IsMainTheme);
-        mainThemeSource.name = mainThemeSound.Name; 
         mainThemeSource.clip = mainThemeSound.Clip;
         mainThemeSource.volume = mainThemeSound.Volume;
         mainThemeSource.pitch = mainThemeSound.Pitch;

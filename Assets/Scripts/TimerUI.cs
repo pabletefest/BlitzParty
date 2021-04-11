@@ -27,6 +27,7 @@ public class TimerUI : MonoBehaviour
         //timeGameplay = 10f;
         Time.timeScale = 1;
         chronometer = ServiceLocator.Instance.GetService<ITimer>(); 
+        UpdateTimer();
         chronometer.StartTimer();
     }
 
@@ -65,7 +66,17 @@ public class TimerUI : MonoBehaviour
     {
         time = chronometer.GetCurrentTime();
         int minutes = (int) time / 60;
-        int seconds = Mathf.CeilToInt(time % 60);
+        int seconds = 0;
+
+        if (Mathf.CeilToInt(time % 60) < 60)
+        {
+            seconds = Mathf.CeilToInt(time % 60);
+        }
+        else
+        {
+            minutes++;
+        }
+        //int seconds = (Mathf.CeilToInt(time % 60) < 60) : Mathf.CeilToInt(time % 60) ? 59;
         //Debug.Log($"Current seconds: {seconds}");
         FormatTime(minutes, seconds);
         //Debug.Log($"FormattedTime: {formattedTime}");

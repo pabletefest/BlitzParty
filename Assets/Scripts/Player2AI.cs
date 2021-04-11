@@ -33,13 +33,16 @@ public class Player2AI : MonoBehaviour
     {
         EnemySpawner.OnEnemySpawn += EnemySpawned;
         RabbitCapture.OnEnemyCaptured += EnemyCaptured;
+        PanelHandler.OnSceneRestarted += SceneRestarted;
     }
 
     private void OnDisable()
     {
         EnemySpawner.OnEnemySpawn -= EnemySpawned;
         RabbitCapture.OnEnemyCaptured -= EnemyCaptured;
+        PanelHandler.OnSceneRestarted -= SceneRestarted;
     }
+
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +56,11 @@ public class Player2AI : MonoBehaviour
         InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
 
+    private void SceneRestarted(string activeScene)
+    {
+        enemiesList.Clear();
+    }
+
     private void EnemySpawned(GameObject enemy)
     {
         enemiesList.Add(enemy.transform);
@@ -61,6 +69,7 @@ public class Player2AI : MonoBehaviour
     private void EnemyCaptured(GameObject enemy)
     {
         enemiesList.Remove(enemy.transform);
+        UpdatePath();
     }
 
     private void UpdatePath()

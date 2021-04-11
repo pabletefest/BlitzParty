@@ -26,12 +26,35 @@ public class EnemySpawner : MonoBehaviour
 
     private IObjectPooler objectPoolerService;
 
-    private void Start()
+    private void OnEnable()
+    {
+        MainMenu.OnRabbitPursuitLoaded += SceneLoaded;
+        PanelHandler.OnSceneRestarted += SceneRestarted;
+    }
+
+
+    private void OnDisable()
+    {
+        MainMenu.OnRabbitPursuitLoaded -= SceneLoaded;
+        PanelHandler.OnSceneRestarted -= SceneRestarted;
+    }
+
+    private void SceneLoaded()
+    {
+        objectPoolerService.InstanciatePools();
+        SpawnEnemy(1); //Initial spawn
+    }
+
+    private void SceneRestarted(string activeScene)
+    {
+        objectPoolerService.DisableObjectInPool(activeScene);
+    }
+
+    private void Awake()
     {
         chronometerService = ServiceLocator.Instance.GetService<ITimer>();
         objectPoolerService = ServiceLocator.Instance.GetService<IObjectPooler>();
         time = spawnTime;
-        SpawnEnemy(1); //Initial spawn
     }
 
     // Update is called once per frame

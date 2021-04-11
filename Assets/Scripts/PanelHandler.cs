@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PanelHandler : MonoBehaviour
 {
+    public static event Action<string> OnSceneRestarted;
 
     [SerializeField]
     private GameObject joystick;
@@ -27,8 +27,14 @@ public class PanelHandler : MonoBehaviour
 
     public void RestartButtonHandler()
     {
-        SceneManager.UnloadSceneAsync("RabbitPursuit");
-        SceneManager.LoadScene("RabbitPursuit", LoadSceneMode.Additive);
+        Time.timeScale = 1f;
+        gameObject.SetActive(false);
+        scoreController.ResetScore();
+        OnSceneRestarted?.Invoke(SceneManager.GetActiveScene().name);
+        ServiceLocator.Instance.GetService<ITimer>().RestartTimer();
+        //SceneManager.UnloadSceneAsync("RabbitPursuit");
+        //SceneManager.LoadScene("RabbitPursuit", LoadSceneMode.Additive);
+        //StartCoroutine(RestartRabbitPursuitScene());
     }
 
     public void MenuButtonHandler()
