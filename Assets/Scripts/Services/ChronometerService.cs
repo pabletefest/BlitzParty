@@ -1,75 +1,79 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-public class ChronometerService : ITimer 
+
+namespace Services
 {
-    [SerializeField]
-    private TimeChronometerSO timeChronometerSO;
-    MonoBehaviour monoBehaviour;
-    IEnumerator coroutine;
-    private float time;
-    private float currentTime;
-
-    public event Action OnTimerOver;
-
-    public ChronometerService(TimeChronometerSO timeChronometerSO)
+    public class ChronometerService : ITimer 
     {
-        this.timeChronometerSO = timeChronometerSO;
-        SetTimeInSeconds(this.timeChronometerSO.TimeInSeconds); //Initial time set on ScriptableObject
-    }
+        [SerializeField]
+        private TimeChronometerSO timeChronometerSO;
+        MonoBehaviour monoBehaviour;
+        IEnumerator coroutine;
+        private float time;
+        private float currentTime;
 
-    public void SetMonobehaviour(MonoBehaviour monoBehaviour)
-    {
-        this.monoBehaviour = monoBehaviour;
-    }
+        public event Action OnTimerOver;
 
-    public void SetTimeInSeconds(float timeInSeconds)
-    {
-        time = timeInSeconds;
-        currentTime = time;
-    }
-
-    public float GetCurrentTime() => currentTime;
-    public float GetTotalTime() => time;
-
-    public void StartTimer()
-    {
-        coroutine = StartCountdown();
-        monoBehaviour.StartCoroutine(coroutine);
-    }
-
-    public void StopTimer()
-    {
-        monoBehaviour.StopCoroutine(coroutine);
-    }
-
-    public void ResetTimer()
-    {
-        currentTime = time;
-    }
-
-    public void RestartTimer()
-    {
-        ResetTimer();
-        StartTimer();
-    }
-
-    private IEnumerator StartCountdown()
-    {
-        currentTime = time;
-
-        while (currentTime > 0f)
+        public ChronometerService(TimeChronometerSO timeChronometerSO)
         {
-            //Debug.Log($"CurrentTime Timer: {currentTime}");
-            currentTime -= Time.deltaTime;
-            yield return null;
+            this.timeChronometerSO = timeChronometerSO;
+            SetTimeInSeconds(this.timeChronometerSO.TimeInSeconds); //Initial time set on ScriptableObject
         }
 
-        if (currentTime <= 0f)
+        public void SetMonobehaviour(MonoBehaviour monoBehaviour)
         {
-            currentTime = 0f;
-            OnTimerOver?.Invoke();
+            this.monoBehaviour = monoBehaviour;
         }
-    }
 
+        public void SetTimeInSeconds(float timeInSeconds)
+        {
+            time = timeInSeconds;
+            currentTime = time;
+        }
+
+        public float GetCurrentTime() => currentTime;
+        public float GetTotalTime() => time;
+
+        public void StartTimer()
+        {
+            coroutine = StartCountdown();
+            monoBehaviour.StartCoroutine(coroutine);
+        }
+
+        public void StopTimer()
+        {
+            monoBehaviour.StopCoroutine(coroutine);
+        }
+
+        public void ResetTimer()
+        {
+            currentTime = time;
+        }
+
+        public void RestartTimer()
+        {
+            ResetTimer();
+            StartTimer();
+        }
+
+        private IEnumerator StartCountdown()
+        {
+            currentTime = time;
+
+            while (currentTime > 0f)
+            {
+                //Debug.Log($"CurrentTime Timer: {currentTime}");
+                currentTime -= Time.deltaTime;
+                yield return null;
+            }
+
+            if (currentTime <= 0f)
+            {
+                currentTime = 0f;
+                OnTimerOver?.Invoke();
+            }
+        }
+
+    }
 }

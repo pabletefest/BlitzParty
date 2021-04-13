@@ -2,49 +2,52 @@ using System;
 using System.Collections.Generic;
 using UnityEngine.Assertions;
 
-public class ServiceLocator
+namespace Services
 {
-    private static ServiceLocator instance;
-    public static ServiceLocator Instance => instance ?? (instance = new ServiceLocator());
-
-    private readonly Dictionary<Type, object> services;
-
-    private ServiceLocator()
+    public class ServiceLocator
     {
-        services = new Dictionary<Type, object>();
-    }
+        private static ServiceLocator instance;
+        public static ServiceLocator Instance => instance ?? (instance = new ServiceLocator());
 
-    public void RegisterService<T>(T service)
-    {
-        Type type = typeof(T);
-        Assert.IsFalse(services.ContainsKey(type), $"Service {type} already registered.");
+        private readonly Dictionary<Type, object> services;
 
-        services.Add(type, service);
-    }
-
-    public T GetService<T>()
-    {
-        Type type = typeof(T);
-
-        if(!services.TryGetValue(type, out object service))
+        private ServiceLocator()
         {
-            throw new Exception($"Service {type} not found.");
+            services = new Dictionary<Type, object>();
         }
 
-        return (T) service;
-    }
+        public void RegisterService<T>(T service)
+        {
+            Type type = typeof(T);
+            Assert.IsFalse(services.ContainsKey(type), $"Service {type} already registered.");
 
-    public void UnregisterService<T>()
-    {
-        Type type = typeof(T);
+            services.Add(type, service);
+        }
 
-        Assert.IsFalse(!services.ContainsKey(type), $"Service {type} can not be removed if it is not registered.");
+        public T GetService<T>()
+        {
+            Type type = typeof(T);
 
-        services.Remove(type);
-    }
+            if(!services.TryGetValue(type, out object service))
+            {
+                throw new Exception($"Service {type} not found.");
+            }
 
-    public void RemoveRegisteredServices()
-    {
-        services.Clear();
+            return (T) service;
+        }
+
+        public void UnregisterService<T>()
+        {
+            Type type = typeof(T);
+
+            Assert.IsFalse(!services.ContainsKey(type), $"Service {type} can not be removed if it is not registered.");
+
+            services.Remove(type);
+        }
+
+        public void RemoveRegisteredServices()
+        {
+            services.Clear();
+        }
     }
 }
