@@ -8,9 +8,11 @@ namespace Services
         void SetTimeInSeconds(float timeInSeconds);
         float GetCurrentTime();
         float GetTotalTime();
-        void StartTimer();
-        void StopTimer();
+        void Tick(float deltaTime);
+        void CheckForTimerEnd();
+        void StartTimerMonobehaviour();
+        void StopTimerMonobehaviour();
         void ResetTimer();
-        void RestartTimer();
+        void RestartTimerMonobehaviour();
     }
 }

@@ -32,7 +32,8 @@ public class PanelHandler : MonoBehaviour
         gameObject.SetActive(false);
         scoreController.ResetScore();
         OnSceneRestarted?.Invoke(SceneManager.GetActiveScene().name);
-        ServiceLocator.Instance.GetService<ITimer>().RestartTimer();
+        ServiceLocator.Instance.GetService<ITimer>().ResetTimer();
+        //ServiceLocator.Instance.GetService<ITimer>().RestartTimer();
         //SceneManager.UnloadSceneAsync("RabbitPursuit");
         //SceneManager.LoadScene("RabbitPursuit", LoadSceneMode.Additive);
         //StartCoroutine(RestartRabbitPursuitScene());
@@ -40,8 +41,8 @@ public class PanelHandler : MonoBehaviour
 
     public void MenuButtonHandler()
     {
-        SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
-        SceneManager.UnloadSceneAsync("RabbitPursuit");
+        SceneManager.LoadScene("MainMenu");
+        //SceneManager.UnloadSceneAsync("RabbitPursuit");
     }
 
     public void ShowPanel()

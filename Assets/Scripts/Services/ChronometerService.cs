@@ -6,8 +6,10 @@ namespace Services
 {
     public class ChronometerService : ITimer 
     {
+        /*
         [SerializeField]
         private TimeChronometerSO timeChronometerSO;
+        */
         MonoBehaviour monoBehaviour;
         IEnumerator coroutine;
         private float time;
@@ -17,8 +19,8 @@ namespace Services
 
         public ChronometerService(TimeChronometerSO timeChronometerSO)
         {
-            this.timeChronometerSO = timeChronometerSO;
-            SetTimeInSeconds(this.timeChronometerSO.TimeInSeconds); //Initial time set on ScriptableObject
+            //this.timeChronometerSO = timeChronometerSO;
+            SetTimeInSeconds(timeChronometerSO.TimeInSeconds); //Initial time set on ScriptableObject
         }
 
         public void SetMonobehaviour(MonoBehaviour monoBehaviour)
@@ -29,19 +31,19 @@ namespace Services
         public void SetTimeInSeconds(float timeInSeconds)
         {
             time = timeInSeconds;
-            currentTime = time;
+            currentTime = timeInSeconds;
         }
 
         public float GetCurrentTime() => currentTime;
         public float GetTotalTime() => time;
 
-        public void StartTimer()
+        public void StartTimerMonobehaviour()
         {
-            coroutine = StartCountdown();
+            coroutine = StartCountdownCoroutine();
             monoBehaviour.StartCoroutine(coroutine);
         }
 
-        public void StopTimer()
+        public void StopTimerMonobehaviour()
         {
             monoBehaviour.StopCoroutine(coroutine);
         }
@@ -51,13 +53,32 @@ namespace Services
             currentTime = time;
         }
 
-        public void RestartTimer()
+        public void RestartTimerMonobehaviour()
         {
             ResetTimer();
-            StartTimer();
+            StartTimerMonobehaviour();
         }
 
-        private IEnumerator StartCountdown()
+
+        public void Tick(float deltaTime)
+        {
+            if (currentTime <= 0) return;
+
+            currentTime -= deltaTime;
+
+            CheckForTimerEnd();
+        }
+
+        public void CheckForTimerEnd()
+        {
+            if (currentTime > 0) return;
+            
+            currentTime = 0;
+
+            OnTimerOver?.Invoke();
+        }
+
+        private IEnumerator StartCountdownCoroutine()
         {
             currentTime = time;
 
@@ -74,6 +95,5 @@ namespace Services
                 OnTimerOver?.Invoke();
             }
         }
-
     }
 }

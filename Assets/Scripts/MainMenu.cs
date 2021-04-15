@@ -6,8 +6,8 @@ using System;
 using Services;
 
 public class MainMenu : MonoBehaviour
-{
-    public static event Action OnRabbitPursuitLoaded;
+{   
+    //public static event Action OnRabbitPursuitLoaded;
 
     //Tabs to show and hide when the buttons are clicked
     [SerializeField]
@@ -138,12 +138,14 @@ public class MainMenu : MonoBehaviour
 
     public void StartRabbitPursuitGame()
     {
-        AsyncOperation asyncScene = SceneManager.LoadSceneAsync("RabbitPursuit", LoadSceneMode.Additive);
-        asyncScene.allowSceneActivation = true;
-        SceneManager.UnloadSceneAsync("MainMenu");
-        StartCoroutine(nameof(ActivateRabbitPursuitScene), asyncScene);
+        SceneManager.LoadScene("RabbitPursuit");
+        //AsyncOperation asyncScene = SceneManager.LoadSceneAsync("RabbitPursuit", LoadSceneMode.Additive);
+        //asyncScene.allowSceneActivation = true;
+        //SceneManager.UnloadSceneAsync("MainMenu");
+        //StartCoroutine(nameof(ActivateRabbitPursuitScene), asyncScene);
     }
 
+    /*
     private IEnumerator ActivateRabbitPursuitScene(AsyncOperation asyncSceneLoad)
     {
         while(!asyncSceneLoad.isDone)
@@ -154,4 +156,5 @@ public class MainMenu : MonoBehaviour
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("RabbitPursuit"));
         OnRabbitPursuitLoaded?.Invoke();
     }
+    */
 }

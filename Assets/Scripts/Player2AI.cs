@@ -44,15 +44,18 @@ public class Player2AI : MonoBehaviour
     }
 
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         enemiesList = new List<Transform>();
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         animator = gameObject.GetComponentInChildren<Animator>();
         player2Collider = GetComponent<Collider2D>();
+    }
 
+    // Start is called before the first frame update
+    void Start()
+    {
         InvokeRepeating("UpdatePath", 0f, 0.5f);
     }
 

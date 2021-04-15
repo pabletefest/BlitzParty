@@ -13,7 +13,7 @@ namespace Services
         private Sound[] sounds;
 
         [SerializeField]
-        private AudioSource mainThemeSource;
+        private AudioSource mainThemesSource;
 
         [SerializeField]
         private AudioSource soundFXSource;
@@ -24,11 +24,11 @@ namespace Services
         private void Awake()
         {
             var chronometerService = new ChronometerService(timeChronometerSO);
-            chronometerService.SetMonobehaviour(this);
+            //chronometerService.SetMonobehaviour(this);
 
             ServiceLocator.Instance.RegisterService<ITimer>(chronometerService);
         
-            var audioController = new AudioController(sounds, mainThemeSource, soundFXSource);
+            var audioController = new AudioController(sounds, mainThemesSource, soundFXSource);
 
             ServiceLocator.Instance.RegisterService<ISoundAdapter>(audioController);
 
@@ -37,7 +37,7 @@ namespace Services
             ServiceLocator.Instance.RegisterService<IObjectPooler>(objectPoolerService);
 
             //SceneManager.LoadScene("RabbitPursuit", LoadSceneMode.Additive);
-            SceneManager.LoadScene("MainMenu", LoadSceneMode.Additive);
+            SceneManager.LoadScene("MainMenu");
         }
     }
 }

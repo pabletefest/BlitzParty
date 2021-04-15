@@ -29,7 +29,7 @@ public class TimerUI : MonoBehaviour
         Time.timeScale = 1;
         chronometer = ServiceLocator.Instance.GetService<ITimer>(); 
         UpdateTimer();
-        chronometer.StartTimer();
+        //chronometer.StartTimer();
     }
 
     private void OnEnable()
@@ -45,6 +45,7 @@ public class TimerUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        chronometer.Tick(Time.deltaTime);
         UpdateTimer();
     }
 
