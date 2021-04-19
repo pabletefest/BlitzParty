@@ -33,6 +33,7 @@ public class PanelHandler : MonoBehaviour
         scoreController.ResetScore();
         OnSceneRestarted?.Invoke(SceneManager.GetActiveScene().name);
         ServiceLocator.Instance.GetService<ITimer>().ResetTimer();
+        joystick.SetActive(true);
         //ServiceLocator.Instance.GetService<ITimer>().RestartTimer();
         //SceneManager.UnloadSceneAsync("RabbitPursuit");
         //SceneManager.LoadScene("RabbitPursuit", LoadSceneMode.Additive);
