@@ -27,7 +27,8 @@ public class TimerUI : MonoBehaviour
     {
         //timeGameplay = 10f;
         Time.timeScale = 1;
-        chronometer = ServiceLocator.Instance.GetService<ITimer>(); 
+        chronometer = ServiceLocator.Instance.GetService<ITimer>();
+        chronometer.ResetTimer();
         UpdateTimer();
         //chronometer.StartTimer();
     }

@@ -33,14 +33,14 @@ public class Player2AI : MonoBehaviour
     {
         EnemySpawner.OnEnemySpawn += EnemySpawned;
         RabbitCapture.OnEnemyCaptured += EnemyCaptured;
-        PanelHandler.OnSceneRestarted += SceneRestarted;
+        ResetRabbitPursuit.OnSceneRestarted += SceneRestarted;
     }
 
     private void OnDisable()
     {
         EnemySpawner.OnEnemySpawn -= EnemySpawned;
         RabbitCapture.OnEnemyCaptured -= EnemyCaptured;
-        PanelHandler.OnSceneRestarted -= SceneRestarted;
+        ResetRabbitPursuit.OnSceneRestarted -= SceneRestarted;
     }
 
 

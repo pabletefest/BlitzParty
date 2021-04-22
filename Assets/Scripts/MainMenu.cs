@@ -59,7 +59,7 @@ public class MainMenu : MonoBehaviour
 
     private void Awake()
     {
-        ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme(); 
     }
 
     public void HideTabs() 

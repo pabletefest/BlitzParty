@@ -1,15 +1,9 @@
-﻿using System;
-using Services;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PanelHandler : MonoBehaviour
 {
-    public static event Action<string> OnSceneRestarted;
-
-    [SerializeField]
-    private GameObject joystick;
 
     [SerializeField]
     private PlayersScore scoreController;
@@ -26,14 +20,19 @@ public class PanelHandler : MonoBehaviour
     [SerializeField]
     private Sprite drawImage;
 
+    [SerializeField]
+    private ResetRabbitPursuit resetController;
+
+    [SerializeField]
+    private GameObject joystick;
+
+    [SerializeField]
+    private GameObject catchButton;
+
     public void RestartButtonHandler()
     {
-        Time.timeScale = 1f;
+        resetController.ResetGame();
         gameObject.SetActive(false);
-        scoreController.ResetScore();
-        OnSceneRestarted?.Invoke(SceneManager.GetActiveScene().name);
-        ServiceLocator.Instance.GetService<ITimer>().ResetTimer();
-        joystick.SetActive(true);
         //ServiceLocator.Instance.GetService<ITimer>().RestartTimer();
         //SceneManager.UnloadSceneAsync("RabbitPursuit");
         //SceneManager.LoadScene("RabbitPursuit", LoadSceneMode.Additive);
@@ -50,7 +49,7 @@ public class PanelHandler : MonoBehaviour
     {
         gameObject.SetActive(true);
         joystick.SetActive(false);
-        GameObject.Find("CatchButton").SetActive(false);
+        catchButton.SetActive(false);
         CheckResult();
 
     }

@@ -31,14 +31,14 @@ public class EnemySpawner : MonoBehaviour
     private void OnEnable()
     {
         //MainMenu.OnRabbitPursuitLoaded += SceneLoaded;
-        PanelHandler.OnSceneRestarted += SceneRestarted;
+        ResetRabbitPursuit.OnSceneRestarted += SceneRestarted;
     }
 
 
     private void OnDisable()
     {
         //MainMenu.OnRabbitPursuitLoaded -= SceneLoaded;
-        PanelHandler.OnSceneRestarted -= SceneRestarted;
+        ResetRabbitPursuit.OnSceneRestarted -= SceneRestarted;
     }
     
     /*
