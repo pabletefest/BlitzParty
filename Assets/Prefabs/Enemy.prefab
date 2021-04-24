@@ -52,6 +52,7 @@ MonoBehaviour:
   nextWaypointDistance: 1.2
   opossumGFX: {fileID: 8293151372011437833}
   target: {x: 0, y: 0}
+  rabbitCollider: {fileID: 8293151370640624585}
 --- !u!114 &8293151370640624584
 MonoBehaviour:
   m_ObjectHideFlags: 0

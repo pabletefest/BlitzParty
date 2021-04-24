@@ -1,9 +1,13 @@
-﻿using System.Collections;
+﻿using Services;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+	[SerializeField]
+	private Animator animator;
 
 	public CharacterController controller;
 	public FloatingJoystick floatingJoystick;
@@ -90,7 +94,9 @@ public class PlayerMovement : MonoBehaviour
 
 	public void CatchButtonHandler()
     {
-        if (touchingRabbit)
+		animator.SetTrigger("Catching");
+		ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("NetSwing");
+		if (touchingRabbit)
         {
 			//Destroy(objectCollided);
 			objectCollided.SetActive(false);

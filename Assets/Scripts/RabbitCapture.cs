@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Services;
 
 public class RabbitCapture : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class RabbitCapture : MonoBehaviour
         if(collision.gameObject.tag == "Rabbit")
         {
             //Destroy(collision.gameObject);
+            //ServiceLocator.Instance.GetService<>
+            
             collision.gameObject.SetActive(false);
             scoreController.P2ScorePoint();
             OnEnemyCaptured?.Invoke(collision.gameObject);

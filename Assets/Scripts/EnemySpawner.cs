@@ -51,7 +51,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void SceneRestarted(string activeScene)
     {
-        objectPoolerService.DisableObjectInPool(activeScene);
+        objectPoolerService.DisableObjectsInPool(activeScene);
     }
 
     private void Awake()

@@ -189,4 +189,9 @@ public class Player2AI : MonoBehaviour
         Physics2D.IgnoreCollision(other.collider, player2Collider);
       }
     }
+
+    public void ResetVelocity()
+    {
+        rb.velocity = Vector2.zero;
+    }
 }

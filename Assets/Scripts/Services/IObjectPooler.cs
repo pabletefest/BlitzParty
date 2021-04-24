@@ -6,6 +6,7 @@ namespace Services
     {
         GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation);
         void InstanciatePools();
-        void DisableObjectInPool(string tagPool);
+        void DisableObjectsInPool(string tagPool);
+        void DisableObject(string objectName, string poolTag);
     }
 }

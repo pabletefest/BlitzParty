@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using Pathfinding;
+using Services;
+using UnityEngine.SceneManagement;
 
 public class EnemyAI : MonoBehaviour
 {
@@ -18,14 +20,20 @@ public class EnemyAI : MonoBehaviour
     Seeker seeker;
     Rigidbody2D rb;
 
+    [SerializeField]
+    private Collider2D rabbitCollider;
+
+    private IObjectPooler objectPooler;
+
     // Start is called before the first frame update
     void Start()
     {
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
 
+        objectPooler = ServiceLocator.Instance.GetService<IObjectPooler>();
+
         InvokeRepeating("UpdatePath", 0f, 1.5f);
-        
     }
 
     void UpdatePath()
@@ -97,6 +105,14 @@ public class EnemyAI : MonoBehaviour
         else if (rb.velocity.x <= -0.01f)
         {
             opossumGFX.localScale = new Vector3(1f, 1f, 1f);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Hole"))
+        {
+            objectPooler.DisableObject(gameObject.name, SceneManager.GetActiveScene().name);
         }
     }
 }

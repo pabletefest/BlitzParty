@@ -54,4 +54,10 @@ public class CharacterController : MonoBehaviour
         Physics2D.IgnoreCollision(other.collider, playerCollider);
       }
     }
+
+	public void ResetController()
+	{
+		m_Rigidbody2D.velocity = Vector2.zero;
+		isFacingRight = true;
+	}
 }

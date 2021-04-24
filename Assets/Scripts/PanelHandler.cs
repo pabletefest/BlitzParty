@@ -29,6 +29,9 @@ public class PanelHandler : MonoBehaviour
     [SerializeField]
     private GameObject catchButton;
 
+    [SerializeField]
+    private RectTransform joystickHandleTransform;
+
     public void RestartButtonHandler()
     {
         resetController.ResetGame();
@@ -48,7 +51,9 @@ public class PanelHandler : MonoBehaviour
     public void ShowPanel()
     {
         gameObject.SetActive(true);
-        joystick.SetActive(false);
+        //joystickHandleTransform.position = new Vector3(-8.1f, -4.7f, 0f);
+        //joystick.SetActive(false);
+        joystick.GetComponent<CanvasRenderer>().SetAlpha(0);
         catchButton.SetActive(false);
         CheckResult();
 

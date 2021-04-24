@@ -28,6 +28,8 @@ namespace Services
                     GameObject objectInstantiated = GameObject.Instantiate(pool.Prefab);
                     objectInstantiated.SetActive(false);
 
+                    objectInstantiated.name += i;
+
                     objectPoolQueue.Enqueue(objectInstantiated);
                 }
 
@@ -54,13 +56,26 @@ namespace Services
             return objectToSpawn;
         }
 
-        public void DisableObjectInPool(string poolTag)
+        public void DisableObjectsInPool(string poolTag)
         {
             Queue<GameObject> poolQueue = poolDictionary[poolTag];
 
             foreach (GameObject objectPool in poolQueue)
             {
                 objectPool.SetActive(false);
+            }
+        }
+
+        public void DisableObject(string objectName, string poolTag)
+        {
+            Queue<GameObject> poolQueue = poolDictionary[poolTag];
+
+            foreach (GameObject objectPool in poolQueue)
+            {
+                if (objectPool.name == objectName)
+                {
+                    objectPool.SetActive(false);
+                }
             }
         }
     }
