@@ -26,7 +26,7 @@ public class TimerUI : MonoBehaviour
     private void Awake() 
     {
         //timeGameplay = 10f;
-        //Time.timeScale = 1;
+        Time.timeScale = 1;
         chronometer = ServiceLocator.Instance.GetService<ITimer>();
         chronometer.ResetTimer();
         UpdateTimer();

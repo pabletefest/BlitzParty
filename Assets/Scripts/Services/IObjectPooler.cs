@@ -8,5 +8,8 @@ namespace Services
         void InstanciatePools();
         void DisableObjectsInPool(string tagPool);
         void DisableObject(string objectName, string poolTag);
+        void ClearAllPools();
+        void ClearPool(string poolTag);
+        void RemovePoolFromDictionary(string poolTag);
     }
 }

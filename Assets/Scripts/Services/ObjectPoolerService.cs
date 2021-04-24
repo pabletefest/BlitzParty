@@ -17,7 +17,7 @@ namespace Services
 
         public void InstanciatePools()
         {
-            poolDictionary.Clear();
+            //poolDictionary.Clear();
 
             foreach (ObjectPool pool in pools)
             {
@@ -77,6 +77,24 @@ namespace Services
                     objectPool.SetActive(false);
                 }
             }
+        }
+
+        public void ClearAllPools()
+        {
+            poolDictionary.Clear();
+        }
+
+        public void ClearPool(string poolTag)
+        {
+            if(poolDictionary.TryGetValue(poolTag, out Queue<GameObject> queuePool))
+            {
+                poolDictionary[poolTag].Clear();
+            }
+        }
+
+        public void RemovePoolFromDictionary(string poolTag)
+        {
+            poolDictionary.Remove(poolTag);
         }
     }
 }

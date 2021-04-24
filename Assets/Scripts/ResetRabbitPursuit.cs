@@ -50,7 +50,9 @@ public class ResetRabbitPursuit : MonoBehaviour
         OnSceneRestarted?.Invoke(SceneManager.GetActiveScene().name);
         ServiceLocator.Instance.GetService<ITimer>().ResetTimer();
         //joystick.SetActive(true);
-        joystick.GetComponent<CanvasRenderer>().SetAlpha(1f);
+        //joystick.GetComponent<CanvasRenderer>().SetAlpha(1f);
+        //joystick.GetComponent<FloatingJoystick>().enabled = true;
+        joystick.GetComponent<Canvas>().enabled = true;
         catchButton.SetActive(true);
         p1Position.position = p1OriginalPosition;
         p2Position.position = p2OriginalPosition;

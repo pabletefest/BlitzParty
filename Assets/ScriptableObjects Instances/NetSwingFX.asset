@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15adaf5cc691c7c4db67b7f7eeb0f032, type: 3}
-  m_Name: SoundFX
+  m_Name: NetSwingFX
   m_EditorClassIdentifier: 
   Name: ArrowImpact
   Clip: {fileID: 8300000, guid: a005c112f8ec54849a4dde487d6a29ca, type: 3}

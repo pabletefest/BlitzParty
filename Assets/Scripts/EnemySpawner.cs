@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Services;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -63,6 +64,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
+        objectPoolerService.RemovePoolFromDictionary(SceneManager.GetActiveScene().name);
         objectPoolerService.InstanciatePools();
         SpawnEnemy(1); //Initial spawn
     }

@@ -53,7 +53,9 @@ public class PanelHandler : MonoBehaviour
         gameObject.SetActive(true);
         //joystickHandleTransform.position = new Vector3(-8.1f, -4.7f, 0f);
         //joystick.SetActive(false);
-        joystick.GetComponent<CanvasRenderer>().SetAlpha(0);
+        //joystick.GetComponent<CanvasRenderer>().SetAlpha(0);
+        //joystick.GetComponent<FloatingJoystick>().enabled = false;
+        joystick.GetComponent<Canvas>().enabled = false;
         catchButton.SetActive(false);
         CheckResult();
 
