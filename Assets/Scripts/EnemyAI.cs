@@ -107,12 +107,4 @@ public class EnemyAI : MonoBehaviour
             opossumGFX.localScale = new Vector3(1f, 1f, 1f);
         }
     }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Hole"))
-        {
-            objectPooler.DisableObject(gameObject.name, SceneManager.GetActiveScene().name);
-        }
-    }
 }

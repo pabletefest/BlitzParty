@@ -32,15 +32,17 @@ public class Player2AI : MonoBehaviour
     private void OnEnable()
     {
         EnemySpawner.OnEnemySpawn += EnemySpawned;
-        RabbitCapture.OnEnemyCaptured += EnemyCaptured;
+        RabbitCapture.OnEnemyCaptured += EnemyCapturedOrHidden;
         ResetRabbitPursuit.OnSceneRestarted += SceneRestarted;
+        RabbitHide.OnEnemyHidden += EnemyCapturedOrHidden;
     }
 
     private void OnDisable()
     {
         EnemySpawner.OnEnemySpawn -= EnemySpawned;
-        RabbitCapture.OnEnemyCaptured -= EnemyCaptured;
+        RabbitCapture.OnEnemyCaptured -= EnemyCapturedOrHidden;
         ResetRabbitPursuit.OnSceneRestarted -= SceneRestarted;
+        RabbitHide.OnEnemyHidden -= EnemyCapturedOrHidden;
     }
 
 
@@ -69,7 +71,7 @@ public class Player2AI : MonoBehaviour
         enemiesList.Add(enemy.transform);
         UpdatePath();
     }
-    private void EnemyCaptured(GameObject enemy)
+    private void EnemyCapturedOrHidden(GameObject enemy)
     {
         enemiesList.Remove(enemy.transform);
         UpdatePath();
