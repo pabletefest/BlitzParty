@@ -999,6 +999,7 @@ MonoBehaviour:
   settingsButton: {fileID: 1986265794}
   playButton: {fileID: 391184720}
   rabbitPursuitButton: {fileID: 1143916399}
+  whackamoleButton: {fileID: 1817431012}
 --- !u!4 &435670712
 Transform:
   m_ObjectHideFlags: 0
@@ -2738,7 +2739,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 435670711}
-        m_MethodName: SettingsTab
+        m_MethodName: StartWhackAMoleGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2767,7 +2768,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8b9d62da1f1ac834fab54bfe4764df50, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d63cb4126a1299d418b219577f0313a0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

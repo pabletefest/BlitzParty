@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7a8a90af9302b14192df901e0b7fbf6, type: 3}
+  m_Name: Whack-a-mole Golden Mole ObjectPool
+  m_EditorClassIdentifier: 
+  Tag: Whack-a-mole Golden Mole
+  Prefab: {fileID: 4335566353773967901, guid: 97b5dd946cd23a6488b26772286d7af1, type: 3}
+  Size: 7

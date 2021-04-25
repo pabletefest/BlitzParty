@@ -172,6 +172,9 @@ MonoBehaviour:
   soundFXSource: {fileID: 962103919}
   pools:
   - {fileID: 11400000, guid: 359f86741f0c6b9478c81391e674bac3, type: 2}
+  - {fileID: 11400000, guid: 93c8b151d828210448b8d9bd9e9f3b2e, type: 2}
+  - {fileID: 11400000, guid: 847602adc7f5b4946a20300930825099, type: 2}
+  - {fileID: 11400000, guid: affb273fa519624488aff557b4d8cb47, type: 2}
 --- !u!1 &962103918
 GameObject:
   m_ObjectHideFlags: 0
