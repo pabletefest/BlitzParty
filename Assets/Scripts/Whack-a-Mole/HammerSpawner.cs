@@ -10,6 +10,9 @@ public class HammerSpawner : MonoBehaviour, ITool
     [SerializeField]
     private GameObject hammerPrefab;
 
+    private float hitTime;
+    private float hitRate = 0.5f;
+
     public void PerformAction()
     {
         if (Input.touchCount > 0)
@@ -39,6 +42,14 @@ public class HammerSpawner : MonoBehaviour, ITool
     // Update is called once per frame
     void Update()
     {
-        
+        if(hitTime <= 0)
+        {
+            PerformAction();
+            hitTime = hitRate;
+        }
+        else
+        {
+            hitTime -= Time.deltaTime;
+        }
     }
 }
