@@ -8,6 +8,9 @@ TagManager:
   - Rabbit
   - Hole
   - SpawnPoint
+  - GoldMole
+  - Mole
+  - ZoomyWhackAMole
   layers:
   - Default
   - TransparentFX

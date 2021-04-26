@@ -11,7 +11,7 @@ public class HammerSpawner : MonoBehaviour, ITool
     private GameObject hammerPrefab;
 
     private float hitTime;
-    private float hitRate = 0.5f;
+    private float hitRate = 0.2f;
 
     public void PerformAction()
     {

@@ -66,7 +66,7 @@ public class EnemySpawnerGoldMole : MonoBehaviour
 
     private void Start()
     {
-        objectPoolerService.RemovePoolFromDictionary(SceneManager.GetActiveScene().name);
+        //objectPoolerService.RemovePoolFromDictionary(SceneManager.GetActiveScene().name);
         objectPoolerService.InstanciatePools();
         holeAvailability = CheckHoleAvailability.Instance;
     }
@@ -113,6 +113,7 @@ public class EnemySpawnerGoldMole : MonoBehaviour
             //GameObject enemy = Instantiate(enemyPrefab, spawnPoints[randomSpot].transform.position, Quaternion.identity);
             holeAvailability.occupyHole(randomSpot);
             GameObject enemy = objectPoolerService.SpawnFromPool("Whack-a-mole Golden Mole", spawnPoints[randomSpot].transform.position, Quaternion.identity);
+            //enemy.GetComponent<Animator>().SetTrigger("GoldenMoleRestart");
             OnEnemySpawn?.Invoke(enemy);
             StartCoroutine(liberateHole(randomSpot));
         }
