@@ -21,7 +21,6 @@ public class EnemySpawnerGoldMole : MonoBehaviour
     [SerializeField]
     private float decreasingRate = 0.2f;
 
-    [SerializeField]
     private CheckHoleAvailability holeAvailability;
 
     private float time;
@@ -69,6 +68,7 @@ public class EnemySpawnerGoldMole : MonoBehaviour
     {
         objectPoolerService.RemovePoolFromDictionary(SceneManager.GetActiveScene().name);
         objectPoolerService.InstanciatePools();
+        holeAvailability = CheckHoleAvailability.Instance;
     }
 
     // Update is called once per frame
@@ -93,21 +93,7 @@ public class EnemySpawnerGoldMole : MonoBehaviour
             Debug.Log($"Total chronometer time: {totalChronometerTime}");
             Debug.Log($"Current chronometer time: {chronometerTime}");
 
-            if (chronometerTime >= totalChronometerTime / 2)
-            {
-                int numberOfEnemies = UnityEngine.Random.Range(1,3);
-                SpawnEnemy(numberOfEnemies);
-            }
-            else if (chronometerTime >= totalChronometerTime / 6)
-            {
-                int numberOfEnemies = UnityEngine.Random.Range(1,4);
-                SpawnEnemy(numberOfEnemies);
-            }
-            else
-            {
-                int numberOfEnemies = UnityEngine.Random.Range(2,5);
-                SpawnEnemy(numberOfEnemies);
-            }
+            SpawnEnemy(1);
         }
     }
 
@@ -121,18 +107,20 @@ public class EnemySpawnerGoldMole : MonoBehaviour
                 while (holeAvailability.isOccupied(randomSpot))
                 {
                     randomSpot = UnityEngine.Random.Range(0, spawnPoints.Length);
+                    Debug.Log("GoldMole " + randomSpot + " " + holeAvailability.isOccupied(randomSpot));
                 }
             }
             //GameObject enemy = Instantiate(enemyPrefab, spawnPoints[randomSpot].transform.position, Quaternion.identity);
+            holeAvailability.occupyHole(randomSpot);
             GameObject enemy = objectPoolerService.SpawnFromPool("Whack-a-mole Golden Mole", spawnPoints[randomSpot].transform.position, Quaternion.identity);
             OnEnemySpawn?.Invoke(enemy);
-            holeAvailability.occupyHole(randomSpot);
-            Invoke("liberateHole(randomSpot)", 2f);
+            StartCoroutine(liberateHole(randomSpot));
         }
     }
 
-    private void liberateHole(int holeNumber)
+    private IEnumerator liberateHole(int holeNumber)
     {
+        yield return new WaitForSeconds(2f);
         holeAvailability.liberateHole(holeNumber);
     }
 }

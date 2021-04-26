@@ -17,7 +17,7 @@ namespace Services
 
         public void InstanciatePools()
         {
-            //poolDictionary.Clear();
+            poolDictionary.Clear();
 
             foreach (ObjectPool pool in pools)
             {

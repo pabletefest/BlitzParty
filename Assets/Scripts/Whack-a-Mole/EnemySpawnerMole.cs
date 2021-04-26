@@ -28,7 +28,6 @@ public class EnemySpawnerMole : MonoBehaviour
 
     private IObjectPooler objectPoolerService;
 
-    [SerializeField]
     private CheckHoleAvailability holeAvailability;
 
 
@@ -69,6 +68,7 @@ public class EnemySpawnerMole : MonoBehaviour
     {
         objectPoolerService.RemovePoolFromDictionary(SceneManager.GetActiveScene().name);
         objectPoolerService.InstanciatePools();
+        holeAvailability = CheckHoleAvailability.Instance;
         SpawnEnemy(1); //Initial spawn
     }
 
@@ -96,17 +96,17 @@ public class EnemySpawnerMole : MonoBehaviour
 
             if (chronometerTime >= totalChronometerTime / 2)
             {
-                int numberOfEnemies = UnityEngine.Random.Range(1,3);
+                int numberOfEnemies = 1;
                 SpawnEnemy(numberOfEnemies);
             }
             else if (chronometerTime >= totalChronometerTime / 6)
             {
-                int numberOfEnemies = UnityEngine.Random.Range(1,4);
+                int numberOfEnemies = UnityEngine.Random.Range(1,2);
                 SpawnEnemy(numberOfEnemies);
             }
             else
             {
-                int numberOfEnemies = UnityEngine.Random.Range(2,5);
+                int numberOfEnemies = UnityEngine.Random.Range(1,3);
                 SpawnEnemy(numberOfEnemies);
             }
         }
@@ -122,18 +122,20 @@ public class EnemySpawnerMole : MonoBehaviour
                 while (holeAvailability.isOccupied(randomSpot))
                 {
                     randomSpot = UnityEngine.Random.Range(0, spawnPoints.Length);
+                    Debug.Log("Mole " + randomSpot + " " + holeAvailability.isOccupied(randomSpot));
                 }
             }
             //GameObject enemy = Instantiate(enemyPrefab, spawnPoints[randomSpot].transform.position, Quaternion.identity);
+            holeAvailability.occupyHole(randomSpot);
             GameObject enemy = objectPoolerService.SpawnFromPool("Whack-a-mole Normal Mole", spawnPoints[randomSpot].transform.position, Quaternion.identity);
             OnEnemySpawn?.Invoke(enemy);
-            holeAvailability.occupyHole(randomSpot);
-            Invoke("liberateHole(randomSpot)", 2f);
+            StartCoroutine(liberateHole(randomSpot)); 
         }
     }
 
-    private void liberateHole(int holeNumber)
+    private IEnumerator liberateHole(int holeNumber)
     {
+        yield return new WaitForSeconds(2f);
         holeAvailability.liberateHole(holeNumber);
     }
 }

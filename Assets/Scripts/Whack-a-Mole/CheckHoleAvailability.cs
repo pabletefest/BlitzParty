@@ -5,11 +5,21 @@ using UnityEngine;
 public class CheckHoleAvailability : MonoBehaviour
 {
 
+    private static CheckHoleAvailability instance;
+    public static CheckHoleAvailability Instance => instance;
     private bool[] holeOccupied;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
         holeOccupied = new bool[7];
     }
 
