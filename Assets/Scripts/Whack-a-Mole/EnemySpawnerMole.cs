@@ -120,27 +120,27 @@ public class EnemySpawnerMole : MonoBehaviour
         for (int i = 0; i < numberOfEnemies; i++)
         {
             int randomSpot = UnityEngine.Random.Range(0, spawnPoints.Length);
-            if (!holeAvailability.AllOccupied())
+            if (!holeAvailability.AllOccupiedSpawn())
             {
-                while (holeAvailability.IsOccupied(randomSpot))
+                while (holeAvailability.IsOccupiedSpawn(spawnPoints[randomSpot]))
                 {
                     randomSpot = UnityEngine.Random.Range(0, spawnPoints.Length);
                     Debug.Log("Mole " + randomSpot + " " + holeAvailability.IsOccupied(randomSpot));
                 }
             }
             //GameObject enemy = Instantiate(enemyPrefab, spawnPoints[randomSpot].transform.position, Quaternion.identity);
-            holeAvailability.OccupyHole(randomSpot);
+            holeAvailability.OccupyHoleSpawn(spawnPoints[randomSpot]);
             GameObject enemy = objectPoolerService.SpawnFromPool(POOL_MOLE, spawnPoints[randomSpot].transform.position, Quaternion.identity);
             //enemy.GetComponent<Animator>().SetTrigger("MoleRestart");
             //OnEnemySpawn?.Invoke(enemy);
-            StartCoroutine(LiberateHole(randomSpot)); 
+            StartCoroutine(LiberateHole(spawnPoints, randomSpot)); 
         }
     }
 
-    private IEnumerator LiberateHole(int holeNumber)
+    private IEnumerator LiberateHole(GameObject[] spawnPoints, int randomSpot)
     {
         yield return new WaitForSeconds(2f);
-        holeAvailability.LiberateHole(holeNumber);
+        holeAvailability.LiberateHoleSpawn(spawnPoints[randomSpot]);
     }
     private void RestartTimings()
     {

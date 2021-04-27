@@ -8,6 +8,8 @@ public class CheckHoleAvailability : MonoBehaviour
     private static CheckHoleAvailability instance;
     public static CheckHoleAvailability Instance => instance;
     private bool[] holeOccupied;
+
+    [SerializeField] private GameObject[] spawnPoints;
     private Dictionary<GameObject, bool> holesOccupied;
 
     private void Awake()
@@ -21,6 +23,13 @@ public class CheckHoleAvailability : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
+        holesOccupied = new Dictionary<GameObject, bool>();
+        foreach (var t in spawnPoints)
+        {
+            holesOccupied.Add(t, false);
+        }
+        
         holeOccupied = new bool[7];
     }
 
@@ -51,6 +60,36 @@ public class CheckHoleAvailability : MonoBehaviour
             }
         }
 
+        return allOccupied;
+    }
+    
+    public void OccupyHoleSpawn(GameObject spawnPoint)
+    {
+        holesOccupied[spawnPoint] = true;
+    }
+
+    public bool IsOccupiedSpawn(GameObject spawnPoint)
+    {
+        return holesOccupied[spawnPoint];
+    }
+
+    public void LiberateHoleSpawn(GameObject spawnPoint)
+    {
+        holesOccupied[spawnPoint] = false;
+    }
+
+    public bool AllOccupiedSpawn()
+    {
+        bool allOccupied = true;
+
+        foreach (var t in holesOccupied)
+        {
+            if (!t.Value)
+            {
+                allOccupied = false;
+            }
+        }
+        
         return allOccupied;
     }
 }
