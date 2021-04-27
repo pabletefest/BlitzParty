@@ -17,13 +17,15 @@ public class EnemySpawnerMole : MonoBehaviour
     private GameObject enemyPrefab;
 
     [SerializeField]
-    private float spawnTime = 5f;
+    private float initialSpawnTime = 5f;
+
+    private float spawnTime;
     
     [SerializeField]
     private float decreasingRate = 0.2f;
 
     private float time;
-    private const float minimumSpawnTime = 2f;
+    private const float minimumSpawnTime = 0.75f;
 
     private ITimer chronometerService;
 
@@ -56,13 +58,14 @@ public class EnemySpawnerMole : MonoBehaviour
     private void SceneRestarted()
     {
         objectPoolerService.DisableObjectsInPool(POOL_MOLE);
+        RestartTimings();
     }
 
     private void Awake()
     {
         chronometerService = ServiceLocator.Instance.GetService<ITimer>();
         objectPoolerService = ServiceLocator.Instance.GetService<IObjectPooler>();
-        time = spawnTime;
+        RestartTimings();
     }
 
     private void Start()
@@ -70,7 +73,7 @@ public class EnemySpawnerMole : MonoBehaviour
        //objectPoolerService.RemovePoolFromDictionary(SceneManager.GetActiveScene().name);
         objectPoolerService.InstanciatePool(POOL_MOLE);
         holeAvailability = CheckHoleAvailability.Instance;
-        SpawnEnemy(1); //Initial spawn
+        //SpawnEnemy(1); //Initial spawn
     }
 
     // Update is called once per frame
@@ -87,6 +90,7 @@ public class EnemySpawnerMole : MonoBehaviour
                 spawnTime -= decreasingRate;
             }
 
+            if (spawnTime < minimumSpawnTime) spawnTime = minimumSpawnTime;
             time = spawnTime;
 
             float totalChronometerTime = chronometerService.GetTotalTime();
@@ -137,5 +141,10 @@ public class EnemySpawnerMole : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         holeAvailability.liberateHole(holeNumber);
+    }
+    private void RestartTimings()
+    {
+        spawnTime = initialSpawnTime;
+        time = spawnTime;
     }
 }

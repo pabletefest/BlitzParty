@@ -16,7 +16,9 @@ public class EnemySpawner : MonoBehaviour
     private GameObject enemyPrefab;
 
     [SerializeField]
-    private float spawnTime = 5f;
+    private float initialSpawnTime = 5f;
+
+    private float spawnTime;
     
     [SerializeField]
     private float decreasingRate = 0.2f;
@@ -53,13 +55,14 @@ public class EnemySpawner : MonoBehaviour
     private void SceneRestarted(string activeScene)
     {
         objectPoolerService.DisableObjectsInPool(activeScene);
+        RestartTimings();
     }
 
     private void Awake()
     {
         chronometerService = ServiceLocator.Instance.GetService<ITimer>();
         objectPoolerService = ServiceLocator.Instance.GetService<IObjectPooler>();
-        time = spawnTime;
+        RestartTimings();
     }
 
     private void Start()
@@ -118,5 +121,10 @@ public class EnemySpawner : MonoBehaviour
             GameObject enemy = objectPoolerService.SpawnFromPool("RabbitPursuit", spawnPoints[randomSpot].transform.position, Quaternion.identity);
             OnEnemySpawn?.Invoke(enemy);
         }
+    }
+    private void RestartTimings()
+    {
+        spawnTime = initialSpawnTime;
+        time = spawnTime;
     }
 }

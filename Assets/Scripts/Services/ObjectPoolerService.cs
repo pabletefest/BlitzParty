@@ -72,6 +72,12 @@ namespace Services
             objectToSpawn.transform.position = position;
             objectToSpawn.transform.rotation = rotation;
 
+            Collider2D collider = objectToSpawn.GetComponent<Collider2D>();
+            if (!collider.enabled)
+            {
+                collider.enabled = true;
+            }
+
             poolDictionary[tag].Enqueue(objectToSpawn);
 
             return objectToSpawn;

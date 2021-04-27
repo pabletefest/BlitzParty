@@ -17,8 +17,10 @@ public class EnemySpawnerZoomy : MonoBehaviour
     private GameObject enemyPrefab;
 
     [SerializeField]
-    private float spawnTime = 5f;
-    
+    private float initialSpawnTime = 5f;
+
+    private float spawnTime;
+
     [SerializeField]
     private float decreasingRate = 0.2f;
 
@@ -56,13 +58,14 @@ public class EnemySpawnerZoomy : MonoBehaviour
     private void SceneRestarted()
     {
         objectPoolerService.DisableObjectsInPool(POOL_ZOOMYMOLE);
+        RestartTimings();
     }
 
     private void Awake()
     {
         chronometerService = ServiceLocator.Instance.GetService<ITimer>();
         objectPoolerService = ServiceLocator.Instance.GetService<IObjectPooler>();
-        time = spawnTime;
+        RestartTimings();
     }
 
     private void Start()
@@ -70,7 +73,7 @@ public class EnemySpawnerZoomy : MonoBehaviour
         //objectPoolerService.RemovePoolFromDictionary(SceneManager.GetActiveScene().name);
         objectPoolerService.InstanciatePool(POOL_ZOOMYMOLE);
         holeAvailability = CheckHoleAvailability.Instance;
-        SpawnEnemy(1); //Initial spawn
+        //SpawnEnemy(1); //Initial spawn
     }
 
     // Update is called once per frame
@@ -87,6 +90,7 @@ public class EnemySpawnerZoomy : MonoBehaviour
                 spawnTime -= decreasingRate;
             }
 
+            if (spawnTime < minimumSpawnTime) spawnTime = minimumSpawnTime;
             time = spawnTime;
 
             float totalChronometerTime = chronometerService.GetTotalTime();
@@ -137,5 +141,11 @@ public class EnemySpawnerZoomy : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         holeAvailability.liberateHole(holeNumber);
+    }
+
+    private void RestartTimings()
+    {
+        spawnTime = initialSpawnTime;
+        time = spawnTime;
     }
 }

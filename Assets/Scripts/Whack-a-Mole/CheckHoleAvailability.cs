@@ -8,6 +8,7 @@ public class CheckHoleAvailability : MonoBehaviour
     private static CheckHoleAvailability instance;
     public static CheckHoleAvailability Instance => instance;
     private bool[] holeOccupied;
+    private Dictionary<GameObject, bool> holesOccupied;
 
     private void Awake()
     {
