@@ -70,6 +70,7 @@ public class PlayersScore : MonoBehaviour
     public void P1SubstractPoints(int points)
     {
         p1Score -= points;
+        if (p1Score < 0) p1Score = 0;
         UpdateScore();
     }
 

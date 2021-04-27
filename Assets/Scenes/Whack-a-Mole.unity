@@ -485,6 +485,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreController: {fileID: 1553071695}
+  orientationManager: {fileID: 1955060426}
   resultTitle: {fileID: 1659470455}
   victoryImage: {fileID: 21300000, guid: a63eb699ef36d2f4e85e022d499d479b, type: 3}
   defeatImage: {fileID: 21300000, guid: 21e0b0142227d7b419c876348aa90bd7, type: 3}
@@ -1264,7 +1265,7 @@ MonoBehaviour:
   - {fileID: 1417188095}
   enemyPrefab: {fileID: 6285520231607209658, guid: afa4b0159bbd26e47b050ca8a7bda2c2,
     type: 3}
-  spawnTime: 7
+  spawnTime: 5
   decreasingRate: 0.1
 --- !u!4 &835983140
 Transform:
@@ -1326,7 +1327,7 @@ MonoBehaviour:
   - {fileID: 1979009462}
   enemyPrefab: {fileID: 4335566353773967901, guid: 97b5dd946cd23a6488b26772286d7af1,
     type: 3}
-  spawnTime: 20
+  spawnTime: 15
   decreasingRate: 3
 --- !u!4 &893955207
 Transform:
@@ -2103,7 +2104,7 @@ MonoBehaviour:
   - {fileID: 1241252770}
   enemyPrefab: {fileID: 8532954234781776406, guid: 9383c3d6845a81349b5d610e32533a78,
     type: 3}
-  spawnTime: 5
+  spawnTime: 2
   decreasingRate: 0.3
 --- !u!4 &1316434617
 Transform:
@@ -2793,7 +2794,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d2d1d8d4f831b04598e8e580cecef95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPortrait: 0
 --- !u!4 &1955060427
 Transform:
   m_ObjectHideFlags: 0

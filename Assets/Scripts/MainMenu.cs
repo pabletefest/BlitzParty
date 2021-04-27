@@ -60,6 +60,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private Button whackamoleButton;
 
+    [SerializeField]
+    private OrientationManager orientationManager;
+
     private void Awake()
     {
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme(); 
@@ -140,8 +143,9 @@ public class MainMenu : MonoBehaviour
 
 
     public void StartRabbitPursuitGame()
-    {
+    {       
         SceneManager.LoadScene("RabbitPursuit");
+        orientationManager.ChangeScreenPortrait(false);
         //AsyncOperation asyncScene = SceneManager.LoadSceneAsync("RabbitPursuit", LoadSceneMode.Additive);
         //asyncScene.allowSceneActivation = true;
         //SceneManager.UnloadSceneAsync("MainMenu");
@@ -149,8 +153,9 @@ public class MainMenu : MonoBehaviour
     }
 
     public void StartWhackAMoleGame()
-    {
+    {      
         SceneManager.LoadScene("Whack-a-Mole");
+        orientationManager.ChangeScreenPortrait(false);
     }
 
     /*

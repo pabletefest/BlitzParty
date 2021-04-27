@@ -2,14 +2,9 @@
 
 public class OrientationManager : MonoBehaviour
 {
-    [SerializeField]
-    public bool isPortrait;
-
-
-    void Start()
+    public void ChangeScreenPortrait(bool isPortrait)
     {
-      
-        if(isPortrait)
+        if (isPortrait)
         {
             Screen.orientation = ScreenOrientation.Portrait;
         }
@@ -17,7 +12,6 @@ public class OrientationManager : MonoBehaviour
         {
             Screen.orientation = ScreenOrientation.LandscapeLeft;
         }
-
     }
 
 }

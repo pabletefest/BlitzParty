@@ -1000,6 +1000,7 @@ MonoBehaviour:
   playButton: {fileID: 391184720}
   rabbitPursuitButton: {fileID: 1143916399}
   whackamoleButton: {fileID: 1817431012}
+  orientationManager: {fileID: 435670713}
 --- !u!4 &435670712
 Transform:
   m_ObjectHideFlags: 0
@@ -1026,7 +1027,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d2d1d8d4f831b04598e8e580cecef95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPortrait: 1
 --- !u!1 &563775248
 GameObject:
   m_ObjectHideFlags: 0

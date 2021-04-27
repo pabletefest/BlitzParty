@@ -11,6 +11,9 @@ public class PanelHandler : MonoBehaviour
     private PlayersScore scoreController;
 
     [SerializeField]
+    private OrientationManager orientationManager;
+
+    [SerializeField]
     private Image resultTitle;
 
     [SerializeField]
@@ -67,6 +70,7 @@ public class PanelHandler : MonoBehaviour
 
     public void MenuButtonHandler()
     {
+        orientationManager.ChangeScreenPortrait(true);
         SceneManager.LoadScene("MainMenu");
         //SceneManager.UnloadSceneAsync("RabbitPursuit");
     }

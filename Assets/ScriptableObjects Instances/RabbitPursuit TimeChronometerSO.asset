@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2556b92993e24b49b27101f606133cd, type: 3}
   m_Name: RabbitPursuit TimeChronometerSO
   m_EditorClassIdentifier: 
-  TimeInSeconds: 5
+  TimeInSeconds: 20

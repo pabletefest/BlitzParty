@@ -692,6 +692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreController: {fileID: 1553071695}
+  orientationManager: {fileID: 1955060426}
   resultTitle: {fileID: 1659470455}
   victoryImage: {fileID: 21300000, guid: a63eb699ef36d2f4e85e022d499d479b, type: 3}
   defeatImage: {fileID: 21300000, guid: 21e0b0142227d7b419c876348aa90bd7, type: 3}
@@ -3622,7 +3623,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d2d1d8d4f831b04598e8e580cecef95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isPortrait: 0
 --- !u!4 &1955060427
 Transform:
   m_ObjectHideFlags: 0
