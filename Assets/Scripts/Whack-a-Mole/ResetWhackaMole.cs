@@ -10,15 +10,18 @@ public class ResetWhackaMole : MonoBehaviour
     [SerializeField]
     private PlayersScore scoreController;
 
-    [SerializeField]
-    private GameObject hammer;
-
     public void ResetGame()
     {
-        Time.timeScale = 1f;
         scoreController.ResetWhackAMoleScore();
         OnSceneRestarted?.Invoke();
         ServiceLocator.Instance.GetService<ITimer>().ResetTimer();
-        hammer.SetActive(true);
+        GameObject hammer = GameObject.FindGameObjectWithTag("Hammer");
+        
+        if (hammer)
+        {
+            Destroy(hammer);
+        }
+
+        Time.timeScale = 1f;
     }
 }
