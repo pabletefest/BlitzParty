@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class EnemySpawnerMole : MonoBehaviour
 {
+    private readonly string POOL_MOLE = "Whack-a-mole Normal Mole";
     public static event Action<GameObject> OnEnemySpawn;
 
     [SerializeField]
@@ -52,9 +53,9 @@ public class EnemySpawnerMole : MonoBehaviour
     }
     */
 
-    private void SceneRestarted(string activeScene)
+    private void SceneRestarted()
     {
-        objectPoolerService.DisableObjectsInPool(activeScene);
+        objectPoolerService.DisableObjectsInPool(POOL_MOLE);
     }
 
     private void Awake()
@@ -67,7 +68,7 @@ public class EnemySpawnerMole : MonoBehaviour
     private void Start()
     {
        //objectPoolerService.RemovePoolFromDictionary(SceneManager.GetActiveScene().name);
-        objectPoolerService.InstanciatePools();
+        objectPoolerService.InstanciatePool(POOL_MOLE);
         holeAvailability = CheckHoleAvailability.Instance;
         SpawnEnemy(1); //Initial spawn
     }
@@ -125,14 +126,14 @@ public class EnemySpawnerMole : MonoBehaviour
             }
             //GameObject enemy = Instantiate(enemyPrefab, spawnPoints[randomSpot].transform.position, Quaternion.identity);
             holeAvailability.occupyHole(randomSpot);
-            GameObject enemy = objectPoolerService.SpawnFromPool("Whack-a-mole Normal Mole", spawnPoints[randomSpot].transform.position, Quaternion.identity);
+            GameObject enemy = objectPoolerService.SpawnFromPool(POOL_MOLE, spawnPoints[randomSpot].transform.position, Quaternion.identity);
             //enemy.GetComponent<Animator>().SetTrigger("MoleRestart");
-            OnEnemySpawn?.Invoke(enemy);
-            StartCoroutine(liberateHole(randomSpot)); 
+            //OnEnemySpawn?.Invoke(enemy);
+            StartCoroutine(LiberateHole(randomSpot)); 
         }
     }
 
-    private IEnumerator liberateHole(int holeNumber)
+    private IEnumerator LiberateHole(int holeNumber)
     {
         yield return new WaitForSeconds(2f);
         holeAvailability.liberateHole(holeNumber);

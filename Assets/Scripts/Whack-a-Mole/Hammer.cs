@@ -9,6 +9,7 @@ public class Hammer : MonoBehaviour
     {
         scoreController = GameObject.Find("ScoreController").GetComponent<PlayersScore>();
     }
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         Animator animator = other.gameObject.GetComponent<Animator>();
@@ -28,5 +29,7 @@ public class Hammer : MonoBehaviour
             animator.SetTrigger("ZoomyHit");
             scoreController.P1SubstractPoints(3);
         }
+
+        other.enabled = false;
     }
 }

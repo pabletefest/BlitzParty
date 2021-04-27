@@ -64,8 +64,8 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
-        objectPoolerService.RemovePoolFromDictionary(SceneManager.GetActiveScene().name);
-        objectPoolerService.InstanciatePools();
+        //objectPoolerService.RemovePoolFromDictionary(SceneManager.GetActiveScene().name);
+        objectPoolerService.InstanciatePool(SceneManager.GetActiveScene().name);
         SpawnEnemy(1); //Initial spawn
     }
 

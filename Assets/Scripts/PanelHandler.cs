@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Services;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -61,6 +62,7 @@ public class PanelHandler : MonoBehaviour
                 resetWhackAMoleController.ResetGame();
                 break;
         }
+        
         gameObject.SetActive(false);
         //ServiceLocator.Instance.GetService<ITimer>().RestartTimer();
         //SceneManager.UnloadSceneAsync("RabbitPursuit");
@@ -72,6 +74,7 @@ public class PanelHandler : MonoBehaviour
     {
         orientationManager.ChangeScreenPortrait(true);
         SceneManager.LoadScene("MainMenu");
+        ServiceLocator.Instance.GetService<IObjectPooler>().ClearAllPools();
         //SceneManager.UnloadSceneAsync("RabbitPursuit");
     }
 

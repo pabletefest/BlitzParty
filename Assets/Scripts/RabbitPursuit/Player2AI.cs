@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class Player2AI : MonoBehaviour
 {
-    private bool isFacingRight = true; 
+    private bool isFacingRight; 
     private Vector3 m_Velocity = Vector3.zero;
 
     [Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;
@@ -192,8 +192,9 @@ public class Player2AI : MonoBehaviour
       }
     }
 
-    public void ResetVelocity()
+    public void ResetController()
     {
         rb.velocity = Vector2.zero;
+        isFacingRight = false;
     }
 }

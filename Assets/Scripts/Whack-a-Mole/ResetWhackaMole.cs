@@ -5,8 +5,7 @@ using Services;
 
 public class ResetWhackaMole : MonoBehaviour
 {
-
-    public static event Action<string> OnSceneRestarted;
+    public static event Action OnSceneRestarted;
 
     [SerializeField]
     private PlayersScore scoreController;
@@ -18,7 +17,7 @@ public class ResetWhackaMole : MonoBehaviour
     {
         Time.timeScale = 1f;
         scoreController.ResetWhackAMoleScore();
-        OnSceneRestarted?.Invoke(SceneManager.GetActiveScene().name);
+        OnSceneRestarted?.Invoke();
         ServiceLocator.Instance.GetService<ITimer>().ResetTimer();
         hammer.SetActive(true);
     }

@@ -36,6 +36,27 @@ namespace Services
                 poolDictionary.Add(pool.Tag, objectPoolQueue);
             }
         }
+        
+        public void InstanciatePool(string poolTag)
+        {
+            //poolDictionary.Clear();
+
+            ObjectPool pool = pools.Find(objectPool => objectPool.Tag == poolTag);
+            Queue<GameObject> objectPoolQueue = new Queue<GameObject>();
+
+            for (int i = 0; i < pool.Size; i++)
+            {
+                GameObject objectInstantiated = GameObject.Instantiate(pool.Prefab);
+                objectInstantiated.SetActive(false);
+
+                objectInstantiated.name += i;
+
+                objectPoolQueue.Enqueue(objectInstantiated);
+            }
+
+            poolDictionary.Add(pool.Tag, objectPoolQueue);
+            
+        }
 
         public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
         {

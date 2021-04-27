@@ -24,7 +24,6 @@ public class HammerSpawner : MonoBehaviour, ITool
             Touch touch = Input.GetTouch(0);
             Vector3 touchPosition = GetTouchPosition(touch);
             Instantiate(hammerPrefab, touchPosition, Quaternion.identity);
-            StartCoroutine(freeHammer());
             //}
         }
 
@@ -40,7 +39,7 @@ public class HammerSpawner : MonoBehaviour, ITool
     void Awake()
     {
         mainCamera = Camera.main;
-        hammerInUse = false;
+        //hammerInUse = false;
     }
 
     // Update is called once per frame
@@ -49,17 +48,12 @@ public class HammerSpawner : MonoBehaviour, ITool
         if(hitTime <= 0)
         {
             PerformAction();
+            hammerInUse = false;
             hitTime = hitRate;
         }
         else
         {
             hitTime -= Time.deltaTime;
         }
-    }
-
-    private IEnumerator freeHammer()
-    {
-        yield return new WaitForSeconds(0.2f);
-        hammerInUse = false;
     }
 }

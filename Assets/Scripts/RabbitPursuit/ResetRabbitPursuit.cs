@@ -59,6 +59,6 @@ public class ResetRabbitPursuit : MonoBehaviour
         p1Position.localScale = p1OriginalScale;
         p2Position.localScale = p2OriginalScale;
         characterController.ResetController();
-        enemyController.ResetVelocity();
+        enemyController.ResetController();
     }
 }

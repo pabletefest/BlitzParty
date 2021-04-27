@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class EnemySpawnerZoomy : MonoBehaviour
 {
+    private readonly string POOL_ZOOMYMOLE = "Whack-a-mole Zoomy";
     public static event Action<GameObject> OnEnemySpawn;
 
     [SerializeField]
@@ -52,9 +53,9 @@ public class EnemySpawnerZoomy : MonoBehaviour
     }
     */
 
-    private void SceneRestarted(string activeScene)
+    private void SceneRestarted()
     {
-        objectPoolerService.DisableObjectsInPool(activeScene);
+        objectPoolerService.DisableObjectsInPool(POOL_ZOOMYMOLE);
     }
 
     private void Awake()
@@ -67,7 +68,7 @@ public class EnemySpawnerZoomy : MonoBehaviour
     private void Start()
     {
         //objectPoolerService.RemovePoolFromDictionary(SceneManager.GetActiveScene().name);
-        objectPoolerService.InstanciatePools();
+        objectPoolerService.InstanciatePool(POOL_ZOOMYMOLE);
         holeAvailability = CheckHoleAvailability.Instance;
         SpawnEnemy(1); //Initial spawn
     }
@@ -125,9 +126,9 @@ public class EnemySpawnerZoomy : MonoBehaviour
             }
             //GameObject enemy = Instantiate(enemyPrefab, spawnPoints[randomSpot].transform.position, Quaternion.identity);
             holeAvailability.occupyHole(randomSpot);
-            GameObject enemy = objectPoolerService.SpawnFromPool("Whack-a-mole Zoomy", spawnPoints[randomSpot].transform.position, Quaternion.identity);
+            GameObject enemy = objectPoolerService.SpawnFromPool(POOL_ZOOMYMOLE, spawnPoints[randomSpot].transform.position, Quaternion.identity);
             //enemy.GetComponent<Animator>().SetTrigger("ZoomyRestart");
-            OnEnemySpawn?.Invoke(enemy);
+            //OnEnemySpawn?.Invoke(enemy);
             StartCoroutine(liberateHole(randomSpot));
         }
     }
