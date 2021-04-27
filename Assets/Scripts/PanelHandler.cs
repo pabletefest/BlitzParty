@@ -45,9 +45,6 @@ public class PanelHandler : MonoBehaviour
     [SerializeField]
     private ResetWhackaMole resetWhackAMoleController;
 
-    [SerializeField]
-    private GameObject hammer;
-
     public void RestartButtonHandler()
     {
         string sceneName = SceneManager.GetActiveScene().name;
@@ -93,7 +90,6 @@ public class PanelHandler : MonoBehaviour
     public void ShowWhackAMolePanel()
     {
         gameObject.SetActive(true);
-        hammer.SetActive(false);
         CheckResult(scoreController.FindWinner());
     }
 
