@@ -84,12 +84,14 @@ public class PanelHandler : MonoBehaviour
         //joystick.GetComponent<FloatingJoystick>().enabled = false;
         joystick.GetComponent<Canvas>().enabled = false;
         catchButton.SetActive(false);
+        DestroyRemainingHammers();
         CheckResult(scoreController.FindWinner());
     }
 
     public void ShowWhackAMolePanel()
     {
         gameObject.SetActive(true);
+        DestroyRemainingHammers();
         CheckResult(scoreController.FindWinner());
     }
 
@@ -106,6 +108,16 @@ public class PanelHandler : MonoBehaviour
         else
         {
             resultTitle.sprite = drawImage;
+        }
+    }
+    
+    private void DestroyRemainingHammers()
+    {
+        GameObject[] hammers = GameObject.FindGameObjectsWithTag("Hammer");
+
+        foreach (var hammer in hammers)
+        {
+            Destroy(hammer);
         }
     }
 }

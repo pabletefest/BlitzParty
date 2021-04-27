@@ -15,13 +15,6 @@ public class ResetWhackaMole : MonoBehaviour
         scoreController.ResetWhackAMoleScore();
         OnSceneRestarted?.Invoke();
         ServiceLocator.Instance.GetService<ITimer>().ResetTimer();
-        GameObject hammer = GameObject.FindGameObjectWithTag("Hammer");
-        
-        if (hammer)
-        {
-            Destroy(hammer);
-        }
-
         Time.timeScale = 1f;
     }
 }
