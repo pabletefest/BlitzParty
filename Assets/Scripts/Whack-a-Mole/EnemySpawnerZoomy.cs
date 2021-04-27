@@ -120,16 +120,16 @@ public class EnemySpawnerZoomy : MonoBehaviour
         for (int i = 0; i < numberOfEnemies; i++)
         {
             int randomSpot = UnityEngine.Random.Range(0, spawnPoints.Length);
-            if (!holeAvailability.allOccupied()) 
+            if (!holeAvailability.AllOccupied()) 
             {
-                while (holeAvailability.isOccupied(randomSpot))
+                while (holeAvailability.IsOccupied(randomSpot))
                 {
                     randomSpot = UnityEngine.Random.Range(0, spawnPoints.Length);
-                    Debug.Log("Zoomy " + randomSpot + " " + holeAvailability.isOccupied(randomSpot));
+                    Debug.Log("Zoomy " + randomSpot + " " + holeAvailability.IsOccupied(randomSpot));
                 }
             }
             //GameObject enemy = Instantiate(enemyPrefab, spawnPoints[randomSpot].transform.position, Quaternion.identity);
-            holeAvailability.occupyHole(randomSpot);
+            holeAvailability.OccupyHole(randomSpot);
             GameObject enemy = objectPoolerService.SpawnFromPool(POOL_ZOOMYMOLE, spawnPoints[randomSpot].transform.position, Quaternion.identity);
             //enemy.GetComponent<Animator>().SetTrigger("ZoomyRestart");
             //OnEnemySpawn?.Invoke(enemy);
@@ -140,7 +140,7 @@ public class EnemySpawnerZoomy : MonoBehaviour
     private IEnumerator liberateHole(int holeNumber)
     {
         yield return new WaitForSeconds(2f);
-        holeAvailability.liberateHole(holeNumber);
+        holeAvailability.LiberateHole(holeNumber);
     }
 
     private void RestartTimings()

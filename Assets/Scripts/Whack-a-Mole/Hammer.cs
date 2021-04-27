@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Hammer : MonoBehaviour
 {
-    PlayersScore scoreController;
-    void Start()
+    private PlayersScore scoreController;
+    void Awake()
     {
         scoreController = GameObject.Find("ScoreController").GetComponent<PlayersScore>();
     }

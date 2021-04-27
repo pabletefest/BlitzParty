@@ -24,22 +24,22 @@ public class CheckHoleAvailability : MonoBehaviour
         holeOccupied = new bool[7];
     }
 
-    public void occupyHole(int holeNumber)
+    public void OccupyHole(int holeNumber)
     {
         holeOccupied[holeNumber] = true;
     }
 
-    public bool isOccupied(int holeNumber)
+    public bool IsOccupied(int holeNumber)
     {
         return holeOccupied[holeNumber];
     }
 
-    public void liberateHole(int holeNumber)
+    public void LiberateHole(int holeNumber)
     {
         holeOccupied[holeNumber] = false;
     }
 
-    public bool allOccupied()
+    public bool AllOccupied()
     {
         bool allOccupied = true;
 

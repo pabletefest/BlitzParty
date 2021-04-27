@@ -103,16 +103,16 @@ public class EnemySpawnerGoldMole : MonoBehaviour
         for (int i = 0; i < numberOfEnemies; i++)
         {
             int randomSpot = UnityEngine.Random.Range(0, spawnPoints.Length);
-            if (!holeAvailability.allOccupied())
+            if (!holeAvailability.AllOccupied())
             {
-                while (holeAvailability.isOccupied(randomSpot))
+                while (holeAvailability.IsOccupied(randomSpot))
                 {
                     randomSpot = UnityEngine.Random.Range(0, spawnPoints.Length);
-                    Debug.Log("GoldMole " + randomSpot + " " + holeAvailability.isOccupied(randomSpot));
+                    Debug.Log("GoldMole " + randomSpot + " " + holeAvailability.IsOccupied(randomSpot));
                 }
             }
             //GameObject enemy = Instantiate(enemyPrefab, spawnPoints[randomSpot].transform.position, Quaternion.identity);
-            holeAvailability.occupyHole(randomSpot);
+            holeAvailability.OccupyHole(randomSpot);
             GameObject enemy = objectPoolerService.SpawnFromPool(POOL_GOLDMOLE, spawnPoints[randomSpot].transform.position, Quaternion.identity);
             //enemy.GetComponent<Animator>().SetTrigger("GoldenMoleRestart");
             //OnEnemySpawn?.Invoke(enemy);
@@ -123,7 +123,7 @@ public class EnemySpawnerGoldMole : MonoBehaviour
     private IEnumerator LiberateHole(int holeNumber)
     {
         yield return new WaitForSeconds(2f);
-        holeAvailability.liberateHole(holeNumber);
+        holeAvailability.LiberateHole(holeNumber);
     }
 
     private void RestartTimings()
