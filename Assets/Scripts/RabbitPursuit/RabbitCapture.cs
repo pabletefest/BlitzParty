@@ -19,7 +19,7 @@ public class RabbitCapture : MonoBehaviour
             //ServiceLocator.Instance.GetService<>
             
             collision.gameObject.SetActive(false);
-            scoreController.P2ScorePoint();
+            scoreController.P2ScorePoints(1);
             OnEnemyCaptured?.Invoke(collision.gameObject);
         }
     }

@@ -73,16 +73,6 @@ public class PlayerMovement : MonoBehaviour
 	{
 		controller.Move(horizontalMove * Time.fixedDeltaTime, verticalMove * Time.fixedDeltaTime);
 	}
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Rabbit")
-        {
-			touchingRabbit = false;
-        }
-		objectCollided = null;
-    }
-
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		if (collision.gameObject.tag == "Rabbit")
@@ -92,6 +82,15 @@ public class PlayerMovement : MonoBehaviour
 		objectCollided = collision.gameObject;
 	}
 
+	private void OnTriggerExit2D(Collider2D collision)
+    {
+		if (collision.gameObject.tag == "Rabbit")
+		{
+			touchingRabbit = false;
+		}
+		objectCollided = null;
+    }
+
 	public void CatchButtonHandler()
     {
 		animator.SetTrigger("Catching");
@@ -100,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
         {
 			//Destroy(objectCollided);
 			objectCollided.SetActive(false);
-			scoreController.P1ScorePoint();
+			scoreController.P1ScorePoints(1);
 		}
     }
 }

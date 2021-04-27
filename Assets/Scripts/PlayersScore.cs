@@ -1,6 +1,7 @@
 ﻿using Services;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayersScore : MonoBehaviour
 {
@@ -39,8 +40,16 @@ public class PlayersScore : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ResetScore();
-        UpdateScore();
+        string sceneName = SceneManager.GetActiveScene().name;
+        switch (sceneName)
+        {
+            case "RabbitPursuit":
+                ResetRabbitPursuitScore();
+                break;
+            case "Whack-a-Mole":
+                ResetWhackAMoleScore();
+                break;
+        }
     }
 
     private void UpdateScore()
@@ -52,29 +61,42 @@ public class PlayersScore : MonoBehaviour
 
     }
 
-    public void P1ScorePoint()
+    public void P1ScorePoints(int points)
     {
-        p1Score++;
+        p1Score += points;
         UpdateScore();
     }
 
-    public void P2ScorePoint()
+    public void P1SubstractPoints(int points)
     {
-        p2Score++;
+        p1Score -= points;
         UpdateScore();
     }
 
-    public void ResetScore()
+    public void P2ScorePoints(int points)
+    {
+        p2Score += points;
+        UpdateScore();
+    }
+
+    public void ResetRabbitPursuitScore()
     {
         p1Score = 0;
         p2Score = 0;
         UpdateScore();
     }
 
-    public RabbitPursuitResults FindWinner()
+    public void ResetWhackAMoleScore()
     {
-        if (p1Score > p2Score) return RabbitPursuitResults.PLAYER1WIN;
-        else if (p1Score == p2Score) return RabbitPursuitResults.DRAW;
-        else return RabbitPursuitResults.PLAYER2WIN;
+        p1Score = 0;
+        p2Score = 50;
+        UpdateScore();
+    }
+
+    public Results FindWinner()
+    {
+        if (p1Score > p2Score) return Results.PLAYER1WIN;
+        else if (p1Score == p2Score) return Results.DRAW;
+        else return Results.PLAYER1LOSE;
     }
 }

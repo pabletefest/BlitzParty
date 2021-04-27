@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class PanelHandler : MonoBehaviour
 {
 
+    //Common atributes
+
     [SerializeField]
     private PlayersScore scoreController;
 
@@ -20,8 +22,10 @@ public class PanelHandler : MonoBehaviour
     [SerializeField]
     private Sprite drawImage;
 
+    //RabbitPursuit attributes
+
     [SerializeField]
-    private ResetRabbitPursuit resetController;
+    private ResetRabbitPursuit resetRabbitPursuitController;
 
     [SerializeField]
     private GameObject joystick;
@@ -32,9 +36,28 @@ public class PanelHandler : MonoBehaviour
     [SerializeField]
     private RectTransform joystickHandleTransform;
 
+    //Whack-a-Mole attributes
+
+    [SerializeField]
+    private ResetWhackaMole resetWhackAMoleController;
+
+    [SerializeField]
+    private GameObject hammer;
+
     public void RestartButtonHandler()
     {
-        resetController.ResetGame();
+        string sceneName = SceneManager.GetActiveScene().name;
+        switch (sceneName)
+        {
+            case "RabbitPursuit":
+                Debug.Log("1-------------------------");
+                resetRabbitPursuitController.ResetGame();
+                break;
+            case "Whack-a-Mole":
+                Debug.Log("2-------------------------");
+                resetWhackAMoleController.ResetGame();
+                break;
+        }
         gameObject.SetActive(false);
         //ServiceLocator.Instance.GetService<ITimer>().RestartTimer();
         //SceneManager.UnloadSceneAsync("RabbitPursuit");
@@ -48,7 +71,7 @@ public class PanelHandler : MonoBehaviour
         //SceneManager.UnloadSceneAsync("RabbitPursuit");
     }
 
-    public void ShowPanel()
+    public void ShowRabbitPursuitPanel()
     {
         gameObject.SetActive(true);
         //joystickHandleTransform.position = new Vector3(-8.1f, -4.7f, 0f);
@@ -57,19 +80,23 @@ public class PanelHandler : MonoBehaviour
         //joystick.GetComponent<FloatingJoystick>().enabled = false;
         joystick.GetComponent<Canvas>().enabled = false;
         catchButton.SetActive(false);
-        CheckResult();
-
+        CheckResult(scoreController.FindWinner());
     }
 
-    private void CheckResult()
+    public void ShowWhackAMolePanel()
     {
-        RabbitPursuitResults winner = scoreController.FindWinner();
+        gameObject.SetActive(true);
+        hammer.SetActive(false);
+        CheckResult(scoreController.FindWinner());
+    }
 
-        if(winner == RabbitPursuitResults.PLAYER1WIN)
+    public void CheckResult(Results winner)
+    {
+        if (winner == Results.PLAYER1WIN)
         {
             resultTitle.sprite = victoryImage;
         }
-        else if(winner == RabbitPursuitResults.PLAYER2WIN)
+        else if (winner == Results.PLAYER1LOSE)
         {
             resultTitle.sprite = defeatImage;
         }
@@ -77,6 +104,5 @@ public class PanelHandler : MonoBehaviour
         {
             resultTitle.sprite = drawImage;
         }
-
     }
 }

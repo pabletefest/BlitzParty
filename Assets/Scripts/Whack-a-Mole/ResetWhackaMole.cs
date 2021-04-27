@@ -11,16 +11,15 @@ public class ResetWhackaMole : MonoBehaviour
     [SerializeField]
     private PlayersScore scoreController;
 
-    private void Start()
-    {
-
-    }
+    [SerializeField]
+    private GameObject hammer;
 
     public void ResetGame()
     {
         Time.timeScale = 1f;
-        scoreController.ResetScore();
+        scoreController.ResetWhackAMoleScore();
         OnSceneRestarted?.Invoke(SceneManager.GetActiveScene().name);
         ServiceLocator.Instance.GetService<ITimer>().ResetTimer();
+        hammer.SetActive(true);
     }
 }

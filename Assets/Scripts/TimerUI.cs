@@ -1,6 +1,7 @@
 ﻿using Services;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TimerUI : MonoBehaviour
 {
@@ -59,7 +60,16 @@ public class TimerUI : MonoBehaviour
 
     private void EnableResultPanel()
     {
-        panelHandler.ShowPanel();
+        string sceneName = SceneManager.GetActiveScene().name;
+        switch (sceneName)
+        {
+            case "RabbitPursuit":
+                panelHandler.ShowRabbitPursuitPanel();
+                break;
+            case "Whack-a-Mole":
+                panelHandler.ShowWhackAMolePanel();
+                break;
+        }
         Time.timeScale = 0;
     }
 

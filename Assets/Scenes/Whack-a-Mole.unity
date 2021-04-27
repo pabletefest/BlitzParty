@@ -489,10 +489,12 @@ MonoBehaviour:
   victoryImage: {fileID: 21300000, guid: a63eb699ef36d2f4e85e022d499d479b, type: 3}
   defeatImage: {fileID: 21300000, guid: 21e0b0142227d7b419c876348aa90bd7, type: 3}
   drawImage: {fileID: 21300000, guid: 5496354b8d204b2419758a55f7bc08ce, type: 3}
-  resetController: {fileID: 0}
+  resetRabbitPursuitController: {fileID: 0}
   joystick: {fileID: 0}
   catchButton: {fileID: 0}
   joystickHandleTransform: {fileID: 0}
+  resetWhackAMoleController: {fileID: 1955060428}
+  hammer: {fileID: 1052494424}
 --- !u!1 &496699825
 GameObject:
   m_ObjectHideFlags: 0
@@ -2818,7 +2820,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb87eecf0fcfd044384e71578a3a7f7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreController: {fileID: 0}
+  scoreController: {fileID: 1553071695}
+  hammer: {fileID: 1052494424}
 --- !u!114 &1955060429
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -91,8 +91,6 @@ public class EnemySpawnerMole : MonoBehaviour
             float totalChronometerTime = chronometerService.GetTotalTime();
             float chronometerTime = chronometerService.GetCurrentTime();
             
-            Debug.Log($"Total chronometer time: {totalChronometerTime}");
-            Debug.Log($"Current chronometer time: {chronometerTime}");
 
             if (chronometerTime >= totalChronometerTime / 2)
             {

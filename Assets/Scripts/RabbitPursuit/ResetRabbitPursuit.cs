@@ -46,7 +46,7 @@ public class ResetRabbitPursuit : MonoBehaviour
     public void ResetGame()
     {
         Time.timeScale = 1f;
-        scoreController.ResetScore();
+        scoreController.ResetRabbitPursuitScore();
         OnSceneRestarted?.Invoke(SceneManager.GetActiveScene().name);
         ServiceLocator.Instance.GetService<ITimer>().ResetTimer();
         //joystick.SetActive(true);
