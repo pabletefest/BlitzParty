@@ -685,7 +685,6 @@ MonoBehaviour:
   catchButton: {fileID: 389748451}
   joystickHandleTransform: {fileID: 1869251645}
   resetWhackAMoleController: {fileID: 0}
-  hammer: {fileID: 0}
 --- !u!1 &477913368
 GameObject:
   m_ObjectHideFlags: 0
@@ -1095,9 +1094,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeText: {fileID: 1848823099}
-  resultPanel: {fileID: 463597891}
   joysStick: {fileID: 559284053}
   panelHandler: {fileID: 463597894}
+  earnAcorns: {fileID: 1955060430}
 --- !u!1 &559284053 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8170153791668043269, guid: 0d230cc8be529a542a08cb878ab14b18,
@@ -1665,7 +1664,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -2178,7 +2177,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -2651,7 +2650,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -2772,7 +2771,7 @@ MonoBehaviour:
   - {fileID: 1972922955}
   enemyPrefab: {fileID: 8293151370640624588, guid: 326cd7736a7a8324196e0601cacce25e,
     type: 3}
-  spawnTime: 5
+  initialSpawnTime: 5
   decreasingRate: 0.2
 --- !u!4 &1316434617
 Transform:
@@ -3587,6 +3586,8 @@ GameObject:
   - component: {fileID: 1955060427}
   - component: {fileID: 1955060426}
   - component: {fileID: 1955060428}
+  - component: {fileID: 1955060429}
+  - component: {fileID: 1955060430}
   m_Layer: 0
   m_Name: RabbitPursuitManager
   m_TagString: Untagged
@@ -3639,6 +3640,32 @@ MonoBehaviour:
   p2Position: {fileID: 977841677}
   characterController: {fileID: 324643998}
   enemyController: {fileID: 977841673}
+--- !u!114 &1955060429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955060425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8592bce7d0f77994796988953f291cb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1955060430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955060425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b196364d02fc1eb4e81bea63c21c94c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playersScore: {fileID: 1553071695}
+  database: {fileID: 1955060429}
 --- !u!1 &1972922955
 GameObject:
   m_ObjectHideFlags: 0

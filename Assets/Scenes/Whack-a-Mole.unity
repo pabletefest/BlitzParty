@@ -442,7 +442,6 @@ MonoBehaviour:
   catchButton: {fileID: 0}
   joystickHandleTransform: {fileID: 0}
   resetWhackAMoleController: {fileID: 1955060428}
-  hammer: {fileID: 1052494424}
 --- !u!1 &496699825
 GameObject:
   m_ObjectHideFlags: 0
@@ -730,9 +729,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeText: {fileID: 1848823099}
-  resultPanel: {fileID: 463597891}
   joysStick: {fileID: 0}
   panelHandler: {fileID: 463597894}
+  earnAcorns: {fileID: 1955060431}
 --- !u!1 &571345213
 GameObject:
   m_ObjectHideFlags: 0
@@ -2461,6 +2460,8 @@ GameObject:
   - component: {fileID: 1955060426}
   - component: {fileID: 1955060428}
   - component: {fileID: 1955060429}
+  - component: {fileID: 1955060430}
+  - component: {fileID: 1955060431}
   m_Layer: 0
   m_Name: Whack-a-MoleManager
   m_TagString: Untagged
@@ -2527,3 +2528,29 @@ MonoBehaviour:
   - {fileID: 1287475957}
   - {fileID: 327322322}
   - {fileID: 1417188095}
+--- !u!114 &1955060430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955060425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8592bce7d0f77994796988953f291cb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1955060431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955060425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b196364d02fc1eb4e81bea63c21c94c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playersScore: {fileID: 1553071695}
+  database: {fileID: 1955060430}

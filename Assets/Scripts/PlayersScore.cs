@@ -100,4 +100,9 @@ public class PlayersScore : MonoBehaviour
         else if (p1Score == p2Score) return Results.DRAW;
         else return Results.PLAYER1LOSE;
     }
+
+    public int GetP1Score()
+    {
+        return p1Score;
+    }
 }

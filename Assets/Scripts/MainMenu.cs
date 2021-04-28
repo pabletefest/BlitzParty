@@ -7,9 +7,9 @@ using Services;
 
 public class MainMenu : MonoBehaviour
 {   
-    //public static event Action OnRabbitPursuitLoaded;
 
     //Tabs to show and hide when the buttons are clicked
+
     [SerializeField]
     public GameObject shopMenu;
 
@@ -33,6 +33,7 @@ public class MainMenu : MonoBehaviour
 
 
     //Buttons that need to be disabled when settings is active
+
     [SerializeField]
     public Button shopButton;
 
@@ -60,12 +61,21 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private Button whackamoleButton;
 
+    //Other fields
+
     [SerializeField]
     private OrientationManager orientationManager;
 
+    [SerializeField]
+    private Database database;
+
+    [SerializeField]
+    private Text acornLabel;
+
     private void Awake()
     {
-        ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme(); 
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
+        acornLabel.text = database.LoadUserAcorns().ToString();
     }
 
     public void HideTabs() 

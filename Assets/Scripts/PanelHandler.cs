@@ -51,11 +51,9 @@ public class PanelHandler : MonoBehaviour
         switch (sceneName)
         {
             case "RabbitPursuit":
-                Debug.Log("1-------------------------");
                 resetRabbitPursuitController.ResetGame();
                 break;
             case "Whack-a-Mole":
-                Debug.Log("2-------------------------");
                 resetWhackAMoleController.ResetGame();
                 break;
         }
