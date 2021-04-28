@@ -8,9 +8,6 @@ public class TimerUI : MonoBehaviour
     [SerializeField]
     private Text timeText;
 
-    [SerializeField]
-    private GameObject joysStick;
-
     //[SerializeField]
     //private float timeGameplay;
 

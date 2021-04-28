@@ -255,7 +255,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &174698074
 RectTransform:
   m_ObjectHideFlags: 0
@@ -745,8 +745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeText: {fileID: 1848823099}
-  joysStick: {fileID: 0}
-  panelHandler: {fileID: 0}
+  panelHandler: {fileID: 174698075}
   earnAcorns: {fileID: 1955060431}
 --- !u!1 &625245926
 GameObject:
@@ -2237,8 +2236,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player1Score: {fileID: 953227375}
   Player2Score: {fileID: 823598025}
-  Player1ScorePanel: {fileID: 0}
-  Player2ScorePanel: {fileID: 0}
+  Player1ScorePanel: {fileID: 953227375}
+  Player2ScorePanel: {fileID: 823598025}
 --- !u!4 &1553071696
 Transform:
   m_ObjectHideFlags: 0
