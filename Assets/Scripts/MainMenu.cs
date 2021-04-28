@@ -72,10 +72,14 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private Text acornLabel;
 
+    [SerializeField]
+    private Text usernameLabel;
+
     private void Awake()
     {
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
-        acornLabel.text = database.LoadUserAcorns().ToString();
+        acornLabel.text = database.LoadAcorns().ToString();
+        usernameLabel.text = database.LoadUsername();
     }
 
     public void HideTabs() 

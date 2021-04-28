@@ -1,25 +1,77 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class Database : MonoBehaviour
 {
-    public void SaveUserData(User user)
+
+
+    public void SaveCurrentUser(User user)
     {
-        PlayerPrefs.SetString("username", user.GetUsername());
-        PlayerPrefs.SetInt("playerLevel", user.GetAcorns());
+        if (user != null)
+        {
+            PlayerPrefs.SetString("currentUser", "user" + user.getId());
+        }
     }
 
-    public void SaveUserAcorns(int acorns)
+    public string LoadCurrentUser()
     {
-        PlayerPrefs.SetInt("playerLevel", acorns);
+        return PlayerPrefs.GetString("currentUser", "user1");
     }
 
-    public string LoadUserUsername()
+    public void SaveAcorns(int acorns)
     {
-        return PlayerPrefs.GetString("username", "none");
+        PlayerPrefs.SetInt("acorns" + LoadCurrentUser().Substring(LoadCurrentUser().Length - 1), acorns);
     }
 
-    public int LoadUserAcorns()
+    public int LoadAcorns()
     {
-        return PlayerPrefs.GetInt("acorns", 0);
+        return PlayerPrefs.GetInt("acorns" + LoadCurrentUser().Substring(LoadCurrentUser().Length - 1), 0);
     }
+
+    public string LoadUsername()
+    {
+        return PlayerPrefs.GetString(LoadCurrentUser(), "");
+    }
+
+    public void SaveTotalUsers(int users)
+    {
+        PlayerPrefs.SetInt("totalUsers", users);
+    }
+
+    public int LoadTotalUsers()
+    {
+        return PlayerPrefs.GetInt("totalUsers", 0);
+    }
+
+    public bool AddUser(User user)
+    {
+        for (int i = 1; i <= LoadTotalUsers(); i++)
+        {
+            if (PlayerPrefs.GetString("user" + i, "").Equals(user.GetUsername()))
+            {
+                return false;
+            }
+        }
+        SaveTotalUsers(LoadTotalUsers() + 1);
+        PlayerPrefs.SetString("user" + user.getId(), user.GetUsername());
+        PlayerPrefs.SetInt("acorns" + user.getId(), user.GetAcorns());
+        SaveCurrentUser(user);
+        return true;
+    }
+
+    public User LoadUser(string username)
+    {
+        User user = null;
+        for (int i = 1; i <= LoadTotalUsers(); i++)
+        {
+            if (PlayerPrefs.GetString("user" + i, "").Equals(username))
+            {
+                user = new User(i, username, PlayerPrefs.GetInt("acorns" + i, 0));
+            }
+        }
+        SaveCurrentUser(user);
+        return user;
+    }
+
 }

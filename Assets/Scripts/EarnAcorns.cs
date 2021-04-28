@@ -12,23 +12,32 @@ public class EarnAcorns : MonoBehaviour
 
     public void AcornsRabbitPursuit()
     {
-        int moreAcorns = (int) Math.Floor(playersScore.GetP1Score() * 0.5);
-        UpdateAcorns(AcornsEarned(moreAcorns));
+        UpdateAcorns(CalculateAcornsEarned("RabbitPursuit"));
     }
 
     public void AcornsWhackAMole()
     {
-        int moreAcorns = (int) Math.Floor(playersScore.GetP1Score() * 0.25);
-        UpdateAcorns(AcornsEarned(moreAcorns));
+        UpdateAcorns(CalculateAcornsEarned("WhackAMole"));
     }
 
     private void UpdateAcorns(int acornsEarned)
     {
-        database.SaveUserAcorns(database.LoadUserAcorns() + acornsEarned);
+        database.SaveAcorns(database.LoadAcorns() + acornsEarned);
     }
 
-    private int AcornsEarned(int moreAcorns)
+     public int CalculateAcornsEarned(string minigame)
     {
+        int moreAcorns = 0;
+        switch (minigame)
+        {
+            case "RabbitPursuit":
+                moreAcorns = (int)Math.Floor(playersScore.GetP1Score() * 0.5);
+                break;
+
+            case "WhackAMole":
+                moreAcorns = (int)Math.Floor(playersScore.GetP1Score() * 0.25);
+                break;
+        }
         int acornsEarned = 0;
         if (playersScore.FindWinner() == Results.DRAW)
         {

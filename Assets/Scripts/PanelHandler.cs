@@ -26,6 +26,12 @@ public class PanelHandler : MonoBehaviour
     [SerializeField]
     private Sprite drawImage;
 
+    [SerializeField]
+    private EarnAcorns earnAcorns;
+
+    [SerializeField]
+    private Text acornsText;
+
     //RabbitPursuit attributes
 
     [SerializeField]
@@ -84,6 +90,7 @@ public class PanelHandler : MonoBehaviour
         catchButton.SetActive(false);
         DestroyRemainingHammers();
         CheckResult(scoreController.FindWinner());
+        acornsText.text = earnAcorns.CalculateAcornsEarned("RabbitPursuit").ToString();
     }
 
     public void ShowWhackAMolePanel()
@@ -91,6 +98,7 @@ public class PanelHandler : MonoBehaviour
         gameObject.SetActive(true);
         DestroyRemainingHammers();
         CheckResult(scoreController.FindWinner());
+        acornsText.text = earnAcorns.CalculateAcornsEarned("WhackAMole").ToString();
     }
 
     public void CheckResult(Results winner)
