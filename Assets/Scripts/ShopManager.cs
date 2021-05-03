@@ -13,21 +13,16 @@ public class ShopManager : MonoBehaviour
     [SerializeField]
     private GameObject confirmationMenu;
 
-    // Start is called before the first frame update
+    private GameObject selectedItem;
+
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //Check if the items are already purchased in the database. If so, update them in the interface.
     }
 
     public void ItemButtonHandler()
     {
-        GameObject selectedItem = EventSystem.current.currentSelectedGameObject;
+        selectedItem = EventSystem.current.currentSelectedGameObject;
         string itemCost = selectedItem.GetComponentInChildren<Text>().text;
 
         confirmationMenu.SetActive(true);
@@ -41,6 +36,50 @@ public class ShopManager : MonoBehaviour
 
     public void PurchaseItemHandler()
     {
+        string itemName = selectedItem.name;
+        switch (itemName)
+        {
+            case "Item1":
+                PurchaseItem();
+                break;
+            case "Item2":
+                PurchaseItem();
+                break;
+            case "Item3":
+                PurchaseItem();
+                break;
+            case "Item4":
+                PurchaseItem();
+                break;
+            case "Item5":
+                PurchaseItem();
+                break;
+            case "Item6":
+                PurchaseItem();
+                break;
+            case "Item7":
+                PurchaseItem();
+                break;
+            case "Item8":
+                PurchaseItem();
+                break;
+            case "Item9":
+                PurchaseItem();
+                break;
+
+        }
         confirmationMenu.SetActive(false);
+    }
+
+    private void PurchaseItem()
+    {
+        //Update purchased item in the database
+        UpdatePurchasedItem();
+    }
+
+    private void UpdatePurchasedItem()
+    {
+        selectedItem.GetComponentInChildren<Text>().text = "";
+        selectedItem.GetComponent<Image>().sprite = Resources.Load<Sprite>("Item Purchased");
     }
 }
