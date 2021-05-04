@@ -75,6 +75,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private Text usernameLabel;
 
+    [SerializeField]
+    private InventoryManager inventoryManager;
+
     private void Awake()
     {
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
@@ -99,6 +102,7 @@ public class MainMenu : MonoBehaviour
     public void ShowZoomyTab()
     {
         zoomyMenu.SetActive(true);
+        inventoryManager.UpdateItemsList();
     }
 
     public void ShowMainTab()

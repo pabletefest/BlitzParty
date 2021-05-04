@@ -74,4 +74,26 @@ public class Database : MonoBehaviour
         return user;
     }
 
+    public int LoadTotalItems()
+    {
+        return PlayerPrefs.GetInt("totalItems" + LoadCurrentUser().Substring(LoadCurrentUser().Length - 1), 0);
+    }
+
+    public void AddItem(Item itemPurchased)
+    {
+        PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(LoadCurrentUser().Length - 1) + "item" + LoadTotalItems(), itemPurchased.GetName());
+        PlayerPrefs.SetInt("totalItems" + LoadCurrentUser().Substring(LoadCurrentUser().Length - 1), LoadTotalItems() + 1);
+    }
+
+    public List<Item> LoadItemsList()
+    {
+        List<Item> newList = new List<Item>();
+        int counter = PlayerPrefs.GetInt("totalItems" + LoadCurrentUser().Substring(LoadCurrentUser().Length - 1), 0);
+        for (int i = 0; i < counter; i++)
+        {
+            newList.Add(new Item(PlayerPrefs.GetString("user" + LoadCurrentUser().Substring(LoadCurrentUser().Length - 1) + "item" + i, "Flip Flops")));
+        }
+        return newList;
+    }
+
 }

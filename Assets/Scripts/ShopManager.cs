@@ -17,7 +17,12 @@ public class ShopManager : MonoBehaviour
 
     void Start()
     {
-        //Check if the items are already purchased in the database. If so, update them in the interface.
+        List<Item> itemsList = database.LoadItemsList();
+        foreach (Item item in itemsList)
+        {
+            selectedItem = GameObject.Find(item.GetName());
+            UpdatePurchasedItem();
+        }
     }
 
     public void ItemButtonHandler()
@@ -37,43 +42,14 @@ public class ShopManager : MonoBehaviour
     public void PurchaseItemHandler()
     {
         string itemName = selectedItem.name;
-        switch (itemName)
-        {
-            case "Item1":
-                PurchaseItem();
-                break;
-            case "Item2":
-                PurchaseItem();
-                break;
-            case "Item3":
-                PurchaseItem();
-                break;
-            case "Item4":
-                PurchaseItem();
-                break;
-            case "Item5":
-                PurchaseItem();
-                break;
-            case "Item6":
-                PurchaseItem();
-                break;
-            case "Item7":
-                PurchaseItem();
-                break;
-            case "Item8":
-                PurchaseItem();
-                break;
-            case "Item9":
-                PurchaseItem();
-                break;
-
-        }
+        PurchaseItem(itemName);
         confirmationMenu.SetActive(false);
     }
 
-    private void PurchaseItem()
+    private void PurchaseItem(string itemName)
     {
-        //Update purchased item in the database
+        Item itemPurchased = new Item(itemName);
+        database.AddItem(itemPurchased);
         UpdatePurchasedItem();
     }
 
@@ -81,5 +57,7 @@ public class ShopManager : MonoBehaviour
     {
         selectedItem.GetComponentInChildren<Text>().text = "";
         selectedItem.GetComponent<Image>().sprite = Resources.Load<Sprite>("Item Purchased");
+        selectedItem.GetComponent<Button>().interactable = false;
     }
+
 }
