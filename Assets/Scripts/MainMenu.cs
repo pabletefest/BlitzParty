@@ -97,27 +97,52 @@ public class MainMenu : MonoBehaviour
     public void ShowShopTab()
     {
         shopMenu.SetActive(true);
+        shopButton.enabled = false;
+        zoomyButton.enabled = true;
+        mainButton.enabled = true;
+        friendsButton.enabled = true;
+        profileButton.enabled = true;
     }
 
     public void ShowZoomyTab()
     {
         zoomyMenu.SetActive(true);
         inventoryManager.UpdateItemsList();
+        zoomyButton.enabled = false;
+        shopButton.enabled = true;
+        mainButton.enabled = true;
+        friendsButton.enabled = true;
+        profileButton.enabled = true;
     }
 
     public void ShowMainTab()
     {
         mainMenu.SetActive(true);
+        mainButton.enabled = false;
+        shopButton.enabled = true;
+        zoomyButton.enabled = true;
+        friendsButton.enabled = true;
+        profileButton.enabled = true;
     }
 
     public void ShowFriendsTab()
     {
         friendsMenu.SetActive(true);
+        friendsButton.enabled = false;
+        shopButton.enabled = true;
+        zoomyButton.enabled = true;
+        mainButton.enabled = true;
+        profileButton.enabled = true;
     }
 
     public void ShowProfileTab()
     {
         profileMenu.SetActive(true);
+        profileButton.enabled = false;
+        shopButton.enabled = true;
+        zoomyButton.enabled = true;
+        mainButton.enabled = true;
+        friendsButton.enabled = true;
     }
 
     public void SettingsTab()

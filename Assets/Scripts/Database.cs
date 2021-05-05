@@ -21,12 +21,12 @@ public class Database : MonoBehaviour
 
     public void SaveAcorns(int acorns)
     {
-        PlayerPrefs.SetInt("acorns" + LoadCurrentUser().Substring(LoadCurrentUser().Length - 1), acorns);
+        PlayerPrefs.SetInt("acorns" + LoadCurrentUser().Substring(4), acorns);
     }
 
     public int LoadAcorns()
     {
-        return PlayerPrefs.GetInt("acorns" + LoadCurrentUser().Substring(LoadCurrentUser().Length - 1), 0);
+        return PlayerPrefs.GetInt("acorns" + LoadCurrentUser().Substring(4), 0);
     }
 
     public string LoadUsername()
@@ -76,24 +76,54 @@ public class Database : MonoBehaviour
 
     public int LoadTotalItems()
     {
-        return PlayerPrefs.GetInt("totalItems" + LoadCurrentUser().Substring(LoadCurrentUser().Length - 1), 0);
+        return PlayerPrefs.GetInt("totalItems" + LoadCurrentUser().Substring(4), 0);
     }
 
     public void AddItem(Item itemPurchased)
     {
-        PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(LoadCurrentUser().Length - 1) + "item" + LoadTotalItems(), itemPurchased.GetName());
-        PlayerPrefs.SetInt("totalItems" + LoadCurrentUser().Substring(LoadCurrentUser().Length - 1), LoadTotalItems() + 1);
+        PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(4) + "item" + LoadTotalItems(), itemPurchased.GetName());
+        PlayerPrefs.SetInt("totalItems" + LoadCurrentUser().Substring(4), LoadTotalItems() + 1);
     }
 
     public List<Item> LoadItemsList()
     {
         List<Item> newList = new List<Item>();
-        int counter = PlayerPrefs.GetInt("totalItems" + LoadCurrentUser().Substring(LoadCurrentUser().Length - 1), 0);
+        int counter = PlayerPrefs.GetInt("totalItems" + LoadCurrentUser().Substring(4), 0);
         for (int i = 0; i < counter; i++)
         {
-            newList.Add(new Item(PlayerPrefs.GetString("user" + LoadCurrentUser().Substring(LoadCurrentUser().Length - 1) + "item" + i, "Flip Flops")));
+            newList.Add(new Item(PlayerPrefs.GetString("user" + LoadCurrentUser().Substring(4) + "item" + i, "Flip Flops")));
         }
         return newList;
+    }
+
+    public void SaveHeadPiece(string pieceName)
+    {
+        PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(4) + "headPiece", pieceName);
+    }
+
+    public string LoadHeadPiece()
+    {
+        return PlayerPrefs.GetString("user" + LoadCurrentUser().Substring(4) + "headPiece", "none");
+    }
+
+    public void SaveBodyPiece(string pieceName)
+    {
+        PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(4) + "bodyPiece", pieceName);
+    }
+
+    public string LoadBodyPiece()
+    {
+        return PlayerPrefs.GetString("user" + LoadCurrentUser().Substring(4) + "bodyPiece", "none");
+    }
+
+    public void SaveLowerPiece(string pieceName)
+    {
+        PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(4) + "lowerPiece", pieceName);
+    }
+
+    public string LoadLowerPiece()
+    {
+        return PlayerPrefs.GetString("user" + LoadCurrentUser().Substring(4) + "lowerPiece", "none");
     }
 
 }

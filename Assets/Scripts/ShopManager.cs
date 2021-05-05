@@ -13,6 +13,48 @@ public class ShopManager : MonoBehaviour
     [SerializeField]
     private GameObject confirmationMenu;
 
+    [SerializeField]
+    private Button item1;
+
+    [SerializeField]
+    private Button item2;
+
+    [SerializeField]
+    private Button item3;
+
+    [SerializeField]
+    private Button item4;
+
+    [SerializeField]
+    private Button item5;
+
+    [SerializeField]
+    private Button item6;
+
+    [SerializeField]
+    private Button item7;
+
+    [SerializeField]
+    private Button item8;
+
+    [SerializeField]
+    private Button item9;
+
+    [SerializeField]
+    public Button shopButton;
+
+    [SerializeField]
+    public Button zoomyButton;
+
+    [SerializeField]
+    public Button mainButton;
+
+    [SerializeField]
+    public Button friendsButton;
+
+    [SerializeField]
+    public Button profileButton;
+
     private GameObject selectedItem;
 
     void Start()
@@ -32,11 +74,32 @@ public class ShopManager : MonoBehaviour
 
         confirmationMenu.SetActive(true);
         confirmationMenu.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = itemCost;
+
+        EnableButtons(false);
+    }
+
+    private void EnableButtons(bool disabled)
+    {
+        item1.interactable = disabled;
+        item2.interactable = disabled;
+        item3.interactable = disabled;
+        item4.interactable = disabled;
+        item5.interactable = disabled;
+        item6.interactable = disabled;
+        item7.interactable = disabled;
+        item8.interactable = disabled;
+        item9.interactable = disabled;
+        shopButton.interactable = disabled;
+        zoomyButton.interactable = disabled;
+        mainButton.interactable = disabled;
+        friendsButton.interactable = disabled;
+        profileButton.interactable = disabled;
     }
 
     public void CloseConfirmationMenuHandler()
     {
         confirmationMenu.SetActive(false);
+        EnableButtons(true);
     }
 
     public void PurchaseItemHandler()
@@ -44,6 +107,7 @@ public class ShopManager : MonoBehaviour
         string itemName = selectedItem.name;
         PurchaseItem(itemName);
         confirmationMenu.SetActive(false);
+        EnableButtons(true);
     }
 
     private void PurchaseItem(string itemName)
