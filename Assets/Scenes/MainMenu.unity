@@ -607,7 +607,7 @@ GameObject:
   - component: {fileID: 81993215}
   - component: {fileID: 81993214}
   m_Layer: 5
-  m_Name: ConfirmationText
+  m_Name: InventoryConfirmationText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2468,6 +2468,9 @@ MonoBehaviour:
   acornLabel: {fileID: 388054557}
   usernameLabel: {fileID: 791522764}
   inventoryManager: {fileID: 1374046211}
+  headItem: {fileID: 1412410802}
+  bodyItem: {fileID: 1612331322}
+  lowerItem: {fileID: 1869262418}
 --- !u!4 &435670712
 Transform:
   m_ObjectHideFlags: 0
@@ -7352,7 +7355,7 @@ GameObject:
   - component: {fileID: 2097657048}
   - component: {fileID: 2097657047}
   m_Layer: 5
-  m_Name: Buttontext
+  m_Name: InventoryButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

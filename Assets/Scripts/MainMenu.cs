@@ -78,11 +78,21 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private InventoryManager inventoryManager;
 
+    [SerializeField]
+    private GameObject headItem;
+
+    [SerializeField]
+    private GameObject bodyItem;
+
+    [SerializeField]
+    private GameObject lowerItem;
+
     private void Awake()
     {
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
         acornLabel.text = database.LoadAcorns().ToString();
         usernameLabel.text = database.LoadUsername();
+        SetZoomyItems();
     }
 
     public void HideTabs() 
@@ -118,6 +128,7 @@ public class MainMenu : MonoBehaviour
     public void ShowMainTab()
     {
         mainMenu.SetActive(true);
+        SetZoomyItems();
         mainButton.enabled = false;
         shopButton.enabled = true;
         zoomyButton.enabled = true;
@@ -199,6 +210,37 @@ public class MainMenu : MonoBehaviour
     {      
         SceneManager.LoadScene("Whack-a-Mole");
         orientationManager.ChangeScreenPortrait(false);
+    }
+
+    private void SetZoomyItems()
+    {
+        if (!database.LoadHeadPiece().Equals("none"))
+        {
+            headItem.SetActive(true);
+            headItem.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("Icons/" + database.LoadHeadPiece());
+        }
+        else 
+        {
+            headItem.SetActive(false);
+        }
+        if (!database.LoadBodyPiece().Equals("none"))
+        {
+            bodyItem.SetActive(true);
+            bodyItem.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("Icons/" + database.LoadBodyPiece());
+        }
+        else
+        {
+            bodyItem.SetActive(false);
+        }
+        if (!database.LoadLowerPiece().Equals("none"))
+        {
+            lowerItem.SetActive(true);
+            lowerItem.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("Icons/" + database.LoadLowerPiece());
+        }
+        else
+        {
+            lowerItem.SetActive(false);
+        }
     }
 
     /*

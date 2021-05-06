@@ -41,6 +41,8 @@ public class InventoryManager : MonoBehaviour
 
     private GameObject selectedItem;
 
+    private bool isEquiped;
+
     public void UpdateItemsList()
     {
         itemsList = database.LoadItemsList();
@@ -57,7 +59,6 @@ public class InventoryManager : MonoBehaviour
 
         foreach (Item item in itemsList)
         {
-            Debug.Log(itemsCount);
             //When we have more than 7 items, the itemsList has to be enlarged
             if (itemsCount >= 7)
             {
@@ -69,7 +70,7 @@ public class InventoryManager : MonoBehaviour
                 newButton = (GameObject)Instantiate(buttonPrefab);
                 newButton.name = item.GetName();
                 newButton.transform.SetParent(inventoryList.transform, false);
-                newButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(newButton.name);
+                UpdateItemSprite(newButton);
                 newButton.GetComponentInChildren<Button>().onClick.AddListener(SelectItemHandler);
                 RectTransform rt = newButton.GetComponentInChildren<RectTransform>();
                 rt.anchoredPosition = new Vector3(0, buttonYPos, 0);
@@ -87,7 +88,8 @@ public class InventoryManager : MonoBehaviour
                 newButton = (GameObject)Instantiate(buttonPrefab);
                 newButton.name = item.GetName();
                 newButton.transform.SetParent(inventoryList.transform, false);
-                newButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>(newButton.name);
+                UpdateItemSprite(newButton);
+                //newButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("InUse/" + newButton.name);
                 newButton.GetComponentInChildren<Button>().onClick.AddListener(SelectItemHandler);
                 RectTransform rt = newButton.GetComponentInChildren<RectTransform>();
                 rt.localPosition = new Vector3(0, buttonYPos, 0);
@@ -96,6 +98,7 @@ public class InventoryManager : MonoBehaviour
             }
 
         }
+
     }
 
     public void SelectItemHandler()
@@ -104,6 +107,18 @@ public class InventoryManager : MonoBehaviour
 
         selectItemMenu.SetActive(true);
         buttonImage.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("Icons/" + selectedItem.name);
+        if (selectedItem.name.Equals(database.LoadHeadPiece()) || selectedItem.name.Equals(database.LoadBodyPiece()) || selectedItem.name.Equals(database.LoadLowerPiece()))
+        {
+            GameObject.Find("InventoryConfirmationText").GetComponent<Text>().text = "Do you want to unequip this item?";
+            GameObject.Find("InventoryButtonText").GetComponent<Text>().text = "UNEQUIP";
+            isEquiped = true;
+        }
+        else 
+        {
+            GameObject.Find("InventoryConfirmationText").GetComponent<Text>().text = "Do you want to equip this item?";
+            GameObject.Find("InventoryButtonText").GetComponent<Text>().text = "EQUIP";
+            isEquiped = false;
+        }
 
         EnableButtons(false);
     }
@@ -119,10 +134,68 @@ public class InventoryManager : MonoBehaviour
 
     public void EquipItemHandler()
     {
-        
+        if (!isEquiped)
+        {
+            if (selectedItem.name.Equals("Diving Goggles") || selectedItem.name.Equals("Cowboy Hat") || selectedItem.name.Equals("Straw Hat"))
+            {
+                if (!database.LoadHeadPiece().Equals("none"))
+                {
+                    GameObject.Find(database.LoadHeadPiece()).GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("NotInUse/" + database.LoadHeadPiece());
+                }
+                database.SaveHeadPiece(selectedItem.name);
+            }
+            else if (selectedItem.name.Equals("Floater") || selectedItem.name.Equals("Cowboy Shirt") || selectedItem.name.Equals("Hawaiian Shirt"))
+            {
+                if (!database.LoadBodyPiece().Equals("none"))
+                {
+                    GameObject.Find(database.LoadBodyPiece()).GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("NotInUse/" + database.LoadBodyPiece());
+                }
+                database.SaveBodyPiece(selectedItem.name);
+            }
+            else if (selectedItem.name.Equals("Swimming Fins") || selectedItem.name.Equals("Cowboy Boots") || selectedItem.name.Equals("Flip Flops"))
+            {
+                if (!database.LoadLowerPiece().Equals("none"))
+                {
+                    GameObject.Find(database.LoadLowerPiece()).GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("NotInUse/" + database.LoadLowerPiece());
+                }
+                database.SaveLowerPiece(selectedItem.name);
+            }
 
+            selectedItem.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("InUse/" + selectedItem.name);
+        }
+        else
+        {
+            if (selectedItem.name.Equals("Diving Goggles") || selectedItem.name.Equals("Cowboy Hat") || selectedItem.name.Equals("Straw Hat"))
+            {
+                selectedItem.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("NotInUse/" + selectedItem.name);
+                database.SaveHeadPiece("none");
+            }
+            else if (selectedItem.name.Equals("Floater") || selectedItem.name.Equals("Cowboy Shirt") || selectedItem.name.Equals("Hawaiian Shirt"))
+            {
+                selectedItem.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("NotInUse/" + selectedItem.name);
+                database.SaveBodyPiece("none");
+            }
+            else if (selectedItem.name.Equals("Swimming Fins") || selectedItem.name.Equals("Cowboy Boots") || selectedItem.name.Equals("Flip Flops"))
+            {
+                selectedItem.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("NotInUse/" + selectedItem.name);
+                database.SaveLowerPiece("none");
+            }
+        }
+        
         selectItemMenu.SetActive(false);
         EnableButtons(true);
+    }
+
+    private void UpdateItemSprite(GameObject newButton)
+    {
+        if (newButton.name.Equals(database.LoadHeadPiece()) || newButton.name.Equals(database.LoadBodyPiece()) || newButton.name.Equals(database.LoadLowerPiece()))
+        {
+            newButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("InUse/" + newButton.name);
+        }
+        else 
+        {
+            newButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("NotInUse/" + newButton.name);
+        }
     }
 
     public void CloseSelectItemMenuHandler()
