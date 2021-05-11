@@ -1,32 +1,32 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Services;
 
-public class RabbitCapture : MonoBehaviour
+namespace RabbitPursuit
 {
-
-    public static event Action<GameObject> OnEnemyCaptured;
-    PlayersScore scoreController;
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    public class RabbitCapture : MonoBehaviour
     {
-        if(collision.gameObject.tag == "Rabbit")
+
+        public static event Action<GameObject> OnEnemyCaptured;
+        PlayersScore scoreController;
+
+
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            //Destroy(collision.gameObject);
-            //ServiceLocator.Instance.GetService<>
+            if(collision.gameObject.tag == "Rabbit")
+            {
+                //Destroy(collision.gameObject);
+                //ServiceLocator.Instance.GetService<>
             
-            collision.gameObject.SetActive(false);
-            scoreController.P2ScorePoints(1);
-            OnEnemyCaptured?.Invoke(collision.gameObject);
+                collision.gameObject.SetActive(false);
+                scoreController.P2ScorePoints(1);
+                OnEnemyCaptured?.Invoke(collision.gameObject);
+            }
         }
-    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        scoreController = GameObject.Find("ScoreController").GetComponent<PlayersScore>();
+        // Start is called before the first frame update
+        void Start()
+        {
+            scoreController = GameObject.Find("ScoreController").GetComponent<PlayersScore>();
+        }
     }
 }

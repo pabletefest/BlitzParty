@@ -1,4 +1,5 @@
-﻿using Services;
+﻿using RabbitPursuit;
+using Services;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -76,6 +77,7 @@ public class PanelHandler : MonoBehaviour
         orientationManager.ChangeScreenPortrait(true);
         SceneManager.LoadScene("MainMenu");
         ServiceLocator.Instance.GetService<IObjectPooler>().ClearAllPools();
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
         //SceneManager.UnloadSceneAsync("RabbitPursuit");
     }
 
@@ -106,14 +108,17 @@ public class PanelHandler : MonoBehaviour
         if (winner == Results.PLAYER1WIN)
         {
             resultTitle.sprite = victoryImage;
+            ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("Win");
         }
         else if (winner == Results.PLAYER1LOSE)
         {
             resultTitle.sprite = defeatImage;
+            ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("Lose");
         }
         else
         {
             resultTitle.sprite = drawImage;
+            ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("Draw");
         }
     }
     

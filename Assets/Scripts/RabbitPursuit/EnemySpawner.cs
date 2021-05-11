@@ -1,50 +1,50 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using Services;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class EnemySpawner : MonoBehaviour
+namespace RabbitPursuit
 {
-    public static event Action<GameObject> OnEnemySpawn;
-
-    [SerializeField]
-    private GameObject[] spawnPoints;
-
-    [SerializeField]
-    private GameObject enemyPrefab;
-
-    [SerializeField]
-    private float initialSpawnTime = 5f;
-
-    private float spawnTime;
-    
-    [SerializeField]
-    private float decreasingRate = 0.2f;
-
-    private float time;
-    private const float minimumSpawnTime = 2f;
-
-    private ITimer chronometerService;
-
-    private IObjectPooler objectPoolerService;
-
-    
-    private void OnEnable()
+    public class EnemySpawner : MonoBehaviour
     {
-        //MainMenu.OnRabbitPursuitLoaded += SceneLoaded;
-        ResetRabbitPursuit.OnSceneRestarted += SceneRestarted;
-    }
+        public static event Action<GameObject> OnEnemySpawn;
 
+        [SerializeField]
+        private GameObject[] spawnPoints;
 
-    private void OnDisable()
-    {
-        //MainMenu.OnRabbitPursuitLoaded -= SceneLoaded;
-        ResetRabbitPursuit.OnSceneRestarted -= SceneRestarted;
-    }
+        [SerializeField]
+        private GameObject enemyPrefab;
+
+        [SerializeField]
+        private float initialSpawnTime = 5f;
+
+        private float spawnTime;
     
-    /*
+        [SerializeField]
+        private float decreasingRate = 0.2f;
+
+        private float time;
+        private const float minimumSpawnTime = 2f;
+
+        private ITimer chronometerService;
+
+        private IObjectPooler objectPoolerService;
+
+    
+        private void OnEnable()
+        {
+            //MainMenu.OnRabbitPursuitLoaded += SceneLoaded;
+            ResetRabbitPursuit.OnSceneRestarted += SceneRestarted;
+        }
+
+
+        private void OnDisable()
+        {
+            //MainMenu.OnRabbitPursuitLoaded -= SceneLoaded;
+            ResetRabbitPursuit.OnSceneRestarted -= SceneRestarted;
+        }
+    
+        /*
     private void SceneLoaded()
     {
         objectPoolerService.InstanciatePools();
@@ -52,79 +52,80 @@ public class EnemySpawner : MonoBehaviour
     }
     */
 
-    private void SceneRestarted(string activeScene)
-    {
-        objectPoolerService.DisableObjectsInPool(activeScene);
-        RestartTimings();
-    }
-
-    private void Awake()
-    {
-        chronometerService = ServiceLocator.Instance.GetService<ITimer>();
-        objectPoolerService = ServiceLocator.Instance.GetService<IObjectPooler>();
-        RestartTimings();
-    }
-
-    private void Start()
-    {
-        //objectPoolerService.RemovePoolFromDictionary(SceneManager.GetActiveScene().name);
-        objectPoolerService.InstanciatePool(SceneManager.GetActiveScene().name);
-        SpawnEnemy(1); //Initial spawn
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (time > 0)
+        private void SceneRestarted(string activeScene)
         {
-            time -= Time.deltaTime;
+            objectPoolerService.DisableObjectsInPool(activeScene);
+            RestartTimings();
         }
-        else
+
+        private void Awake()
         {
-            if (spawnTime > minimumSpawnTime)
-            {
-                spawnTime -= decreasingRate;
-            }
+            chronometerService = ServiceLocator.Instance.GetService<ITimer>();
+            objectPoolerService = ServiceLocator.Instance.GetService<IObjectPooler>();
+            RestartTimings();
+        }
 
-            time = spawnTime;
+        private void Start()
+        {
+            //objectPoolerService.RemovePoolFromDictionary(SceneManager.GetActiveScene().name);
+            objectPoolerService.InstanciatePool(SceneManager.GetActiveScene().name);
+            SpawnEnemy(1); //Initial spawn
+        }
 
-            float totalChronometerTime = chronometerService.GetTotalTime();
-            float chronometerTime = chronometerService.GetCurrentTime();
-            
-            Debug.Log($"Total chronometer time: {totalChronometerTime}");
-            Debug.Log($"Current chronometer time: {chronometerTime}");
-
-            if (chronometerTime >= totalChronometerTime / 2)
+        // Update is called once per frame
+        void Update()
+        {
+            if (time > 0)
             {
-                int numberOfEnemies = UnityEngine.Random.Range(1,3);
-                SpawnEnemy(numberOfEnemies);
-            }
-            else if (chronometerTime >= totalChronometerTime / 6)
-            {
-                int numberOfEnemies = UnityEngine.Random.Range(1,4);
-                SpawnEnemy(numberOfEnemies);
+                time -= Time.deltaTime;
             }
             else
             {
-                int numberOfEnemies = UnityEngine.Random.Range(2,5);
-                SpawnEnemy(numberOfEnemies);
+                if (spawnTime > minimumSpawnTime)
+                {
+                    spawnTime -= decreasingRate;
+                }
+
+                time = spawnTime;
+
+                float totalChronometerTime = chronometerService.GetTotalTime();
+                float chronometerTime = chronometerService.GetCurrentTime();
+            
+                Debug.Log($"Total chronometer time: {totalChronometerTime}");
+                Debug.Log($"Current chronometer time: {chronometerTime}");
+
+                if (chronometerTime >= totalChronometerTime / 2)
+                {
+                    int numberOfEnemies = UnityEngine.Random.Range(1,3);
+                    SpawnEnemy(numberOfEnemies);
+                }
+                else if (chronometerTime >= totalChronometerTime / 6)
+                {
+                    int numberOfEnemies = UnityEngine.Random.Range(1,4);
+                    SpawnEnemy(numberOfEnemies);
+                }
+                else
+                {
+                    int numberOfEnemies = UnityEngine.Random.Range(2,5);
+                    SpawnEnemy(numberOfEnemies);
+                }
             }
         }
-    }
 
-    private void SpawnEnemy(int numberOfEnemies)
-    {
-        for (int i = 0; i < numberOfEnemies; i++)
+        private void SpawnEnemy(int numberOfEnemies)
         {
-            int randomSpot = UnityEngine.Random.Range(0, spawnPoints.Length);
-            //GameObject enemy = Instantiate(enemyPrefab, spawnPoints[randomSpot].transform.position, Quaternion.identity);
-            GameObject enemy = objectPoolerService.SpawnFromPool("RabbitPursuit", spawnPoints[randomSpot].transform.position, Quaternion.identity);
-            OnEnemySpawn?.Invoke(enemy);
+            for (int i = 0; i < numberOfEnemies; i++)
+            {
+                int randomSpot = UnityEngine.Random.Range(0, spawnPoints.Length);
+                //GameObject enemy = Instantiate(enemyPrefab, spawnPoints[randomSpot].transform.position, Quaternion.identity);
+                GameObject enemy = objectPoolerService.SpawnFromPool("RabbitPursuit", spawnPoints[randomSpot].transform.position, Quaternion.identity);
+                OnEnemySpawn?.Invoke(enemy);
+            }
         }
-    }
-    private void RestartTimings()
-    {
-        spawnTime = initialSpawnTime;
-        time = spawnTime;
+        private void RestartTimings()
+        {
+            spawnTime = initialSpawnTime;
+            time = spawnTime;
+        }
     }
 }

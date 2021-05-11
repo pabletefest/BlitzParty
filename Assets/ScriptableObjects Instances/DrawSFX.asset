@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15adaf5cc691c7c4db67b7f7eeb0f032, type: 3}
-  m_Name: MainTheme Sound
+  m_Name: DrawSFX
   m_EditorClassIdentifier: 
-  Name: MainTheme
-  Clip: {fileID: 8300000, guid: 841f6d03b998209499ad2035089f46f8, type: 3}
-  Volume: 0.25
+  Name: Draw
+  Clip: {fileID: 8300000, guid: 40485d978e56e054ca8ca7108bec1735, type: 3}
+  Volume: 1
   Pitch: 1
-  Loop: 1
-  IsMainTheme: 1
+  Loop: 0
+  IsMainTheme: 0

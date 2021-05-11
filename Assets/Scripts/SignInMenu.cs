@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Services;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -13,6 +15,11 @@ public class SignInMenu : MonoBehaviour
 
     [SerializeField]
     private Text errorText;
+
+    private void Awake()
+    {
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
+    }
 
     public void SignInHandler()
     {

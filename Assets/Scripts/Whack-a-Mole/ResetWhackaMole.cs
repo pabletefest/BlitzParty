@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using System;
 using Services;
 
@@ -10,6 +9,11 @@ public class ResetWhackaMole : MonoBehaviour
     [SerializeField]
     private PlayersScore scoreController;
 
+    private void Awake()
+    {
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMinigameTheme("Whack-a-moleTheme");
+    }
+    
     public void ResetGame()
     {
         scoreController.ResetWhackAMoleScore();

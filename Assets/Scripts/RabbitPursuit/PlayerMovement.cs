@@ -1,105 +1,106 @@
 ﻿using Services;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+namespace RabbitPursuit
 {
-
-	[SerializeField]
-	private Animator animator;
-
-	public CharacterController controller;
-	public FloatingJoystick floatingJoystick;
-	Animator m_Animator;
-
-	public float runSpeed = 40f;
-
-	float horizontalMove = 0f;
-	float verticalMove = 0f;
-
-	bool touchingRabbit = false;
-
-	PlayersScore scoreController;
-
-	GameObject objectCollided;
-
-    private void Start()
-    {
-		m_Animator = gameObject.GetComponent<Animator>();
-		scoreController = GameObject.Find("ScoreController").GetComponent<PlayersScore>();
-	}
-	// Update is called once per frame
-	void Update()
+	public class PlayerMovement : MonoBehaviour
 	{
-		if (floatingJoystick.Horizontal >= .2f)
+
+		[SerializeField]
+		private Animator animator;
+
+		public CharacterController controller;
+		public FloatingJoystick floatingJoystick;
+		Animator m_Animator;
+
+		public float runSpeed = 40f;
+
+		float horizontalMove = 0f;
+		float verticalMove = 0f;
+
+		bool touchingRabbit = false;
+
+		PlayersScore scoreController;
+
+		GameObject objectCollided;
+
+		private void Start()
 		{
-			horizontalMove = runSpeed;
+			m_Animator = gameObject.GetComponent<Animator>();
+			scoreController = GameObject.Find("ScoreController").GetComponent<PlayersScore>();
 		}
-		else if (floatingJoystick.Horizontal <= -.2f)
+		// Update is called once per frame
+		void Update()
 		{
-			horizontalMove = -runSpeed;
-		}
-		else
-		{
-			horizontalMove = 0f;
+			if (floatingJoystick.Horizontal >= .2f)
+			{
+				horizontalMove = runSpeed;
+			}
+			else if (floatingJoystick.Horizontal <= -.2f)
+			{
+				horizontalMove = -runSpeed;
+			}
+			else
+			{
+				horizontalMove = 0f;
+			}
+
+			if (floatingJoystick.Vertical >= .2f)
+			{
+				verticalMove = runSpeed;
+			}
+			else if (floatingJoystick.Vertical <= -.2f)
+			{
+				verticalMove = -runSpeed;
+			}
+			else
+			{
+				verticalMove = 0f;
+			}
+
+			if (horizontalMove != 0f)
+			{
+				m_Animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+			}
+			else
+			{
+				m_Animator.SetFloat("Speed", Mathf.Abs(verticalMove));
+			}
+
 		}
 
-		if (floatingJoystick.Vertical >= .2f)
+		void FixedUpdate()
 		{
-			verticalMove = runSpeed;
+			controller.Move(horizontalMove * Time.fixedDeltaTime, verticalMove * Time.fixedDeltaTime);
 		}
-		else if (floatingJoystick.Vertical <= -.2f)
+		private void OnTriggerEnter2D(Collider2D collision)
 		{
-			verticalMove = -runSpeed;
-		}
-		else
-		{
-			verticalMove = 0f;
-		}
-
-		if (horizontalMove != 0f)
-		{
-			m_Animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
-		}
-		else
-		{
-			m_Animator.SetFloat("Speed", Mathf.Abs(verticalMove));
+			if (collision.gameObject.CompareTag("Rabbit"))
+			{
+				touchingRabbit = true;
+			}
+			objectCollided = collision.gameObject;
 		}
 
+		private void OnTriggerExit2D(Collider2D collision)
+		{
+			if (collision.gameObject.CompareTag("Rabbit"))
+			{
+				touchingRabbit = false;
+			}
+			objectCollided = null;
+		}
+
+		public void CatchButtonHandler()
+		{
+			animator.SetTrigger("Catching");
+			ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("NetSwing");
+			if (touchingRabbit)
+			{
+				//Destroy(objectCollided);
+				objectCollided.SetActive(false);
+				scoreController.P1ScorePoints(1);
+			}
+		}
 	}
-
-	void FixedUpdate()
-	{
-		controller.Move(horizontalMove * Time.fixedDeltaTime, verticalMove * Time.fixedDeltaTime);
-	}
-	private void OnTriggerEnter2D(Collider2D collision)
-	{
-		if (collision.gameObject.tag == "Rabbit")
-		{
-			touchingRabbit = true;
-		}
-		objectCollided = collision.gameObject;
-	}
-
-	private void OnTriggerExit2D(Collider2D collision)
-    {
-		if (collision.gameObject.tag == "Rabbit")
-		{
-			touchingRabbit = false;
-		}
-		objectCollided = null;
-    }
-
-	public void CatchButtonHandler()
-    {
-		animator.SetTrigger("Catching");
-		ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("NetSwing");
-		if (touchingRabbit)
-        {
-			//Destroy(objectCollided);
-			objectCollided.SetActive(false);
-			scoreController.P1ScorePoints(1);
-		}
-    }
 }

@@ -3,6 +3,7 @@ namespace Services
     public interface ISoundAdapter
     {
         void PlayMainTheme();
+        void PlayMinigameTheme(string name);
         void PlaySoundFX(string name);
         void Stop(string name);
         void StopMainTheme();

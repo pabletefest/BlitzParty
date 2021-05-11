@@ -168,6 +168,11 @@ MonoBehaviour:
   sounds:
   - {fileID: 11400000, guid: 9683291ecedc88d4ab4e4b3ac7327a6c, type: 2}
   - {fileID: 11400000, guid: 2126cbda45aadde4ba49a6375eb6ca44, type: 2}
+  - {fileID: 11400000, guid: 65fd7a9bc73f77448bbe6051f70aa5fd, type: 2}
+  - {fileID: 11400000, guid: c92acade557a04b41ae168ae017a72d7, type: 2}
+  - {fileID: 11400000, guid: b752c9f62c1e6d1448c2201210e1717e, type: 2}
+  - {fileID: 11400000, guid: 74ed093f93d13fb44b8eab3440b0772c, type: 2}
+  - {fileID: 11400000, guid: 8c0c07c2a1b80eb4f91d4a9d3e56886f, type: 2}
   mainThemesSource: {fileID: 962103920}
   soundFXSource: {fileID: 962103919}
   pools:

@@ -6,21 +6,18 @@ namespace Services
     public class AudioController : ISoundAdapter
     {
         private Sound[] sounds;
-        private AudioSource mainThemeSource;
+        private AudioSource mainThemesSource;
         private AudioSource soundFXSource;
 
-        public AudioController(Sound[] sounds, AudioSource mainThemeSource, AudioSource soundFXSource)
+        public AudioController(Sound[] sounds, AudioSource mainThemesSource, AudioSource soundFXSource)
         {
             this.sounds = sounds;
-            this.mainThemeSource = mainThemeSource;
+            this.mainThemesSource = mainThemesSource;
             this.soundFXSource = soundFXSource;
 
-            Sound mainThemeSound = Array.Find(sounds, sound => sound.IsMainTheme);
-            mainThemeSource.clip = mainThemeSound.Clip;
-            mainThemeSource.volume = mainThemeSound.Volume;
-            mainThemeSource.pitch = mainThemeSound.Pitch;
-            mainThemeSource.loop = mainThemeSound.Loop;
+            SetMainTheme();
         }
+
         public bool CheckIsPlaying(string name)
         {
             if (name == null) return false;
@@ -41,12 +38,30 @@ namespace Services
 
         public bool CheckMainThemePlaying()
         {
-            return mainThemeSource.isPlaying;
+            return mainThemesSource.isPlaying;
         }
 
         public void PlayMainTheme()
         {
-            if (!mainThemeSource.isPlaying) mainThemeSource.Play();
+            mainThemesSource.Stop();
+            SetMainTheme();
+            mainThemesSource.Play();
+        }
+
+        public void PlayMinigameTheme(string name)
+        {
+            if (name == null) return;
+
+            Sound themeSelected = Array.Find(sounds, sound => sound.Name == name);
+
+            if (themeSelected == null)
+            {
+                Debug.LogWarning("Theme: " + name + " not found.");
+                return;
+            }
+
+            SetThemeFX(themeSelected);
+            mainThemesSource.Play();
         }
 
         public void PlaySoundFX(string name)
@@ -55,7 +70,7 @@ namespace Services
 
             Sound soundSelected = Array.Find(sounds, sound => sound.Name == name);
 
-            if (soundSelected == null) 
+            if (soundSelected == null)
             {
                 Debug.LogWarning("Sound: " + name + " not found.");
                 return;
@@ -86,24 +101,24 @@ namespace Services
             return;
         }
         */
-        
+
             if (!isPlaying)
             {
                 Debug.LogWarning("Sound: " + name + " not found.");
                 return;
             }
-        
+
             soundFXSource.Stop();
         }
 
         public void StopMainTheme()
         {
-            if (mainThemeSource.isPlaying) mainThemeSource.Stop();
+            if (mainThemesSource.isPlaying) mainThemesSource.Stop();
         }
 
         public void StopPlayingAll()
         {
-            mainThemeSource.Stop();
+            mainThemesSource.Stop();
             soundFXSource.Stop();
         }
 
@@ -114,6 +129,24 @@ namespace Services
             soundFXSource.volume = sound.Volume;
             soundFXSource.pitch = sound.Pitch;
             soundFXSource.loop = sound.Loop;
+        }
+
+        private void SetThemeFX(Sound sound)
+        {
+            mainThemesSource.name = sound.Name;
+            mainThemesSource.clip = sound.Clip;
+            mainThemesSource.volume = sound.Volume;
+            mainThemesSource.pitch = sound.Pitch;
+            mainThemesSource.loop = sound.Loop;
+        }
+
+        private void SetMainTheme()
+        {
+            Sound mainThemeSound = Array.Find(sounds, sound => sound.IsMainTheme);
+            mainThemesSource.clip = mainThemeSound.Clip;
+            mainThemesSource.volume = mainThemeSound.Volume;
+            mainThemesSource.pitch = mainThemeSound.Pitch;
+            mainThemesSource.loop = mainThemeSound.Loop;
         }
     }
 }

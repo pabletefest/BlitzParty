@@ -89,7 +89,6 @@ public class MainMenu : MonoBehaviour
 
     private void Awake()
     {
-        ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
         acornLabel.text = database.LoadAcorns().ToString();
         usernameLabel.text = database.LoadUsername();
         SetZoomyItems();

@@ -1,41 +1,44 @@
 ﻿using System;
 using System.Collections;
-using UnityEngine;
 using Services;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class RabbitHide : MonoBehaviour
+namespace RabbitPursuit
 {
-    public static event Action<GameObject> OnEnemyHidden;
-    private IObjectPooler objectPooler;
-    private bool isSpawnHole;
-
-    private void Awake()
+    public class RabbitHide : MonoBehaviour
     {
-        objectPooler = ServiceLocator.Instance.GetService<IObjectPooler>();
-        isSpawnHole = true;
-    }
+        public static event Action<GameObject> OnEnemyHidden;
+        private IObjectPooler objectPooler;
+        private bool isSpawnHole;
 
-    private void OnEnable()
-    {
-        StartCoroutine(DisableColliderSpawnHole());        
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.CompareTag("Hole") && !isSpawnHole)
+        private void Awake()
         {
-            OnEnemyHidden?.Invoke(gameObject);
-            objectPooler.DisableObject(gameObject.name, SceneManager.GetActiveScene().name);
+            objectPooler = ServiceLocator.Instance.GetService<IObjectPooler>();
+            isSpawnHole = true;
         }
-    }
 
-    private IEnumerator DisableColliderSpawnHole()
-    {
-        isSpawnHole = true;
+        private void OnEnable()
+        {
+            StartCoroutine(DisableColliderSpawnHole());        
+        }
 
-        yield return new WaitForSeconds(1f);
+        void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.gameObject.CompareTag("Hole") && !isSpawnHole)
+            {
+                OnEnemyHidden?.Invoke(gameObject);
+                objectPooler.DisableObject(gameObject.name, SceneManager.GetActiveScene().name);
+            }
+        }
 
-        isSpawnHole = false;
+        private IEnumerator DisableColliderSpawnHole()
+        {
+            isSpawnHole = true;
+
+            yield return new WaitForSeconds(1f);
+
+            isSpawnHole = false;
+        }
     }
 }

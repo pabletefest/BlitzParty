@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15adaf5cc691c7c4db67b7f7eeb0f032, type: 3}
-  m_Name: MainTheme Sound
+  m_Name: RabbitPursuit Theme
   m_EditorClassIdentifier: 
-  Name: MainTheme
-  Clip: {fileID: 8300000, guid: 841f6d03b998209499ad2035089f46f8, type: 3}
+  Name: RabbitPursuitTheme
+  Clip: {fileID: 8300000, guid: 335c895461a275d4da1415687e95fe58, type: 3}
   Volume: 0.25
   Pitch: 1
   Loop: 1
-  IsMainTheme: 1
+  IsMainTheme: 0
