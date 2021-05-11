@@ -87,6 +87,19 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private GameObject lowerItem;
 
+    [SerializeField]
+    private GameObject transitionScreen;
+
+    [SerializeField]
+    private Slider slider;
+
+    [SerializeField]
+    private Text percentageText;
+
+    private int progress;
+
+    private string nextScene;
+
     private void Awake()
     {
         acornLabel.text = database.LoadAcorns().ToString();
@@ -196,19 +209,38 @@ public class MainMenu : MonoBehaviour
 
 
     public void StartRabbitPursuitGame()
-    {       
-        SceneManager.LoadScene("RabbitPursuit");
-        orientationManager.ChangeScreenPortrait(false);
-        //AsyncOperation asyncScene = SceneManager.LoadSceneAsync("RabbitPursuit", LoadSceneMode.Additive);
-        //asyncScene.allowSceneActivation = true;
-        //SceneManager.UnloadSceneAsync("MainMenu");
-        //StartCoroutine(nameof(ActivateRabbitPursuitScene), asyncScene);
+    {
+        nextScene = "RabbitPursuit";
+        StartTransition();
     }
 
     public void StartWhackAMoleGame()
-    {      
-        SceneManager.LoadScene("Whack-a-Mole");
+    {
+        nextScene = "Whack-a-Mole";
+        StartTransition();
+    }
+
+    private void StartTransition()
+    {
         orientationManager.ChangeScreenPortrait(false);
+        transitionScreen.SetActive(true);
+        progress = 0;
+        InvokeRepeating("UpdateProgress", 0.05f, 0.05f);
+    }
+
+    void UpdateProgress()
+    {
+        if (progress < 100)
+        {
+            progress++;
+            slider.value = progress;
+            percentageText.text = progress.ToString() + " %";
+            Debug.Log(slider.value);
+        }
+        else 
+        {
+            SceneManager.LoadScene(nextScene);
+        }
     }
 
     private void SetZoomyItems()
@@ -242,16 +274,4 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    /*
-    private IEnumerator ActivateRabbitPursuitScene(AsyncOperation asyncSceneLoad)
-    {
-        while(!asyncSceneLoad.isDone)
-        {
-            yield return null;
-        }
-
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName("RabbitPursuit"));
-        OnRabbitPursuitLoaded?.Invoke();
-    }
-    */
 }
