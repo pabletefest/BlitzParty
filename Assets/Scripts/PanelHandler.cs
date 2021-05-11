@@ -3,6 +3,7 @@ using Services;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using WhackAMole;
 
 public class PanelHandler : MonoBehaviour
 {

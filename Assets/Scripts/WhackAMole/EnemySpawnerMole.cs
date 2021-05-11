@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using Services;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class EnemySpawnerZoomy : MonoBehaviour
+namespace WhackAMole
 {
-    private readonly string POOL_ZOOMYMOLE = "Whack-a-mole Zoomy";
+    public class EnemySpawnerMole : MonoBehaviour
+{
+    private readonly string POOL_MOLE = "Whack-a-mole Normal Mole";
     public static event Action<GameObject> OnEnemySpawn;
 
     [SerializeField]
@@ -20,12 +20,12 @@ public class EnemySpawnerZoomy : MonoBehaviour
     private float initialSpawnTime = 5f;
 
     private float spawnTime;
-
+    
     [SerializeField]
     private float decreasingRate = 0.2f;
 
     private float time;
-    private const float minimumSpawnTime = 2f;
+    private const float minimumSpawnTime = 0.75f;
 
     private ITimer chronometerService;
 
@@ -57,7 +57,7 @@ public class EnemySpawnerZoomy : MonoBehaviour
 
     private void SceneRestarted()
     {
-        objectPoolerService.DisableObjectsInPool(POOL_ZOOMYMOLE);
+        objectPoolerService.DisableObjectsInPool(POOL_MOLE);
         RestartTimings();
     }
 
@@ -70,8 +70,8 @@ public class EnemySpawnerZoomy : MonoBehaviour
 
     private void Start()
     {
-        //objectPoolerService.RemovePoolFromDictionary(SceneManager.GetActiveScene().name);
-        objectPoolerService.InstanciatePool(POOL_ZOOMYMOLE);
+       //objectPoolerService.RemovePoolFromDictionary(SceneManager.GetActiveScene().name);
+        objectPoolerService.InstanciatePool(POOL_MOLE);
         holeAvailability = CheckHoleAvailability.Instance;
         //SpawnEnemy(1); //Initial spawn
     }
@@ -104,12 +104,12 @@ public class EnemySpawnerZoomy : MonoBehaviour
             }
             else if (chronometerTime >= totalChronometerTime / 6)
             {
-                int numberOfEnemies = 1;
+                int numberOfEnemies = UnityEngine.Random.Range(1,2);
                 SpawnEnemy(numberOfEnemies);
             }
             else
             {
-                int numberOfEnemies = UnityEngine.Random.Range(1,2);
+                int numberOfEnemies = UnityEngine.Random.Range(1,3);
                 SpawnEnemy(numberOfEnemies);
             }
         }
@@ -120,21 +120,21 @@ public class EnemySpawnerZoomy : MonoBehaviour
         for (int i = 0; i < numberOfEnemies; i++)
         {
             int randomSpot = UnityEngine.Random.Range(0, spawnPoints.Length);
-            if (!holeAvailability.AllOccupiedSpawn()) 
+            if (!holeAvailability.AllOccupiedSpawn())
             {
                 while (holeAvailability.IsOccupiedSpawn(spawnPoints[randomSpot]))
                 {
                     randomSpot = UnityEngine.Random.Range(0, spawnPoints.Length);
-                    Debug.Log("Zoomy " + randomSpot + " " + holeAvailability.IsOccupied(randomSpot));
+                    Debug.Log("Mole " + randomSpot + " " + holeAvailability.IsOccupied(randomSpot));
                 }
                 holeAvailability.OccupyHoleSpawn(spawnPoints[randomSpot]);
-                GameObject enemy = objectPoolerService.SpawnFromPool(POOL_ZOOMYMOLE, spawnPoints[randomSpot].transform.position, Quaternion.identity);
+                GameObject enemy = objectPoolerService.SpawnFromPool(POOL_MOLE, spawnPoints[randomSpot].transform.position, Quaternion.identity);
                 StartCoroutine(LiberateHole(spawnPoints, randomSpot));
             }
             //GameObject enemy = Instantiate(enemyPrefab, spawnPoints[randomSpot].transform.position, Quaternion.identity);
             
-            //enemy.GetComponent<Animator>().SetTrigger("ZoomyRestart");
-            //OnEnemySpawn?.Invoke(enemy);            
+            //enemy.GetComponent<Animator>().SetTrigger("MoleRestart");
+            //OnEnemySpawn?.Invoke(enemy);      
         }
     }
 
@@ -143,10 +143,11 @@ public class EnemySpawnerZoomy : MonoBehaviour
         yield return new WaitForSeconds(2f);
         holeAvailability.LiberateHoleSpawn(spawnPoints[randomSpot]);
     }
-
     private void RestartTimings()
     {
         spawnTime = initialSpawnTime;
         time = spawnTime;
     }
 }
+}
+
