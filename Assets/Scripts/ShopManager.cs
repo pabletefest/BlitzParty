@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System;
 
 public class ShopManager : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class ShopManager : MonoBehaviour
 
     [SerializeField]
     private GameObject confirmationMenu;
+
+    [SerializeField]
+    public GameObject errorText;
 
     [SerializeField]
     private Button item1;
@@ -54,6 +58,7 @@ public class ShopManager : MonoBehaviour
 
     [SerializeField]
     public Button profileButton;
+
 
     private GameObject selectedItem;
 
@@ -105,9 +110,19 @@ public class ShopManager : MonoBehaviour
     public void PurchaseItemHandler()
     {
         string itemName = selectedItem.name;
-        PurchaseItem(itemName);
-        confirmationMenu.SetActive(false);
-        EnableButtons(true);
+        int itemCost = Int32.Parse(selectedItem.GetComponentInChildren<Text>().text);
+        errorText.SetActive(false);
+        if (database.LoadAcorns() >= itemCost)
+        {
+            database.SaveAcorns(database.LoadAcorns() - itemCost);
+            PurchaseItem(itemName);
+            confirmationMenu.SetActive(false);
+            EnableButtons(true);
+        }
+        else 
+        {
+            errorText.SetActive(true);
+        }
     }
 
     private void PurchaseItem(string itemName)
