@@ -96,6 +96,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private Text percentageText;
 
+    [SerializeField]
+    private Text messageText;
+
     private int progress;
 
     private string nextScene;
@@ -222,10 +225,24 @@ public class MainMenu : MonoBehaviour
 
     private void StartTransition()
     {
+        UpdateMessageText();
         orientationManager.ChangeScreenPortrait(false);
         transitionScreen.SetActive(true);
         progress = 0;
         InvokeRepeating("UpdateProgress", 0.05f, 0.05f);
+    }
+
+    private void UpdateMessageText()
+    {
+        switch (nextScene)
+        {
+            case "RabbitPursuit":
+                messageText.text = "A plague of Binkies has been found in the forest clearing.  What a great opportunity to have a little duel. Let's see who catches the most Binkies!";
+                break;
+            case "Whack-a-Mole":
+                messageText.text = "Something has made the moles act aggressive. Smack them with the hammer when they come out of their burrows but watch out for the Zoomies!";
+                break;
+        }
     }
 
     void UpdateProgress()
