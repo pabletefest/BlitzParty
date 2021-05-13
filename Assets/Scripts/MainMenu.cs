@@ -105,6 +105,7 @@ public class MainMenu : MonoBehaviour
 
     private void Awake()
     {
+        Time.timeScale = 1;
         acornLabel.text = database.LoadAcorns().ToString();
         usernameLabel.text = database.LoadUsername();
         SetZoomyItems();
@@ -256,6 +257,8 @@ public class MainMenu : MonoBehaviour
         }
         else 
         {
+            CancelInvoke("UpdateProgress");
+            transitionScreen.SetActive(false);
             SceneManager.LoadScene(nextScene);
         }
     }
