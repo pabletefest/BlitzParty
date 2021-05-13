@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Whack-a-Mole.unity
     guid: 5a6ef0b7332bb4a4a8540a2f368aaccf
+  - enabled: 1
+    path: Assets/Scenes/CowboyDuel.unity
+    guid: 24b8dd2b371a65b4dbca8de5103526d4
   m_configObjects: {}

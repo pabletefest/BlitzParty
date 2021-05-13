@@ -173,6 +173,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b752c9f62c1e6d1448c2201210e1717e, type: 2}
   - {fileID: 11400000, guid: 74ed093f93d13fb44b8eab3440b0772c, type: 2}
   - {fileID: 11400000, guid: 8c0c07c2a1b80eb4f91d4a9d3e56886f, type: 2}
+  - {fileID: 11400000, guid: 5731fcaea29928e4c856d14589428a6f, type: 2}
+  - {fileID: 11400000, guid: 5f6e91967697e98458e477d7e822965b, type: 2}
   mainThemesSource: {fileID: 962103920}
   soundFXSource: {fileID: 962103919}
   pools:

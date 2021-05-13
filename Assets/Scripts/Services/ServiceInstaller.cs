@@ -38,6 +38,7 @@ namespace Services
 
             //SceneManager.LoadScene("RabbitPursuit", LoadSceneMode.Additive);
             SceneManager.LoadScene("Login");
+            //SceneManager.LoadScene("CowboyDuel");
         }
     }
 }
