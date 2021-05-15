@@ -11,7 +11,6 @@ namespace CowboyDuel
         [SerializeField] private Animator playerAnimator;
         
         private bool canShoot;
-        private bool playerClicked;
 
         private float timeSinceReady;
 
@@ -42,6 +41,8 @@ namespace CowboyDuel
                 
                 #if UNITY_EDITOR
 
+                    bool playerClicked = CheckPlayerClick();
+                    
                     if (playerClicked)
                     {
                         Shoot();
@@ -64,7 +65,6 @@ namespace CowboyDuel
         {
             playerAnimator.SetTrigger("Shoot");
             canShoot = false;
-            playerClicked = false;
             OnShot?.Invoke(gameObject.tag, timeSinceReady);
             Debug.Log("Player shot");
         }
@@ -85,30 +85,21 @@ namespace CowboyDuel
             return false;
         }
 
-        private void OnMouseDown()
-        {
-            playerClicked = true;
-            Debug.Log("Player clicked the screen");
-        }
-
         private bool CheckPlayerClick()
         {
             if (Input.GetMouseButtonDown(0))
             {
                 Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-                if (Physics2D.Raycast(ray, out RaycastHit2D hit, Mathf.Infinity))
+                RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
+                
+                if (hit.collider.CompareTag("Background"))
                 {
-                    if (hit.collider.gameObject.name == "YourGameObjectName")
-                    {
-                        //Perform action here.
-                    }
-                    //Or use 
-                    if (hit.collider.CompareTag("YourGameObjectTag"))
-                    {
-                        //Perform action here.
-                    }
+                    return true;
+                    Debug.Log("Player clicked the screen");
                 }
             }
+
+            return false;
         }
     }
 }
