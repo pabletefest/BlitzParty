@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: HitMole
   Clip: {fileID: 8300000, guid: 1cf3aa21f707ed24493b3ff733b5acf0, type: 3}
-  Volume: 1
+  Volume: 0.5
   Pitch: 1
   Loop: 0
   IsMainTheme: 0

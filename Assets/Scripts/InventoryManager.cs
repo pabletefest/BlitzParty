@@ -167,7 +167,7 @@ public class InventoryManager : MonoBehaviour
         }
         else
         {
-            ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("UnequipItemFX");
+            ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("UnequipItemSFX");
             if (selectedItem.name.Equals("Diving Goggles") || selectedItem.name.Equals("Cowboy Hat") || selectedItem.name.Equals("Straw Hat"))
             {
                 selectedItem.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("NotInUse/" + selectedItem.name);
