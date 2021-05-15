@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
+using Services;
 
 public class ShopManager : MonoBehaviour
 {
@@ -114,6 +115,7 @@ public class ShopManager : MonoBehaviour
         errorText.SetActive(false);
         if (database.LoadAcorns() >= itemCost)
         {
+            ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("BuyItemSFX");
             database.SaveAcorns(database.LoadAcorns() - itemCost);
             PurchaseItem(itemName);
             confirmationMenu.SetActive(false);

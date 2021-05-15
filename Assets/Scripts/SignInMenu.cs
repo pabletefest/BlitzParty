@@ -23,6 +23,7 @@ public class SignInMenu : MonoBehaviour
 
     public void SignInHandler()
     {
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
         string username = usernameText.text;
         if (!username.Equals(""))
         {
@@ -40,6 +41,7 @@ public class SignInMenu : MonoBehaviour
 
     public void RegisterHandler()
     {
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
         int id = database.LoadTotalUsers() + 1;
         string username = usernameText.text;
 

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: NetSwing
   Clip: {fileID: 8300000, guid: cfacf4530a9969a429b7cb2498d7f85c, type: 3}
-  Volume: 1
+  Volume: 0.5
   Pitch: 1
   Loop: 0
   IsMainTheme: 0
