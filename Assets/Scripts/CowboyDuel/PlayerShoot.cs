@@ -15,6 +15,8 @@ namespace CowboyDuel
         private float timeSinceReady;
 
         private Camera mainCamera;
+        
+        private float limitShootTime = 3f;
 
         private void OnEnable()
         {
@@ -35,11 +37,13 @@ namespace CowboyDuel
         // Update is called once per frame
         void Update()
         {
+
             if (canShoot)
             {
+                
                 timeSinceReady += Time.deltaTime;
                 
-                #if UNITY_EDITOR
+                /*#if UNITY_EDITOR
 
                     bool playerClicked = CheckPlayerClick();
                     
@@ -48,7 +52,7 @@ namespace CowboyDuel
                         Shoot();
                     }
 
-                #else
+                    #else
 
                     bool isMobileDeviceTouch = CheckPlayerTouch();
                 
@@ -57,7 +61,18 @@ namespace CowboyDuel
                         Shoot();
                     }
 
-                #endif
+                    #endif*/
+
+                
+                if(limitShootTime > 0)
+                {
+                    limitShootTime -= Time.deltaTime;
+                } 
+                else
+                {
+                    Debug.Log("Auto shoot");
+                    Shoot();
+                }
             }
         }
 

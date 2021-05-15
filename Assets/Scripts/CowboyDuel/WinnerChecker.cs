@@ -12,6 +12,8 @@ public class WinnerChecker : MonoBehaviour
     
     [SerializeField] private PlayerShoot playerShoot;
     [SerializeField] private EnemyShoot enemyShoot;
+    [SerializeField] private Animator playerAnimator;
+    [SerializeField] private Animator enemyAnimator;
 
     private bool playerShot;
     private float playerTime;
@@ -54,11 +56,13 @@ public class WinnerChecker : MonoBehaviour
             {
                 int newPoint = Int32.Parse(p1Score.text) + 1;
                 p1Score.text = newPoint.ToString();
+                //enemyAnimator.SetTrigger("Death");
             }
             else if (playerTime > enemyTime)
             {
                 int newPoint = Int32.Parse(p2Score.text) + 1;
                 p2Score.text = newPoint.ToString();
+                playerAnimator.SetTrigger("Death");
             }
             else
             {
@@ -75,7 +79,10 @@ public class WinnerChecker : MonoBehaviour
                     p2Score.text = newPoint.ToString();
                 }
             }
+            playerShot = false;
+            enemyShot = false;
         }
+        
     }
 
     // Update is called once per frame
