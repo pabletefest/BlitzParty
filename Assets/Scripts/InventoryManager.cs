@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Services;
 
 public class InventoryManager : MonoBehaviour
 {
@@ -136,6 +137,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (!isEquiped)
         {
+            ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("EquipItemSFX");
             if (selectedItem.name.Equals("Diving Goggles") || selectedItem.name.Equals("Cowboy Hat") || selectedItem.name.Equals("Straw Hat"))
             {
                 if (!database.LoadHeadPiece().Equals("none"))
@@ -165,6 +167,7 @@ public class InventoryManager : MonoBehaviour
         }
         else
         {
+            ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("UnequipItemFX");
             if (selectedItem.name.Equals("Diving Goggles") || selectedItem.name.Equals("Cowboy Hat") || selectedItem.name.Equals("Straw Hat"))
             {
                 selectedItem.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("NotInUse/" + selectedItem.name);
