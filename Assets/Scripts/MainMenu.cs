@@ -99,6 +99,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private Text messageText;
 
+    [SerializeField]
+    private GameObject panel;
+
     private int progress;
 
     private string nextScene;
@@ -128,6 +131,7 @@ public class MainMenu : MonoBehaviour
         mainButton.enabled = true;
         friendsButton.enabled = true;
         profileButton.enabled = true;
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
     }
 
     public void ShowZoomyTab()
@@ -139,6 +143,7 @@ public class MainMenu : MonoBehaviour
         mainButton.enabled = true;
         friendsButton.enabled = true;
         profileButton.enabled = true;
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
     }
 
     public void ShowMainTab()
@@ -150,6 +155,7 @@ public class MainMenu : MonoBehaviour
         zoomyButton.enabled = true;
         friendsButton.enabled = true;
         profileButton.enabled = true;
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
     }
 
     public void ShowFriendsTab()
@@ -160,6 +166,7 @@ public class MainMenu : MonoBehaviour
         zoomyButton.enabled = true;
         mainButton.enabled = true;
         profileButton.enabled = true;
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
     }
 
     public void ShowProfileTab()
@@ -170,6 +177,7 @@ public class MainMenu : MonoBehaviour
         zoomyButton.enabled = true;
         mainButton.enabled = true;
         friendsButton.enabled = true;
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
     }
 
     public void SettingsTab()
@@ -184,6 +192,7 @@ public class MainMenu : MonoBehaviour
             settingsMenu.SetActive(true);
             ButtonsEnabled(false);
         }
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
     }
 
     public void ButtonsEnabled(bool enabled)
@@ -209,18 +218,21 @@ public class MainMenu : MonoBehaviour
             levelsMenu.SetActive(true);
             ButtonsEnabled(false);
         }
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
     }
 
 
     public void StartRabbitPursuitGame()
     {
         nextScene = "RabbitPursuit";
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
         StartTransition();
     }
 
     public void StartWhackAMoleGame()
     {
         nextScene = "Whack-a-Mole";
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
         StartTransition();
     }
 
@@ -229,6 +241,7 @@ public class MainMenu : MonoBehaviour
         UpdateMessageText();
         orientationManager.ChangeScreenPortrait(false);
         transitionScreen.SetActive(true);
+        panel.SetActive(false);
         progress = 0;
         InvokeRepeating("UpdateProgress", 0.05f, 0.05f);
     }
