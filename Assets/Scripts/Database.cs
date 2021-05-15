@@ -126,4 +126,14 @@ public class Database : MonoBehaviour
         return PlayerPrefs.GetString("user" + LoadCurrentUser().Substring(4) + "lowerPiece", "none");
     }
 
+    public void SavePlayerWins(int wins)
+    {
+        PlayerPrefs.SetInt("wins" + LoadCurrentUser().Substring(4), wins);
+    }
+
+    public int LoadPlayerWins()
+    {
+        return PlayerPrefs.GetInt("wins" + LoadCurrentUser().Substring(4));
+    }
+
 }

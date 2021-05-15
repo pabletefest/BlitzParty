@@ -91,7 +91,6 @@ public class PanelHandler : MonoBehaviour
         //joystick.GetComponent<FloatingJoystick>().enabled = false;
         joystick.GetComponent<Canvas>().enabled = false;
         catchButton.SetActive(false);
-        DestroyRemainingHammers();
         CheckResult(scoreController.FindWinner());
         acornsText.text = earnAcorns.CalculateAcornsEarned("RabbitPursuit").ToString();
     }

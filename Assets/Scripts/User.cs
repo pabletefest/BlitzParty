@@ -13,12 +13,15 @@ public class User
 
     private List<Item> itemsPurchased;
 
+    private int wins;
+
     public User(int id)
     {
         this.id = id;
         this.username = "";
         this.acorns = 0;
-        itemsPurchased = new List<Item>();
+        this.itemsPurchased = new List<Item>();
+        this.wins = 0;
     }
 
     public User(int id, string username)
@@ -26,7 +29,8 @@ public class User
         this.id = id;
         this.username = username;
         this.acorns = 0;
-        itemsPurchased = new List<Item>();
+        this.itemsPurchased = new List<Item>();
+        this.wins = 0;
     }
 
     public User(int id, string username, int acorns)
@@ -34,7 +38,8 @@ public class User
         this.id = id;
         this.username = username;
         this.acorns = acorns;
-        itemsPurchased = new List<Item>();
+        this.itemsPurchased = new List<Item>();
+        this.wins = 0;
     }
 
     public int getId()
@@ -70,6 +75,16 @@ public class User
     public void AddItem(Item newItem)
     {
         this.itemsPurchased.Add(newItem);
+    }
+
+    public int getWins()
+    {
+        return this.wins;
+    }
+
+    public void setWins(int newWins)
+    {
+        this.wins = newWins;
     }
 
 }
