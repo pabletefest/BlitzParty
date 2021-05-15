@@ -1007,7 +1007,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &103466976
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3559,7 +3559,6 @@ MonoBehaviour:
   orientationManager: {fileID: 435670713}
   database: {fileID: 435670714}
   acornLabel: {fileID: 388054557}
-  usernameLabel: {fileID: 0}
   inventoryManager: {fileID: 1374046211}
   headItem: {fileID: 1412410802}
   bodyItem: {fileID: 1612331322}
