@@ -111,7 +111,6 @@ public class MainMenu : MonoBehaviour
         Time.timeScale = 1;
         acornLabel.text = database.LoadAcorns().ToString();
         SetZoomyItems();
-        fakeTransition.SetActive(false);
     }
 
     public void HideTabs() 
@@ -259,7 +258,6 @@ public class MainMenu : MonoBehaviour
                 fakeTransition.GetComponent<Image>().sprite = Resources.Load<Sprite>("FakeTransition/WhackAMoleTransition");
                 break;
         }
-        fakeTransition.SetActive(true);
     }
 
     void UpdateProgress()
@@ -275,6 +273,7 @@ public class MainMenu : MonoBehaviour
         {
             CancelInvoke("UpdateProgress");
             transitionScreen.SetActive(false);
+            fakeTransition.SetActive(true);
             SceneManager.LoadScene(nextScene);
         }
     }
