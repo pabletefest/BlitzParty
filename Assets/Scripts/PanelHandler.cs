@@ -55,6 +55,7 @@ public class PanelHandler : MonoBehaviour
 
     public void RestartButtonHandler()
     {
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
         string sceneName = SceneManager.GetActiveScene().name;
         switch (sceneName)
         {
@@ -75,6 +76,7 @@ public class PanelHandler : MonoBehaviour
 
     public void MenuButtonHandler()
     {
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
         orientationManager.ChangeScreenPortrait(true);
         SceneManager.LoadScene("MainMenu");
         ServiceLocator.Instance.GetService<IObjectPooler>().ClearAllPools();
