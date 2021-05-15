@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Services;
 
 namespace WhackAMole
 {
@@ -23,6 +24,7 @@ namespace WhackAMole
                 hammerInUse = true;
                 Touch touch = Input.GetTouch(0);
                 Vector3 touchPosition = GetTouchPosition(touch);
+                ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("HammerSwing");
                 Instantiate(hammerPrefab, touchPosition, Quaternion.identity);
                 StartCoroutine(FreeHammer());
             }
