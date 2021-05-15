@@ -102,6 +102,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private GameObject panel;
 
+    [SerializeField]
+    private GameObject fakeTransition;
+
     private int progress;
 
     private string nextScene;
@@ -252,11 +255,14 @@ public class MainMenu : MonoBehaviour
         {
             case "RabbitPursuit":
                 messageText.text = "A plague of Binkies has been found in the forest clearing.  What a great opportunity to have a little duel. Let's see who catches the most Binkies!";
+                fakeTransition.GetComponent<Image>().sprite = Resources.Load<Sprite>("FakeTransition/RabbitPursuitTransition");
                 break;
             case "Whack-a-Mole":
                 messageText.text = "Something has made the moles act aggressive. Smack them with the hammer when they come out of their burrows but watch out for the Zoomies!";
+                fakeTransition.GetComponent<Image>().sprite = Resources.Load<Sprite>("FakeTransition/WhackAMoleTransition");
                 break;
         }
+        fakeTransition.SetActive(true);
     }
 
     void UpdateProgress()

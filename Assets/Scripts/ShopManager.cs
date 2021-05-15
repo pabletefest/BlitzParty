@@ -60,6 +60,9 @@ public class ShopManager : MonoBehaviour
     [SerializeField]
     public Button profileButton;
 
+    [SerializeField]
+    private Text acornLabel;
+
 
     private GameObject selectedItem;
 
@@ -106,6 +109,7 @@ public class ShopManager : MonoBehaviour
     {
         confirmationMenu.SetActive(false);
         EnableButtons(true);
+        errorText.SetActive(false);
     }
 
     public void PurchaseItemHandler()
@@ -117,6 +121,7 @@ public class ShopManager : MonoBehaviour
         {
             ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("BuyItemSFX");
             database.SaveAcorns(database.LoadAcorns() - itemCost);
+            acornLabel.text = database.LoadAcorns().ToString();
             PurchaseItem(itemName);
             confirmationMenu.SetActive(false);
             EnableButtons(true);
