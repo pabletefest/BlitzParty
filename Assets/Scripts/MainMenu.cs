@@ -73,9 +73,6 @@ public class MainMenu : MonoBehaviour
     private Text acornLabel;
 
     [SerializeField]
-    private Text usernameLabel;
-
-    [SerializeField]
     private InventoryManager inventoryManager;
 
     [SerializeField]
@@ -113,8 +110,8 @@ public class MainMenu : MonoBehaviour
     {
         Time.timeScale = 1;
         acornLabel.text = database.LoadAcorns().ToString();
-        usernameLabel.text = database.LoadUsername();
         SetZoomyItems();
+        fakeTransition.SetActive(false);
     }
 
     public void HideTabs() 
