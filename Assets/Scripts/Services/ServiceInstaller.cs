@@ -37,8 +37,8 @@ namespace Services
             ServiceLocator.Instance.RegisterService<IObjectPooler>(objectPoolerService);
 
             //SceneManager.LoadScene("RabbitPursuit", LoadSceneMode.Additive);
-            SceneManager.LoadScene("Login");
-            //SceneManager.LoadScene("CowboyDuel");
+            //SceneManager.LoadScene("Login");
+            SceneManager.LoadScene("CowboyDuel");
         }
     }
 }

@@ -12,6 +12,7 @@ TagManager:
   - Mole
   - ZoomyWhackAMole
   - Hammer
+  - CountdownUI
   layers:
   - Default
   - TransparentFX
