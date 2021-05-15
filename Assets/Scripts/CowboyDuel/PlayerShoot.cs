@@ -15,6 +15,8 @@ namespace CowboyDuel
 
         private float timeSinceReady;
 
+        private Camera mainCamera;
+
         private void OnEnable()
         {
             countdownUI.OnCountdownOver += ShootingTime;
@@ -24,6 +26,11 @@ namespace CowboyDuel
         private void OnDisable()
         {
             countdownUI.OnCountdownOver -= ShootingTime;
+        }
+
+        void Awake()
+        {
+            mainCamera = Camera.main;
         }
 
         // Update is called once per frame
@@ -82,6 +89,26 @@ namespace CowboyDuel
         {
             playerClicked = true;
             Debug.Log("Player clicked the screen");
+        }
+
+        private bool CheckPlayerClick()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+                if (Physics2D.Raycast(ray, out RaycastHit2D hit, Mathf.Infinity))
+                {
+                    if (hit.collider.gameObject.name == "YourGameObjectName")
+                    {
+                        //Perform action here.
+                    }
+                    //Or use 
+                    if (hit.collider.CompareTag("YourGameObjectTag"))
+                    {
+                        //Perform action here.
+                    }
+                }
+            }
         }
     }
 }
