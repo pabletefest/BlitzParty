@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: CowboyDuelTheme
   Clip: {fileID: 8300000, guid: db6197d381d9fe643a7b186c0ca448f9, type: 3}
-  Volume: 0.1
+  Volume: 0.2
   Pitch: 1
   Loop: 1
   IsMainTheme: 0
