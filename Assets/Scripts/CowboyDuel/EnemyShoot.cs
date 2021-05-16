@@ -28,7 +28,7 @@ public class EnemyShoot : MonoBehaviour, IShootable
     private void ShootingTime()
     {
         canShoot = true;
-        shootTime = UnityEngine.Random.Range(0.25f, 1f);
+        shootTime = UnityEngine.Random.Range(0.2f, 0.4f);
         remainingTime = shootTime;
         Debug.Log("Enemy can shoot now");
     }

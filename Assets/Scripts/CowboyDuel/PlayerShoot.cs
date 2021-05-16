@@ -43,7 +43,7 @@ namespace CowboyDuel
                 
                 timeSinceReady += Time.deltaTime;
                 
-                /*#if UNITY_EDITOR
+                #if UNITY_EDITOR
 
                     bool playerClicked = CheckPlayerClick();
                     
@@ -61,7 +61,7 @@ namespace CowboyDuel
                         Shoot();
                     }
 
-                    #endif*/
+                    #endif
 
                 
                 if(limitShootTime > 0)

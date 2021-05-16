@@ -56,7 +56,7 @@ public class WinnerChecker : MonoBehaviour
             {
                 int newPoint = Int32.Parse(p1Score.text) + 1;
                 p1Score.text = newPoint.ToString();
-                //enemyAnimator.SetTrigger("Death");
+                enemyAnimator.SetTrigger("Death");
             }
             else if (playerTime > enemyTime)
             {
