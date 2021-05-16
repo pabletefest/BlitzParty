@@ -62,6 +62,11 @@ public class MainMenu : MonoBehaviour
     private Button whackamoleButton;
 
     //Other fields
+    [SerializeField]
+    private Slider musicSlider;
+
+    [SerializeField]
+    private Slider sfxSlider;
 
     [SerializeField]
     private OrientationManager orientationManager;
@@ -207,6 +212,8 @@ public class MainMenu : MonoBehaviour
         }
         else
         {
+            musicSlider.value = database.LoadMusicVolume();
+            sfxSlider.value = database.LoadSFXVolume();
             settingsMenu.SetActive(true);
             ButtonsEnabled(false);
         }

@@ -186,4 +186,24 @@ public class Database : MonoBehaviour
         return PlayerPrefs.GetInt("user" + LoadCurrentUser().Substring(4) + "cowboyDuelWins", 0);
     }
 
+    public void SaveMusicVolume(float musicVolume)
+    {
+        PlayerPrefs.SetFloat("user" + LoadCurrentUser().Substring(4) + "musicVolume", musicVolume);
+    }
+
+    public float LoadMusicVolume()
+    {
+        return PlayerPrefs.GetFloat("user" + LoadCurrentUser().Substring(4) + "musicVolume", 1f);
+    }
+
+    public void SaveSFXVolume(float sfxVolume)
+    {
+        PlayerPrefs.SetFloat("user" + LoadCurrentUser().Substring(4) + "sfxVolume", sfxVolume);
+    }
+
+    public float LoadSFXVolume()
+    {
+        return PlayerPrefs.GetFloat("user" + LoadCurrentUser().Substring(4) + "sfxVolume", 1f);
+    }
+
 }
