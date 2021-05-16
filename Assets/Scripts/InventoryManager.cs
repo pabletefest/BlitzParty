@@ -49,41 +49,49 @@ public class InventoryManager : MonoBehaviour
         itemsList = database.LoadItemsList();
         int itemsCount = 0;
         GameObject newButton;
-        float buttonYPos = 3;
+        float buttonYPos = 2.9f;
         float panelYPos = 0;
-        float spaceToAdd = 0.75f;
+        float spaceToAdd = 0;
 
         foreach (RectTransform child in inventoryList.GetComponent<RectTransform>())
         {
             Destroy(child.gameObject);
         }
 
+        float additionalSpace = 0;
+        float additionalSpace2 = 0;
+        if (itemsList.Count > 6)
+        {
+            additionalSpace = (itemsList.Count - 6) * 0.15f;
+            additionalSpace2 = (itemsList.Count - 6) * 0.05f;
+        }
+
+        RectTransform rectTransform = inventoryList.GetComponent<RectTransform>();
+        rectTransform.sizeDelta = new Vector3(4.65f, 6.8f + itemsList.Count - 5.9f + additionalSpace, 0);
+        panelYPos -= 150*(itemsList.Count - 6f) + 1000*additionalSpace;
+        rectTransform.localPosition = new Vector3(0, panelYPos, 0);
+
         foreach (Item item in itemsList)
         {
             //When we have more than 7 items, the itemsList has to be enlarged
-            if (itemsCount >= 7)
+            if (itemsCount >= 6)
             {
-                Debug.Log("------------------We are in >= 7");
-                RectTransform rectTransform = inventoryList.GetComponent<RectTransform>();
-                rectTransform.sizeDelta = new Vector3(4, 6.8f + itemsCount - 6f, 0);
-                panelYPos -= 150;
-                rectTransform.localPosition = new Vector3(0, panelYPos, 0);
-
                 newButton = (GameObject)Instantiate(buttonPrefab);
                 newButton.name = item.GetName();
                 newButton.transform.SetParent(inventoryList.transform, false);
                 UpdateItemSprite(newButton);
                 newButton.GetComponentInChildren<Button>().onClick.AddListener(SelectItemHandler);
                 RectTransform rt = newButton.GetComponentInChildren<RectTransform>();
-                rt.anchoredPosition = new Vector3(0, buttonYPos, 0);
-                buttonYPos -= 0.5f;
+                rt.localPosition = new Vector3(0, buttonYPos, 0);
+                buttonYPos -= 1.15f;
                 itemsCount++;
 
                 foreach (RectTransform child in inventoryList.GetComponent<RectTransform>())
                 {
-                    child.localPosition = new Vector3(0, child.position.y + spaceToAdd, 0);
+                    child.localPosition = new Vector3(0, child.localPosition.y + 0.55f, 0);
                 }
-                spaceToAdd += 0.5f;
+                rt.localPosition = new Vector3(0, rt.localPosition.y + spaceToAdd, 0);
+                spaceToAdd += 0.55f;
             }
             else 
             {
@@ -91,11 +99,10 @@ public class InventoryManager : MonoBehaviour
                 newButton.name = item.GetName();
                 newButton.transform.SetParent(inventoryList.transform, false);
                 UpdateItemSprite(newButton);
-                //newButton.GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("InUse/" + newButton.name);
                 newButton.GetComponentInChildren<Button>().onClick.AddListener(SelectItemHandler);
                 RectTransform rt = newButton.GetComponentInChildren<RectTransform>();
                 rt.localPosition = new Vector3(0, buttonYPos, 0);
-                buttonYPos -= 1;
+                buttonYPos -= 1.15f;
                 itemsCount++;
             }
 
