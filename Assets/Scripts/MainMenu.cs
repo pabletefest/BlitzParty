@@ -134,6 +134,8 @@ public class MainMenu : MonoBehaviour
         Time.timeScale = 1;
         acornLabel.text = database.LoadAcorns().ToString();
         SetZoomyItems();
+        musicSlider.value = database.LoadMusicVolume();
+        sfxSlider.value = database.LoadSFXVolume();
     }
 
     public void HideTabs() 

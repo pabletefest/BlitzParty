@@ -20,6 +20,11 @@ public class EarnAcorns : MonoBehaviour
         UpdateAcorns(CalculateAcornsEarned("WhackAMole"));
     }
 
+    public void AcornsCowboyDuel()
+    {
+        UpdateAcorns(CalculateAcornsEarned("CowboyDuel"));
+    }
+
     private void UpdateAcorns(int acornsEarned)
     {
         database.SaveAcorns(database.LoadAcorns() + acornsEarned);
@@ -36,6 +41,10 @@ public class EarnAcorns : MonoBehaviour
 
             case "WhackAMole":
                 moreAcorns = (int)Math.Floor(playersScore.GetP1Score() * 0.25);
+                break;
+
+            case "CowboyDuel":
+                moreAcorns = 10;
                 break;
         }
         int acornsEarned = 0;
