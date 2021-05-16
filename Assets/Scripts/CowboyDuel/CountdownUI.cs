@@ -34,6 +34,7 @@ public class CountdownUI : MonoBehaviour
 
     public IEnumerator StartCountdown()
     {
+
         countdownText.gameObject.SetActive(true);
         
         countdownText.text = Mathf.Ceil(time).ToString();
@@ -56,11 +57,15 @@ public class CountdownUI : MonoBehaviour
         }
         
         shootLabel.SetActive(true);
-        
+
         if (time <= 0f)
         {
             time = 0f;
             OnCountdownOver?.Invoke();
         }
+
+        countdownText.gameObject.SetActive(false);
+
+        time = startingTime;
     }
 }

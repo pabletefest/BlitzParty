@@ -920,6 +920,8 @@ MonoBehaviour:
   enemyShoot: {fileID: 1419581544}
   playerAnimator: {fileID: 578918191}
   enemyAnimator: {fileID: 1419581543}
+  gameCountdown: {fileID: 1298039566}
+  shootLabel: {fileID: 382356813}
 --- !u!4 &317213061
 Transform:
   m_ObjectHideFlags: 0
@@ -3004,6 +3006,7 @@ MonoBehaviour:
   drawImage: {fileID: 21300000, guid: 5496354b8d204b2419758a55f7bc08ce, type: 3}
   earnAcorns: {fileID: 0}
   acornsText: {fileID: 205905649}
+  database: {fileID: 0}
   resetRabbitPursuitController: {fileID: 0}
   joystick: {fileID: 0}
   catchButton: {fileID: 0}

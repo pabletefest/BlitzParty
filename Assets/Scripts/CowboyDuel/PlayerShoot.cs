@@ -16,7 +16,7 @@ namespace CowboyDuel
 
         private Camera mainCamera;
         
-        private float limitShootTime = 3f;
+        private float limitShootTime = 1.2f;
 
         private void OnEnable()
         {
@@ -80,8 +80,11 @@ namespace CowboyDuel
         {
             playerAnimator.SetTrigger("Shoot");
             canShoot = false;
+            limitShootTime = 1.2f;
             OnShot?.Invoke(gameObject.tag, timeSinceReady);
+            timeSinceReady = 0;
             Debug.Log("Player shot");
+            
         }
     
         private void ShootingTime()

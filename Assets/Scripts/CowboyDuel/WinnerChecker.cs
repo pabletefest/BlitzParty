@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using CowboyDuel;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,11 +10,13 @@ public class WinnerChecker : MonoBehaviour
     
     [SerializeField] private Text p1Score;
     [SerializeField] private Text p2Score;
-    
+
     [SerializeField] private PlayerShoot playerShoot;
     [SerializeField] private EnemyShoot enemyShoot;
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private Animator enemyAnimator;
+    [SerializeField] private CountdownUI gameCountdown;
+    [SerializeField] private GameObject shootLabel;
 
     private bool playerShot;
     private float playerTime;
@@ -81,6 +84,8 @@ public class WinnerChecker : MonoBehaviour
             }
             playerShot = false;
             enemyShot = false;
+
+            CheckEndGame();
         }
         
     }
@@ -88,15 +93,34 @@ public class WinnerChecker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckRoundWinner();
+    }
+
+    private IEnumerator FinishRound()
+    {
+        shootLabel.SetActive(false);
+        //show panel of winner
+        yield return new WaitForSeconds(3f);
+        //hide panel of winner
+        playerAnimator.SetTrigger("RoundFinish");
+        enemyAnimator.SetTrigger("RoundFinish");
+        //yield return new WaitForSeconds(4f);
+        //gameCountdown.StartCoroutine(gameCountdown.StartCountdown());
+    }
+
+    private void CheckEndGame()
+    {
         int player1Score = Int32.Parse(p1Score.text);
         int player2Score = Int32.Parse(p2Score.text);
 
-        if (player1Score == 2 || player2Score == 2)
+        if (player1Score < 2 && player2Score < 2)
+        {
+            StartCoroutine(FinishRound());
+        } 
+        else if (player1Score == 2 || player2Score == 2)
         {
             OnGameEnd?.Invoke();
             return;
         }
-        
-        CheckRoundWinner();
     }
 }
