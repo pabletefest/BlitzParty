@@ -236,8 +236,8 @@ public class MainMenu : MonoBehaviour
             levelsMenu.SetActive(true);
             minigameMenu.SetActive(true);
             battleMenu.SetActive(false);
-            allGamesButton.interactable = false;
-            battleButton.interactable = true;
+            allGamesButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("PlayMenu/ChooseGameMenuOption1Selected");
+            battleButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("PlayMenu/ChooseGameMenuOption2");
             ButtonsEnabled(false);
         }
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
@@ -247,16 +247,16 @@ public class MainMenu : MonoBehaviour
     {
         minigameMenu.SetActive(true);
         battleMenu.SetActive(false);
-        allGamesButton.interactable = false;
-        battleButton.interactable = true;
+        allGamesButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("PlayMenu/ChooseGameMenuOption1Selected");
+        battleButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("PlayMenu/ChooseGameMenuOption2");
     }
 
     public void battleButtonHandler()
     {
         minigameMenu.SetActive(false);
         battleMenu.SetActive(true);
-        allGamesButton.interactable = true;
-        battleButton.interactable = false;
+        allGamesButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("PlayMenu/ChooseGameMenuOption1");
+        battleButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("PlayMenu/ChooseGameMenuOption2Selected");
     }
 
     public void battlePlayButtonHandler()
