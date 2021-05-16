@@ -34,6 +34,9 @@ public class PanelHandler : MonoBehaviour
     [SerializeField]
     private Text acornsText;
 
+    [SerializeField]
+    private Database database;
+
     //RabbitPursuit attributes
 
     [SerializeField]
@@ -93,24 +96,27 @@ public class PanelHandler : MonoBehaviour
         //joystick.GetComponent<FloatingJoystick>().enabled = false;
         joystick.GetComponent<Canvas>().enabled = false;
         catchButton.SetActive(false);
-        CheckResult(scoreController.FindWinner());
+        CheckResult(scoreController.FindWinner(), "RabbitPursuit");
         acornsText.text = earnAcorns.CalculateAcornsEarned("RabbitPursuit").ToString();
+        database.AddPlayerRabbitPursuitGames();
     }
 
     public void ShowWhackAMolePanel()
     {
         gameObject.SetActive(true);
         DestroyRemainingHammers();
-        CheckResult(scoreController.FindWinner());
+        CheckResult(scoreController.FindWinner(), "WhackAMole");
         acornsText.text = earnAcorns.CalculateAcornsEarned("WhackAMole").ToString();
+        database.AddPlayerWhackAMoleGames();
     }
 
-    public void CheckResult(Results winner)
+    public void CheckResult(Results winner, string minigame)
     {
         if (winner == Results.PLAYER1WIN)
         {
             resultTitle.sprite = victoryImage;
             ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("Win");
+            UpdateWins(minigame);
         }
         else if (winner == Results.PLAYER1LOSE)
         {
@@ -121,6 +127,19 @@ public class PanelHandler : MonoBehaviour
         {
             resultTitle.sprite = drawImage;
             ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("Draw");
+        }
+    }
+
+    private void UpdateWins(string minigame)
+    {
+        switch (minigame)
+        {
+            case "RabbitPursuit":
+                database.AddPlayerRabbitPursuitWins();
+                break;
+            case "WhackAMole":
+                database.AddPlayerWhackAMoleWins();
+                break;
         }
     }
     

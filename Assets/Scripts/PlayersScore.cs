@@ -56,8 +56,8 @@ public class PlayersScore : MonoBehaviour
     {
         Player1Score.text = p1Score.ToString();
         Player2Score.text = p2Score.ToString();
-        Player1ScorePanel.text = Player1Score.text;
-        Player2ScorePanel.text = Player2Score.text;
+        Player1ScorePanel.text = p1Score.ToString();
+        Player2ScorePanel.text = p2Score.ToString();
 
     }
 

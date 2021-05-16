@@ -3521,6 +3521,7 @@ GameObject:
   - component: {fileID: 435670711}
   - component: {fileID: 435670713}
   - component: {fileID: 435670714}
+  - component: {fileID: 435670715}
   m_Layer: 0
   m_Name: MenuHandler
   m_TagString: Untagged
@@ -3569,6 +3570,7 @@ MonoBehaviour:
   messageText: {fileID: 517939343}
   panel: {fileID: 1189643096}
   fakeTransition: {fileID: 1178604091}
+  profileMenuHandler: {fileID: 435670715}
 --- !u!4 &435670712
 Transform:
   m_ObjectHideFlags: 0
@@ -3607,6 +3609,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8592bce7d0f77994796988953f291cb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &435670715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435670710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b51162065868313419fda44585a4b56a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  database: {fileID: 435670714}
+  username: {fileID: 118727351}
+  rabbitPursuitGames: {fileID: 783633704}
+  rabbitPursuitWins: {fileID: 492105697}
+  whackAMoleGames: {fileID: 1803836657}
+  whackAMoleWins: {fileID: 2124823743}
+  cowboyDuelGames: {fileID: 764489709}
+  cowboyDuelWins: {fileID: 1032066932}
 --- !u!1 &447563396
 GameObject:
   m_ObjectHideFlags: 0
@@ -8431,7 +8453,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 51, y: -102}
-  m_SizeDelta: {x: 170, y: 200}
+  m_SizeDelta: {x: 250, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1408763517
 MonoBehaviour:
@@ -8452,7 +8474,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5e4a4d8e3dcd5ee4ea126ea996a590bb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1f2b6ba076b69ad45945bad80330e04a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -102,6 +102,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private GameObject fakeTransition;
 
+    [SerializeField]
+    private ProfileMenuHandler profileMenuHandler;
+
     private int progress;
 
     private string nextScene;
@@ -171,6 +174,7 @@ public class MainMenu : MonoBehaviour
     public void ShowProfileTab()
     {
         profileMenu.SetActive(true);
+        profileMenuHandler.UpdateProfileData();
         profileButton.enabled = false;
         shopButton.enabled = true;
         zoomyButton.enabled = true;

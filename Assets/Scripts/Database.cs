@@ -126,14 +126,64 @@ public class Database : MonoBehaviour
         return PlayerPrefs.GetString("user" + LoadCurrentUser().Substring(4) + "lowerPiece", "none");
     }
 
-    public void SavePlayerWins(int wins)
+    public void AddPlayerRabbitPursuitGames()
     {
-        PlayerPrefs.SetInt("wins" + LoadCurrentUser().Substring(4), wins);
+        PlayerPrefs.SetInt("user" + LoadCurrentUser().Substring(4) + "rabbitPursuitGames", LoadPlayerRabbitPursuitGames() + 1);
     }
 
-    public int LoadPlayerWins()
+    public int LoadPlayerRabbitPursuitGames()
     {
-        return PlayerPrefs.GetInt("wins" + LoadCurrentUser().Substring(4));
+        return PlayerPrefs.GetInt("user" + LoadCurrentUser().Substring(4) + "rabbitPursuitGames", 0);
+    }
+
+    public void AddPlayerRabbitPursuitWins()
+    {
+        PlayerPrefs.SetInt("user" + LoadCurrentUser().Substring(4) + "rabbitPursuitWins", LoadPlayerRabbitPursuitWins() + 1);
+    }
+
+    public int LoadPlayerRabbitPursuitWins()
+    {
+        return PlayerPrefs.GetInt("user" + LoadCurrentUser().Substring(4) + "rabbitPursuitWins", 0);
+    }
+
+    public void AddPlayerWhackAMoleGames()
+    {
+        PlayerPrefs.SetInt("user" + LoadCurrentUser().Substring(4) + "whackAMoleGames", LoadPlayerWhackAMoleGames() + 1);
+    }
+
+    public int LoadPlayerWhackAMoleGames()
+    {
+        return PlayerPrefs.GetInt("user" + LoadCurrentUser().Substring(4) + "whackAMoleGames", 0);
+    }
+
+    public void AddPlayerWhackAMoleWins()
+    {
+        PlayerPrefs.SetInt("user" + LoadCurrentUser().Substring(4) + "whackAMoleWins", LoadPlayerWhackAMoleWins() + 1);
+    }
+
+    public int LoadPlayerWhackAMoleWins()
+    {
+        return PlayerPrefs.GetInt("user" + LoadCurrentUser().Substring(4) + "whackAMoleWins", 0);
+    }
+
+    public void AddPlayerCowboyDuelGames()
+    {
+        PlayerPrefs.SetInt("user" + LoadCurrentUser().Substring(4) + "cowboyDuelGames", LoadPlayerCowboyDuelGames() + 1);
+    }
+
+    public int LoadPlayerCowboyDuelGames()
+    {
+        return PlayerPrefs.GetInt("user" + LoadCurrentUser().Substring(4) + "cowboyDuelGames", 0);
+    }
+
+    public void AddPlayerCowboyDuelWins()
+    {
+        PlayerPrefs.SetInt("user" + LoadCurrentUser().Substring(4) + "cowboyDuelWins", LoadPlayerCowboyDuelWins() + 1);
+    }
+
+    public int LoadPlayerCowboyDuelWins()
+    {
+        return PlayerPrefs.GetInt("user" + LoadCurrentUser().Substring(4) + "cowboyDuelWins", 0);
     }
 
 }
