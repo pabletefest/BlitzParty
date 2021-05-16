@@ -105,6 +105,21 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private ProfileMenuHandler profileMenuHandler;
 
+    [SerializeField]
+    private Button allGamesButton;
+
+    [SerializeField]
+    private Button battleButton;
+
+    [SerializeField]
+    private Button playBattleButton;
+
+    [SerializeField]
+    private GameObject minigameMenu;
+
+    [SerializeField]
+    private GameObject battleMenu;
+
     private int progress;
 
     private string nextScene;
@@ -219,11 +234,35 @@ public class MainMenu : MonoBehaviour
         else
         {
             levelsMenu.SetActive(true);
+            minigameMenu.SetActive(true);
+            battleMenu.SetActive(false);
+            allGamesButton.interactable = false;
+            battleButton.interactable = true;
             ButtonsEnabled(false);
         }
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
     }
 
+    public void allMinigamesButtonHandler()
+    {
+        minigameMenu.SetActive(true);
+        battleMenu.SetActive(false);
+        allGamesButton.interactable = false;
+        battleButton.interactable = true;
+    }
+
+    public void battleButtonHandler()
+    {
+        minigameMenu.SetActive(false);
+        battleMenu.SetActive(true);
+        allGamesButton.interactable = true;
+        battleButton.interactable = false;
+    }
+
+    public void battlePlayButtonHandler()
+    { 
+        
+    }
 
     public void StartRabbitPursuitGame()
     {
