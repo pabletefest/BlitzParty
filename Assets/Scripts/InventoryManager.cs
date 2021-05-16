@@ -52,7 +52,6 @@ public class InventoryManager : MonoBehaviour
         float buttonYPos = 3;
         float panelYPos = 0;
         float spaceToAdd = 0.75f;
-        float itemsMultiplier = 0.5f;
 
         foreach (RectTransform child in inventoryList.GetComponent<RectTransform>())
         {
@@ -64,10 +63,10 @@ public class InventoryManager : MonoBehaviour
             //When we have more than 7 items, the itemsList has to be enlarged
             if (itemsCount >= 7)
             {
+                Debug.Log("------------------We are in >= 7");
                 RectTransform rectTransform = inventoryList.GetComponent<RectTransform>();
                 rectTransform.sizeDelta = new Vector3(4, 6.8f + itemsCount - 6f, 0);
                 panelYPos -= 150;
-                itemsMultiplier += 0.5f;
                 rectTransform.localPosition = new Vector3(0, panelYPos, 0);
 
                 newButton = (GameObject)Instantiate(buttonPrefab);
@@ -77,7 +76,7 @@ public class InventoryManager : MonoBehaviour
                 newButton.GetComponentInChildren<Button>().onClick.AddListener(SelectItemHandler);
                 RectTransform rt = newButton.GetComponentInChildren<RectTransform>();
                 rt.anchoredPosition = new Vector3(0, buttonYPos, 0);
-                buttonYPos -= 1;
+                buttonYPos -= 0.5f;
                 itemsCount++;
 
                 foreach (RectTransform child in inventoryList.GetComponent<RectTransform>())
