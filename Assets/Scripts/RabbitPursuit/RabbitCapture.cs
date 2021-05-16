@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Services;
 
 namespace RabbitPursuit
 {
@@ -16,7 +17,6 @@ namespace RabbitPursuit
             {
                 //Destroy(collision.gameObject);
                 //ServiceLocator.Instance.GetService<>
-            
                 collision.gameObject.SetActive(false);
                 scoreController.P2ScorePoints(1);
                 OnEnemyCaptured?.Invoke(collision.gameObject);

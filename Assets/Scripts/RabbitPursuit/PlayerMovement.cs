@@ -98,6 +98,7 @@ namespace RabbitPursuit
 			if (touchingRabbit)
 			{
 				//Destroy(objectCollided);
+				ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("CaptureBinkySFX");
 				objectCollided.SetActive(false);
 				scoreController.P1ScorePoints(1);
 			}

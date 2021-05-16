@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15adaf5cc691c7c4db67b7f7eeb0f032, type: 3}
-  m_Name: RabbitPursuit Theme
+  m_Name: CaptureBinkySFX
   m_EditorClassIdentifier: 
-  Name: RabbitPursuitTheme
-  Clip: {fileID: 8300000, guid: 335c895461a275d4da1415687e95fe58, type: 3}
-  Volume: 0.2
+  Name: CaptureBinkySFX
+  Clip: {fileID: 8300000, guid: 930db48012e7cad45b9609b19f9e574d, type: 3}
+  Volume: 0.5
   Pitch: 1
-  Loop: 1
+  Loop: 0
   IsMainTheme: 0
