@@ -184,6 +184,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 627f35b604896964a99a24484dcbb5f0, type: 2}
   - {fileID: 11400000, guid: 6e36c67c67b4927428c240104ad4d54c, type: 2}
   - {fileID: 11400000, guid: 64dfde02505f7dd4e97d080c65aaa7b2, type: 2}
+  - {fileID: 11400000, guid: ca02de23671429749a0751f88a7e430d, type: 2}
+  - {fileID: 11400000, guid: cdcf51bcf4945da4190e0b06b97faeef, type: 2}
   mainThemesSource: {fileID: 962103920}
   soundFXSource: {fileID: 962103919}
   pools:
