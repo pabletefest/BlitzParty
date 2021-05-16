@@ -10,6 +10,7 @@ public class WinnerChecker : MonoBehaviour
     
     [SerializeField] private Text p1Score;
     [SerializeField] private Text p2Score;
+    [SerializeField] private Text winnerLabel;
 
     [SerializeField] private PlayerShoot playerShoot;
     [SerializeField] private EnemyShoot enemyShoot;
@@ -60,12 +61,16 @@ public class WinnerChecker : MonoBehaviour
                 int newPoint = Int32.Parse(p1Score.text) + 1;
                 p1Score.text = newPoint.ToString();
                 enemyAnimator.SetTrigger("Death");
+                winnerLabel.text = "RED POINT";
+                winnerLabel.gameObject.SetActive(true);
             }
             else if (playerTime > enemyTime)
             {
                 int newPoint = Int32.Parse(p2Score.text) + 1;
                 p2Score.text = newPoint.ToString();
                 playerAnimator.SetTrigger("Death");
+                winnerLabel.text = "BLUE POINT";
+                winnerLabel.gameObject.SetActive(true);
             }
             else
             {
@@ -99,13 +104,13 @@ public class WinnerChecker : MonoBehaviour
     private IEnumerator FinishRound()
     {
         shootLabel.SetActive(false);
-        //show panel of winner
+
         yield return new WaitForSeconds(3f);
-        //hide panel of winner
+
+        winnerLabel.gameObject.SetActive(false);
+
         playerAnimator.SetTrigger("RoundFinish");
         enemyAnimator.SetTrigger("RoundFinish");
-        //yield return new WaitForSeconds(4f);
-        //gameCountdown.StartCoroutine(gameCountdown.StartCountdown());
     }
 
     private void CheckEndGame()
