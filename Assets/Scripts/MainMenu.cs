@@ -141,10 +141,19 @@ public class MainMenu : MonoBehaviour
     private void Awake()
     {
         Time.timeScale = 1;
-        acornLabel.text = database.LoadAcorns().ToString();
-        SetZoomyItems();
-        musicSlider.value = database.LoadMusicVolume();
-        sfxSlider.value = database.LoadSFXVolume();
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
+        if (!database.IsBattleMode())
+        {
+            acornLabel.text = database.LoadAcorns().ToString();
+            SetZoomyItems();
+            musicSlider.value = database.LoadMusicVolume();
+            sfxSlider.value = database.LoadSFXVolume();
+        }
+        else 
+        {
+            nextScene = database.LoadCurrentBattleMinigame();
+            StartTransition();
+        }
     }
 
     public void HideTabs() 
