@@ -147,61 +147,92 @@ public class MainMenu : MonoBehaviour
         profileMenu.SetActive(false);
     }
 
+    private void ResetButtonsSprites()
+    {
+        shopButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("ButtonMenu/Shop Button");
+        zoomyButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("ButtonMenu/Zoomy Button");
+        mainButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("ButtonMenu/Main Button");
+        friendsButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("ButtonMenu/Friends Button");
+        profileButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("ButtonMenu/Profile Button");
+    }
+
+    private void ButtonsEnabled(bool enabled)
+    {
+        shopButton.enabled = enabled;
+        zoomyButton.enabled = enabled;
+        mainButton.enabled = enabled;
+        friendsButton.enabled = enabled;
+        profileButton.enabled = enabled;
+    }
+
     public void ShowShopTab()
     {
-        shopMenu.SetActive(true);
+        ResetButtonsSprites();
+        shopButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("ButtonMenu/Shop Button Selected");
+
+        ButtonsEnabled(true);
         shopButton.enabled = false;
-        zoomyButton.enabled = true;
-        mainButton.enabled = true;
-        friendsButton.enabled = true;
-        profileButton.enabled = true;
+
+        shopMenu.SetActive(true);
+
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
     }
 
     public void ShowZoomyTab()
     {
-        zoomyMenu.SetActive(true);
-        inventoryManager.UpdateItemsList();
+        ResetButtonsSprites();
+        zoomyButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("ButtonMenu/Zoomy Button Selected");
+
+        ButtonsEnabled(true);
         zoomyButton.enabled = false;
-        shopButton.enabled = true;
-        mainButton.enabled = true;
-        friendsButton.enabled = true;
-        profileButton.enabled = true;
+
+        inventoryManager.UpdateItemsList();
+
+        zoomyMenu.SetActive(true);
+        
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
     }
 
     public void ShowMainTab()
     {
-        mainMenu.SetActive(true);
-        SetZoomyItems();
+        ResetButtonsSprites();
+        mainButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("ButtonMenu/Main Button Selected");
+
+        ButtonsEnabled(true);
         mainButton.enabled = false;
-        shopButton.enabled = true;
-        zoomyButton.enabled = true;
-        friendsButton.enabled = true;
-        profileButton.enabled = true;
+
+        SetZoomyItems();
+
+        mainMenu.SetActive(true);
+
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
     }
 
     public void ShowFriendsTab()
     {
-        friendsMenu.SetActive(true);
+        ResetButtonsSprites();
+        friendsButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("ButtonMenu/Friends Button Selected");
+
+        ButtonsEnabled(true);
         friendsButton.enabled = false;
-        shopButton.enabled = true;
-        zoomyButton.enabled = true;
-        mainButton.enabled = true;
-        profileButton.enabled = true;
+
+        friendsMenu.SetActive(true);
+        
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
     }
 
     public void ShowProfileTab()
     {
-        profileMenu.SetActive(true);
-        profileMenuHandler.UpdateProfileData();
+        ResetButtonsSprites();
+        profileButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("ButtonMenu/Profile Button Selected");
+
+        ButtonsEnabled(true);
         profileButton.enabled = false;
-        shopButton.enabled = true;
-        zoomyButton.enabled = true;
-        mainButton.enabled = true;
-        friendsButton.enabled = true;
+
+        profileMenuHandler.UpdateProfileData();
+
+        profileMenu.SetActive(true);
+        
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
     }
 
@@ -210,19 +241,19 @@ public class MainMenu : MonoBehaviour
         if (settingsMenu.activeSelf)
         {
             settingsMenu.SetActive(false);
-            ButtonsEnabled(true);
+            StartButtonsEnabled(true);
         }
         else
         {
             musicSlider.value = database.LoadMusicVolume();
             sfxSlider.value = database.LoadSFXVolume();
+            StartButtonsEnabled(false);
             settingsMenu.SetActive(true);
-            ButtonsEnabled(false);
         }
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
     }
 
-    public void ButtonsEnabled(bool enabled)
+    public void StartButtonsEnabled(bool enabled)
     {
         shopButton.interactable = enabled;
         zoomyButton.interactable = enabled;
@@ -238,7 +269,7 @@ public class MainMenu : MonoBehaviour
         if (levelsMenu.activeSelf)
         {
             levelsMenu.SetActive(false);
-            ButtonsEnabled(true);
+            StartButtonsEnabled(true);
         }
         else
         {
@@ -247,7 +278,7 @@ public class MainMenu : MonoBehaviour
             battleMenu.SetActive(false);
             allGamesButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("PlayMenu/ChooseGameMenuOption1Selected");
             battleButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("PlayMenu/ChooseGameMenuOption2");
-            ButtonsEnabled(false);
+            StartButtonsEnabled(false);
         }
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
     }
