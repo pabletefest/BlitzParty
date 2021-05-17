@@ -121,7 +121,7 @@ namespace CowboyDuel
             else if (player1Score == 2 || player2Score == 2)
             {
                 OnGameEnd?.Invoke();
-                return;
+                shootLabel.SetActive(false);
             }
         }
     }
