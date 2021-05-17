@@ -209,9 +209,9 @@ public class Database : MonoBehaviour
     public void ResetMinigames()
     {
         PlayerPrefs.SetInt("user" + LoadCurrentUser().Substring(4) + "currentBattleStage", 0);
-        PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(4) + "minigame1", "rabbitPursuit");
-        PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(4) + "minigame2", "whackAMole");
-        PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(4) + "minigame3", "cowboyDuel");
+        PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(4) + "minigame1", "RabbitPursuit");
+        PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(4) + "minigame2", "Whack-a-Mole");
+        PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(4) + "minigame3", "CowboyDuel");
     }
 
     public List<string> LoadMinigames()
@@ -244,6 +244,41 @@ public class Database : MonoBehaviour
     public void UpdateCurrentBattleStage()
     {
         PlayerPrefs.SetInt("user" + LoadCurrentUser().Substring(4) + "currentBattleStage", LoadCurrentBattleStage() + 1);
+    }
+
+    public string LoadCurrentBattleMinigame()
+    {
+        return PlayerPrefs.GetString("user" + LoadCurrentUser().Substring(4) + "currentBattleMinigame", "RabbitPursuit");
+    }
+
+    public void SaveCurrentBattleMinigame(string currentMinigame)
+    {
+        PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(4) + "currentBattleMinigamee", currentMinigame);
+    }
+
+    public bool IsBattleMode()
+    {
+        bool isBattleMode = false;
+
+        if (PlayerPrefs.GetInt("user" + LoadCurrentUser().Substring(4) + "isBattleMode", 0) == 1)
+        {
+            isBattleMode = true;
+        }
+
+        return isBattleMode;
+    }
+
+    public void SetIsBattleMode(bool isBattleMode)
+    {
+        if (isBattleMode)
+        {
+            PlayerPrefs.SetInt("user" + LoadCurrentUser().Substring(4) + "isBattleMode", 1);
+        }
+        else 
+        {
+            PlayerPrefs.SetInt("user" + LoadCurrentUser().Substring(4) + "isBattleMode", 0);
+        }
+
     }
 
 }
