@@ -33,9 +33,10 @@ namespace RabbitPursuit
 		void Update()
 		{
 			#if UNITY_EDITOR
-				CatchButtonHandler();
+				if(Input.GetKeyDown(KeyCode.Space))	
+					CatchButtonHandler();
 			#endif
-			
+
 			ControlJoystickInput();
 		}
 
