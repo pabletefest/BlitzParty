@@ -20,6 +20,7 @@ public class SignInMenu : MonoBehaviour
     {
         //ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMinigameTheme("LoginTheme");
+        database.SetIsBattleMode(false);
     }
 
     public void SignInHandler()
