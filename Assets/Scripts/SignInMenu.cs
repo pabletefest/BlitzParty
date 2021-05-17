@@ -60,8 +60,6 @@ public class SignInMenu : MonoBehaviour
                 errorText.text = "Username already in use.";
             }
         }
-
-        database.SaveAcorns(800); //TEST
     }
 
     private void GoToMainMenu()

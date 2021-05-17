@@ -93,11 +93,13 @@ public class PauseMenuHandler : MonoBehaviour
 
     public void MenuButtonHandler()
     {
+        database.SetIsBattleMode(false);
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
         orientationManager.ChangeScreenPortrait(true);
         SceneManager.LoadScene("MainMenu");
         ServiceLocator.Instance.GetService<IObjectPooler>().ClearAllPools();
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
+
     }
 
     private void DestroyRemainingHammers()

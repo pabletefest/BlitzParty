@@ -43,7 +43,6 @@ public class BattleModeHandler : MonoBehaviour
         {
             //Battle finished -> Show final results
             database.SetIsBattleMode(false);
-            database.ResetMinigames();
             SceneManager.LoadScene("MainMenu");
         }
     }
