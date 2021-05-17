@@ -253,7 +253,7 @@ public class Database : MonoBehaviour
 
     public void SaveCurrentBattleMinigame(string currentMinigame)
     {
-        PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(4) + "currentBattleMinigamee", currentMinigame);
+        PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(4) + "currentBattleMinigame", currentMinigame);
     }
 
     public bool IsBattleMode()

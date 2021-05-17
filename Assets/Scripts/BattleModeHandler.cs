@@ -25,6 +25,10 @@ public class BattleModeHandler : MonoBehaviour
             string nextMinigame = minigames[nextMinigameCounter];
             database.SaveCurrentBattleMinigame(nextMinigame);
             database.UpdateCurrentBattleStage();
+            Debug.Log(minigames.Count);
+            Debug.Log(minigames[0]);
+            Debug.Log(minigames[1]);
+            Debug.Log(minigames[2]);
             SceneManager.LoadScene("MainMenu");
         }
         else
