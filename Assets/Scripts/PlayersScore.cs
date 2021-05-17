@@ -7,7 +7,7 @@ public class PlayersScore : MonoBehaviour
 {
 
     private int p1Score;
-    private int p2Score;
+    [SerializeField] private int p2Score;
 
     [SerializeField]
     private Text Player1Score;
@@ -90,7 +90,7 @@ public class PlayersScore : MonoBehaviour
     public void ResetWhackAMoleScore()
     {
         p1Score = 0;
-        p2Score = 50;
+        p2Score = 70;
         UpdateScore();
     }
 

@@ -61,7 +61,7 @@ public class SignInMenu : MonoBehaviour
             }
         }
 
-        database.SaveAcorns(1850);
+        database.SaveAcorns(800); //TEST
     }
 
     private void GoToMainMenu()
