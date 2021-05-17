@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using CowboyDuel;
 using UnityEngine;
 
 public class OnStartCountdown : StateMachineBehaviour

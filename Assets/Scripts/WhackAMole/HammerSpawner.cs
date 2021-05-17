@@ -31,6 +31,42 @@ namespace WhackAMole
 
         }
 
+        private void PlayerInputClick()
+        {
+            Vector3 clickPosition;
+            bool clicked = CheckPlayerClick(out clickPosition);
+
+            if (clicked && !hammerInUse)
+            {
+                hammerInUse = true;
+                ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("HammerSwing");
+                Instantiate(hammerPrefab, clickPosition, Quaternion.identity);
+                StartCoroutine(FreeHammer());
+            }
+        }
+        
+        private bool CheckPlayerClick(out Vector3 clickPosition)
+        {
+            clickPosition = Vector3.zero;
+            
+            if (Input.GetMouseButtonDown(0))
+            {
+                Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+                RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
+                
+                if (hit.collider.CompareTag("Background") || hit.collider.CompareTag("Mole") || hit.collider.CompareTag("GoldMole") || hit.collider.CompareTag("ZoomyWhackAMole"))
+                {
+                    clickPosition = hit.point;
+                    Debug.Log($"clickedPosition: {clickPosition}");
+                    Debug.Log($"collider tag hit: {hit.collider.tag}");
+                    return true;
+                    //Debug.Log("Player clicked the screen");
+                }
+            }
+
+            return false;
+        }
+
         private Vector3 GetTouchPosition(Touch touch)
         {
             Vector3 touchPosition = mainCamera.ScreenToWorldPoint(touch.position);
@@ -47,12 +83,16 @@ namespace WhackAMole
         // Update is called once per frame
         void Update()
         {
-            PerformAction();
+            #if UNITY_EDITOR
+                PlayerInputClick();
+            #else
+                PerformAction();
+            #endif
         }
 
         private IEnumerator FreeHammer()
         {
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(hitRate);
             hammerInUse = false;
         }
     }

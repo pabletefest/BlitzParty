@@ -113,7 +113,7 @@ namespace CowboyDuel
                 if (hit.collider.CompareTag("Background"))
                 {
                     return true;
-                    Debug.Log("Player clicked the screen");
+                    //Debug.Log("Player clicked the screen");
                 }
             }
 

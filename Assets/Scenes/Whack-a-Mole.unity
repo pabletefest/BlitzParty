@@ -368,6 +368,7 @@ MonoBehaviour:
   joystick: {fileID: 0}
   catchButton: {fileID: 0}
   joystickHandleTransform: {fileID: 0}
+  cowboyDuelFinisher: {fileID: 0}
   resetWhackAMoleController: {fileID: 1955060428}
 --- !u!222 &174698076
 CanvasRenderer:
@@ -830,7 +831,7 @@ GameObject:
   - component: {fileID: 496699830}
   m_Layer: 0
   m_Name: Whack_a_Mole_Background
-  m_TagString: Untagged
+  m_TagString: Background
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1314,7 +1315,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeText: {fileID: 1848823099}
   panelHandler: {fileID: 174698075}
-  earnAcorns: {fileID: 1955060431}
 --- !u!114 &522960166
 MonoBehaviour:
   m_ObjectHideFlags: 0
