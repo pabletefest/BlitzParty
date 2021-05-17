@@ -18,7 +18,8 @@ public class SignInMenu : MonoBehaviour
 
     private void Awake()
     {
-        ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
+        //ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMinigameTheme("LoginTheme");
     }
 
     public void SignInHandler()

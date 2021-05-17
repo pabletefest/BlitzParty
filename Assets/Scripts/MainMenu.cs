@@ -145,6 +145,7 @@ public class MainMenu : MonoBehaviour
         SetZoomyItems();
         musicSlider.value = database.LoadMusicVolume();
         sfxSlider.value = database.LoadSFXVolume();
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
     }
 
     public void HideTabs() 
