@@ -13,6 +13,10 @@ public class BattleModeHandler : MonoBehaviour
     {
         database.ResetMinigames();
         database.SetIsBattleMode(true);
+        List<string> minigames = database.RandomizeMinigames();
+        Debug.Log(minigames[0]);
+        Debug.Log(minigames[1]);
+        Debug.Log(minigames[2]);
         StartNextMinigame();
     }
 
@@ -21,14 +25,21 @@ public class BattleModeHandler : MonoBehaviour
         int nextMinigameCounter = database.LoadCurrentBattleStage();
         if (nextMinigameCounter < 3)
         {
-            List<string>  minigames = database.LoadMinigames();
-            string nextMinigame = minigames[nextMinigameCounter];
+            string nextMinigame = "";
+            if (nextMinigameCounter == 0)
+            {
+                nextMinigame = database.LoadMinigame1();
+            }
+            else if (nextMinigameCounter == 1)
+            {
+                nextMinigame = database.LoadMinigame2();
+            }
+            else
+            {
+                nextMinigame = database.LoadMinigame3();
+            }
             database.SaveCurrentBattleMinigame(nextMinigame);
             database.UpdateCurrentBattleStage();
-            Debug.Log(minigames.Count);
-            Debug.Log(minigames[0]);
-            Debug.Log(minigames[1]);
-            Debug.Log(minigames[2]);
             SceneManager.LoadScene("MainMenu");
         }
         else
