@@ -37,6 +37,21 @@ public class PanelHandler : MonoBehaviour
     [SerializeField]
     private Database database;
 
+    [SerializeField]
+    private GameObject pauseButton;
+
+    [SerializeField]
+    private GameObject menuButton;
+
+    [SerializeField]
+    private GameObject restartButton;
+
+    [SerializeField]
+    private GameObject nextMinigameButton;
+
+    [SerializeField]
+    private BattleModeHandler battleModeHandler;
+
     //RabbitPursuit attributes
 
     [SerializeField]
@@ -72,7 +87,7 @@ public class PanelHandler : MonoBehaviour
                 resetWhackAMoleController.ResetGame();
                 break;
             case "CowboyDuel":
-                cowboyDuelFinisher.GameEnded();
+                cowboyDuelFinisher.GameRestarter();
                 break;
         }
         
@@ -93,9 +108,27 @@ public class PanelHandler : MonoBehaviour
         //SceneManager.UnloadSceneAsync("RabbitPursuit");
     }
 
+    public void NextMinigameButtonHandler()
+    {
+        battleModeHandler.StartNextMinigame();
+    }
+
     public void ShowRabbitPursuitPanel()
     {
         gameObject.SetActive(true);
+        pauseButton.SetActive(false);
+        if (database.IsBattleMode())
+        {
+            menuButton.SetActive(false);
+            restartButton.SetActive(false);
+            nextMinigameButton.SetActive(true);
+        }
+        else
+        {
+            menuButton.SetActive(true);
+            restartButton.SetActive(true);
+            nextMinigameButton.SetActive(false);
+        }
         //joystickHandleTransform.position = new Vector3(-8.1f, -4.7f, 0f);
         //joystick.SetActive(false);
         //joystick.GetComponent<CanvasRenderer>().SetAlpha(0);
@@ -111,6 +144,19 @@ public class PanelHandler : MonoBehaviour
     public void ShowWhackAMolePanel()
     {
         gameObject.SetActive(true);
+        pauseButton.SetActive(false);
+        if (database.IsBattleMode())
+        {
+            menuButton.SetActive(false);
+            restartButton.SetActive(false);
+            nextMinigameButton.SetActive(true);
+        }
+        else
+        {
+            menuButton.SetActive(true);
+            restartButton.SetActive(true);
+            nextMinigameButton.SetActive(false);
+        }
         DestroyRemainingHammers();
         CheckResult(scoreController.FindWinner(), "WhackAMole");
         acornsText.text = earnAcorns.CalculateAcornsEarned("WhackAMole").ToString();
@@ -121,6 +167,19 @@ public class PanelHandler : MonoBehaviour
     public void ShowCowboyDuelPanel()
     {
         gameObject.SetActive(true);
+        pauseButton.SetActive(false);
+        if (database.IsBattleMode())
+        {
+            menuButton.SetActive(false);
+            restartButton.SetActive(false);
+            nextMinigameButton.SetActive(true);
+        }
+        else
+        {
+            menuButton.SetActive(true);
+            restartButton.SetActive(true);
+            nextMinigameButton.SetActive(false);
+        }
         CheckResult(scoreController.FindWinner(), "CowboyDuel");
         acornsText.text = earnAcorns.CalculateAcornsEarned("CowboyDuel").ToString();
         earnAcorns.AcornsCowboyDuel();

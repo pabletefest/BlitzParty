@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameFinisher : MonoBehaviour
 {
@@ -34,5 +35,10 @@ public class GameFinisher : MonoBehaviour
     public void GameEnded()
     {
         finalPanel.ShowCowboyDuelPanel();
+    }
+
+    public void GameRestarter()
+    {
+        SceneManager.LoadScene("CowboyDuel");
     }
 }
