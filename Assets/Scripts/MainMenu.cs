@@ -373,7 +373,6 @@ public class MainMenu : MonoBehaviour
             progress++;
             slider.value = progress;
             percentageText.text = progress.ToString() + " %";
-            Debug.Log(slider.value);
         }
         else 
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 public class SetVolume : MonoBehaviour
 {
@@ -20,15 +21,18 @@ public class SetVolume : MonoBehaviour
     {
         audioMixer.SetFloat("MusicVolume", Mathf.Log10(sliderValue) * 20);
         database.SaveMusicVolume(sliderValue);
-        if (sliderValue < 0.001)
+        if (SceneManager.GetActiveScene().name.Equals("MainMenu"))
         {
-            animationMusic.SetActive(false);
-            animationMute.SetActive(true);
-        }
-        else 
-        {
-            animationMusic.SetActive(true);
-            animationMute.SetActive(false);
+            if (sliderValue < 0.001)
+            {
+                animationMusic.SetActive(false);
+                animationMute.SetActive(true);
+            }
+            else
+            {
+                animationMusic.SetActive(true);
+                animationMute.SetActive(false);
+            }
         }
     }
 
