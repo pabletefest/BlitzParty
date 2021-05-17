@@ -177,6 +177,7 @@ public class MainMenu : MonoBehaviour
             sfxSlider.value = database.LoadSFXVolume();
             if (database.LoadCurrentBattleStage() == 3)
             {
+                orientationManager.ChangeScreenPortrait(true);
                 ShowResultsPanel();
             }
         }
