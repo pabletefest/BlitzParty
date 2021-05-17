@@ -212,6 +212,8 @@ public class Database : MonoBehaviour
         PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(4) + "minigame1", "RabbitPursuit");
         PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(4) + "minigame2", "Whack-a-Mole");
         PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(4) + "minigame3", "CowboyDuel");
+        UpdatePlayer1BattleWins(0);
+        UpdatePlayer2BattleWins(0);
     }
 
     public List<string> RandomizeMinigames()
@@ -272,6 +274,26 @@ public class Database : MonoBehaviour
     public void SaveCurrentBattleMinigame(string currentMinigame)
     {
         PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(4) + "currentBattleMinigame", currentMinigame);
+    }
+
+    public void UpdatePlayer1BattleWins(int wins)
+    {
+        PlayerPrefs.SetInt("user" + LoadCurrentUser().Substring(4) + "player1BattleWins", wins);
+    }
+
+    public int LoadPlayer1BattleWins()
+    {
+        return PlayerPrefs.GetInt("user" + LoadCurrentUser().Substring(4) + "player1BattleWins", 0);
+    }
+
+    public void UpdatePlayer2BattleWins(int wins)
+    {
+        PlayerPrefs.SetInt("user" + LoadCurrentUser().Substring(4) + "player2BattleWins", wins);
+    }
+
+    public int LoadPlayer2BattleWins()
+    {
+        return PlayerPrefs.GetInt("user" + LoadCurrentUser().Substring(4) + "player2BattleWins", 0);
     }
 
     public bool IsBattleMode()

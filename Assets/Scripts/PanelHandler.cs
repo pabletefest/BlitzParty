@@ -90,7 +90,7 @@ public class PanelHandler : MonoBehaviour
                 cowboyDuelFinisher.GameRestarter();
                 break;
         }
-        
+
         gameObject.SetActive(false);
         //ServiceLocator.Instance.GetService<ITimer>().RestartTimer();
         //SceneManager.UnloadSceneAsync("RabbitPursuit");
@@ -122,6 +122,14 @@ public class PanelHandler : MonoBehaviour
         {
             menuButton.SetActive(false);
             restartButton.SetActive(false);
+            if (database.LoadCurrentBattleStage() == 3)
+            {
+                nextMinigameButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("Show Results Button");
+            }
+            else
+            {
+                nextMinigameButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("Next Minigame Button");
+            }
             nextMinigameButton.SetActive(true);
         }
         else
@@ -147,6 +155,14 @@ public class PanelHandler : MonoBehaviour
         {
             menuButton.SetActive(false);
             restartButton.SetActive(false);
+            if (database.LoadCurrentBattleStage() == 3)
+            {
+                nextMinigameButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("Show Results Button");
+            }
+            else
+            {
+                nextMinigameButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("Next Minigame Button");
+            }
             nextMinigameButton.SetActive(true);
         }
         else
@@ -170,6 +186,14 @@ public class PanelHandler : MonoBehaviour
         {
             menuButton.SetActive(false);
             restartButton.SetActive(false);
+            if (database.LoadCurrentBattleStage() == 3)
+            {
+                nextMinigameButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("Show Results Button");
+            }
+            else
+            {
+                nextMinigameButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("Next Minigame Button");
+            }
             nextMinigameButton.SetActive(true);
         }
         else
@@ -188,12 +212,20 @@ public class PanelHandler : MonoBehaviour
     {
         if (winner == Results.PLAYER1WIN)
         {
+            if (database.IsBattleMode())
+            {
+                database.UpdatePlayer1BattleWins(database.LoadPlayer1BattleWins() + 1);
+            }
             resultTitle.sprite = victoryImage;
             ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("Win");
             UpdateWins(minigame);
         }
         else if (winner == Results.PLAYER1LOSE)
         {
+            if (database.IsBattleMode())
+            {
+                database.UpdatePlayer2BattleWins(database.LoadPlayer2BattleWins() + 1);
+            }
             resultTitle.sprite = defeatImage;
             ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("Lose");
         }
@@ -219,7 +251,7 @@ public class PanelHandler : MonoBehaviour
                 break;
         }
     }
-    
+
     private void DestroyRemainingHammers()
     {
         GameObject[] hammers = GameObject.FindGameObjectsWithTag("Hammer");

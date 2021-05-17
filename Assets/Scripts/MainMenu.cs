@@ -134,6 +134,33 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private BattleModeHandler battleModeHandler;
 
+    [SerializeField]
+    private GameObject resultsPanel;
+
+    [SerializeField]
+    private Image resultImage;
+
+    [SerializeField]
+    private Image trophyImage;
+
+    [SerializeField]
+    private Text player1Score;
+
+    [SerializeField]
+    private Text player2Score;
+
+    [SerializeField]
+    private Sprite victoryImage;
+
+    [SerializeField]
+    private Sprite defeatImage;
+
+    [SerializeField]
+    private Sprite goldTrophy;
+
+    [SerializeField]
+    private Sprite silverTrophy;
+
     private int progress;
 
     private string nextScene;
@@ -148,12 +175,42 @@ public class MainMenu : MonoBehaviour
             SetZoomyItems();
             musicSlider.value = database.LoadMusicVolume();
             sfxSlider.value = database.LoadSFXVolume();
+            if (database.LoadCurrentBattleStage() == 3)
+            {
+                ShowResultsPanel();
+            }
         }
         else 
         {
             nextScene = database.LoadCurrentBattleMinigame();
             StartTransition();
         }
+    }
+
+    private void ShowResultsPanel() 
+    {
+        StartButtonsEnabled(false);
+        int p1Score = database.LoadPlayer1BattleWins();
+        int p2Score = database.LoadPlayer2BattleWins();
+        if (p1Score > p2Score)
+        {
+            resultImage.sprite = victoryImage;
+            trophyImage.sprite = goldTrophy;
+        }
+        else
+        {
+            resultImage.sprite = defeatImage;
+            trophyImage.sprite = silverTrophy;
+        }
+        player1Score.text = p1Score.ToString();
+        player2Score.text = p2Score.ToString();
+        resultsPanel.SetActive(true);
+    }
+
+    public void CloseResultsPanel()
+    {
+        resultsPanel.SetActive(false);
+        StartButtonsEnabled(true);
     }
 
     public void HideTabs() 

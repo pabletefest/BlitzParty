@@ -14,9 +14,6 @@ public class BattleModeHandler : MonoBehaviour
         database.ResetMinigames();
         database.SetIsBattleMode(true);
         List<string> minigames = database.RandomizeMinigames();
-        Debug.Log(minigames[0]);
-        Debug.Log(minigames[1]);
-        Debug.Log(minigames[2]);
         StartNextMinigame();
     }
 
