@@ -118,11 +118,11 @@ public class ShopManager : MonoBehaviour
         int itemCost = Int32.Parse(selectedItem.GetComponentInChildren<Text>().text);
         errorText.SetActive(false);
         bool enoughAcorns = database.LoadAcorns() >= itemCost;
-        if (true)
+        if (enoughAcorns)
         {
             ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("BuyItemSFX");
-            //database.SaveAcorns(database.LoadAcorns() - itemCost);
-            //acornLabel.text = database.LoadAcorns().ToString();
+            database.SaveAcorns(database.LoadAcorns() - itemCost);
+            acornLabel.text = database.LoadAcorns().ToString();
             PurchaseItem(itemName);
             confirmationMenu.SetActive(false);
             EnableButtons(true);

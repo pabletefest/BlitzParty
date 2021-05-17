@@ -125,6 +125,12 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private GameObject battleMenu;
 
+    [SerializeField]
+    private GameObject animationMusic;
+
+    [SerializeField]
+    private GameObject animationMute;
+
     private int progress;
 
     private string nextScene;
@@ -247,6 +253,16 @@ public class MainMenu : MonoBehaviour
         {
             musicSlider.value = database.LoadMusicVolume();
             sfxSlider.value = database.LoadSFXVolume();
+            if (musicSlider.value < 0.001)
+            {
+                animationMusic.SetActive(false);
+                animationMute.SetActive(true);
+            }
+            else
+            {
+                animationMusic.SetActive(true);
+                animationMute.SetActive(false);
+            }
             StartButtonsEnabled(false);
             settingsMenu.SetActive(true);
         }
