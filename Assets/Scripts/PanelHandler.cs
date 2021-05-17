@@ -110,6 +110,7 @@ public class PanelHandler : MonoBehaviour
 
     public void NextMinigameButtonHandler()
     {
+        ServiceLocator.Instance.GetService<IObjectPooler>().ClearAllPools();
         battleModeHandler.StartNextMinigame();
     }
 
