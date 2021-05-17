@@ -29,6 +29,9 @@ public class PauseMenuHandler : MonoBehaviour
     [SerializeField]
     private Database database;
 
+    [SerializeField]
+    private GameObject pauseButton;
+
     public void ShowRabbitPursuitPauseMenu()
     {
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
@@ -38,6 +41,7 @@ public class PauseMenuHandler : MonoBehaviour
         Time.timeScale = 0;
         joystick.GetComponent<Canvas>().enabled = false;
         catchButton.SetActive(false);
+        pauseButton.SetActive(false);
     }
 
     public void ShowWhackAMolePauseMenu()
@@ -48,6 +52,7 @@ public class PauseMenuHandler : MonoBehaviour
         pausePanel.SetActive(true);
         Time.timeScale = 0;
         DestroyRemainingHammers();
+        pauseButton.SetActive(false);
     }
 
     public void ShowCowboyDuelPauseMenu()
@@ -57,6 +62,7 @@ public class PauseMenuHandler : MonoBehaviour
         sfxSlider.value = database.LoadSFXVolume();
         pausePanel.SetActive(true);
         Time.timeScale = 0;
+        pauseButton.SetActive(false);
     }
 
     public void HideRabbitPursuitPauseMenu()
@@ -66,6 +72,7 @@ public class PauseMenuHandler : MonoBehaviour
         joystick.GetComponent<Canvas>().enabled = true;
         catchButton.SetActive(true);
         Time.timeScale = 1;
+        pauseButton.SetActive(true);
     }
 
 
@@ -74,12 +81,14 @@ public class PauseMenuHandler : MonoBehaviour
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
         pausePanel.SetActive(false);
         Time.timeScale = 1;
+        pauseButton.SetActive(true);
     }
     public void HideCowboyDuelPauseMenu()
     {
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
         pausePanel.SetActive(false);
         Time.timeScale = 1;
+        pauseButton.SetActive(true);
     }
 
     public void MenuButtonHandler()

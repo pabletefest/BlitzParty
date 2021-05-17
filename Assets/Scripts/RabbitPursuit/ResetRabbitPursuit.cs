@@ -31,6 +31,9 @@ namespace RabbitPursuit
         [SerializeField]
         private Player2AI enemyController;
 
+        [SerializeField]
+        private GameObject pauseButton;
+
         private Vector2 p1OriginalPosition;
         private Vector2 p2OriginalPosition;
 
@@ -67,6 +70,7 @@ namespace RabbitPursuit
             p2Position.localScale = p2OriginalScale;
             characterController.ResetController();
             enemyController.ResetController();
+            pauseButton.SetActive(true);
         }
     }
 }

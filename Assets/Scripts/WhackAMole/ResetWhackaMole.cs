@@ -11,6 +11,9 @@ namespace WhackAMole
         [SerializeField]
         private PlayersScore scoreController;
 
+        [SerializeField]
+        private GameObject pauseButton;
+
         private void Awake()
         {
             ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMinigameTheme("Whack-a-moleTheme");
@@ -22,6 +25,7 @@ namespace WhackAMole
             OnSceneRestarted?.Invoke();
             ServiceLocator.Instance.GetService<ITimer>().ResetTimer();
             Time.timeScale = 1f;
+            pauseButton.SetActive(true);
         }
     }
 }
