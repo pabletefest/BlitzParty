@@ -367,9 +367,9 @@ MonoBehaviour:
   resetRabbitPursuitController: {fileID: 0}
   joystick: {fileID: 0}
   catchButton: {fileID: 0}
-  joystickHandleTransform: {fileID: 0}
   cowboyDuelFinisher: {fileID: 0}
   resetWhackAMoleController: {fileID: 1955060428}
+  hammerSpawner: {fileID: 1052494425}
 --- !u!222 &174698076
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4338,6 +4338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreController: {fileID: 1553071695}
   pauseButton: {fileID: 1176865272}
+  hammerSpawner: {fileID: 1052494425}
 --- !u!114 &1955060429
 MonoBehaviour:
   m_ObjectHideFlags: 0

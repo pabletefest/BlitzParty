@@ -71,6 +71,9 @@ public class PanelHandler : MonoBehaviour
     [SerializeField]
     private ResetWhackaMole resetWhackAMoleController;
 
+    [SerializeField]
+    private HammerSpawner hammerSpawner;
+
     public void RestartButtonHandler()
     {
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
@@ -224,5 +227,7 @@ public class PanelHandler : MonoBehaviour
         {
             Destroy(hammer);
         }
+
+        hammerSpawner.enabled = false;
     }
 }
