@@ -679,7 +679,7 @@ MonoBehaviour:
   mainButton: {fileID: 1070412634}
   friendsButton: {fileID: 563775250}
   profileButton: {fileID: 1769792659}
-  acornLabel: {fileID: 0}
+  acornLabel: {fileID: 388054557}
 --- !u!1 &59127360
 GameObject:
   m_ObjectHideFlags: 0
