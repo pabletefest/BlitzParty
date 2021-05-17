@@ -172,13 +172,13 @@ public class PanelHandler : MonoBehaviour
         {
             menuButton.SetActive(false);
             restartButton.SetActive(false);
-            nextMinigameButton.SetActive(true);
+            //nextMinigameButton.SetActive(true);
         }
         else
         {
             menuButton.SetActive(true);
             restartButton.SetActive(true);
-            nextMinigameButton.SetActive(false);
+            //nextMinigameButton.SetActive(false);
         }
         CheckResult(scoreController.FindWinner(), "CowboyDuel");
         acornsText.text = earnAcorns.CalculateAcornsEarned("CowboyDuel").ToString();

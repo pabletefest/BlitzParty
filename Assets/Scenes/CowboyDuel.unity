@@ -2710,6 +2710,7 @@ MonoBehaviour:
   musicSlider: {fileID: 1448932018}
   sfxSlider: {fileID: 1231203856}
   database: {fileID: 876428271}
+  pauseButton: {fileID: 703281438}
 --- !u!4 &876428269
 Transform:
   m_ObjectHideFlags: 0
@@ -4115,6 +4116,11 @@ MonoBehaviour:
   earnAcorns: {fileID: 876428270}
   acornsText: {fileID: 205905649}
   database: {fileID: 876428271}
+  pauseButton: {fileID: 703281438}
+  menuButton: {fileID: 1562325002}
+  restartButton: {fileID: 845428884}
+  nextMinigameButton: {fileID: 0}
+  battleModeHandler: {fileID: 0}
   resetRabbitPursuitController: {fileID: 0}
   joystick: {fileID: 0}
   catchButton: {fileID: 0}
