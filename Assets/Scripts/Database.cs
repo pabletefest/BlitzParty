@@ -206,4 +206,44 @@ public class Database : MonoBehaviour
         return PlayerPrefs.GetFloat("user" + LoadCurrentUser().Substring(4) + "sfxVolume", 1f);
     }
 
+    public void ResetMinigames()
+    {
+        PlayerPrefs.SetInt("user" + LoadCurrentUser().Substring(4) + "currentBattleStage", 0);
+        PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(4) + "minigame1", "rabbitPursuit");
+        PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(4) + "minigame2", "whackAMole");
+        PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(4) + "minigame3", "cowboyDuel");
+    }
+
+    public List<string> LoadMinigames()
+    {
+        List<string> minigameList = new List<string>();
+        string nextMinigame;
+        for (int i = 1; i <= 10; i++)
+        {
+            nextMinigame = PlayerPrefs.GetString("user" + LoadCurrentUser().Substring(4) + "minigame" + i, "");
+            if (!nextMinigame.Equals(""))
+            {
+                minigameList.Add(nextMinigame);
+            }
+        }
+        for (int i = 0; i < minigameList.Count; i++)
+        {
+            string temp = minigameList[i];
+            int randomIndex = Random.Range(i, minigameList.Count);
+            minigameList[i] = minigameList[randomIndex];
+            minigameList[randomIndex] = temp;
+        }
+        return minigameList;
+    }
+
+    public int LoadCurrentBattleStage()
+    {
+        return PlayerPrefs.GetInt("user" + LoadCurrentUser().Substring(4) + "currentBattleStage", 0);
+    }
+
+    public void UpdateCurrentBattleStage()
+    {
+        PlayerPrefs.SetInt("user" + LoadCurrentUser().Substring(4) + "currentBattleStage", LoadCurrentBattleStage() + 1);
+    }
+
 }

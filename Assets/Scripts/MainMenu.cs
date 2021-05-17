@@ -131,6 +131,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private GameObject animationMute;
 
+    [SerializeField]
+    private BattleModeHandler battleModeHandler;
+
     private int progress;
 
     private string nextScene;
@@ -316,8 +319,8 @@ public class MainMenu : MonoBehaviour
     }
 
     public void battlePlayButtonHandler()
-    { 
-        
+    {
+        battleModeHandler.StartBattle();
     }
 
     public void StartRabbitPursuitGame()
@@ -362,6 +365,10 @@ public class MainMenu : MonoBehaviour
             case "Whack-a-Mole":
                 messageText.text = "Something has made the moles act aggressive. Smack them with the hammer when they come out of their burrows but watch out for the Zoomies!";
                 fakeTransition.GetComponent<Image>().sprite = Resources.Load<Sprite>("FakeTransition/WhackAMoleTransition");
+                break;
+            case "CowboyDuel":
+                messageText.text = "Travel to the Wild West to take part in an epic duel. Wait until the signal and shoot before your opponent. Become the fastest Cowboy alive!";
+                fakeTransition.GetComponent<Image>().sprite = Resources.Load<Sprite>("FakeTransition/CowboyDuelTransition");
                 break;
         }
     }
