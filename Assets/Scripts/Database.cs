@@ -214,7 +214,7 @@ public class Database : MonoBehaviour
         PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(4) + "minigame3", "CowboyDuel");
     }
 
-    public List<string> LoadMinigames()
+    public List<string> RandomizeMinigames()
     {
         List<string> minigameList = new List<string>();
         string nextMinigame;
@@ -233,7 +233,25 @@ public class Database : MonoBehaviour
             minigameList[i] = minigameList[randomIndex];
             minigameList[randomIndex] = temp;
         }
+        PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(4) + "currentMinigame1", minigameList[0]);
+        PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(4) + "currentMinigame2", minigameList[1]);
+        PlayerPrefs.SetString("user" + LoadCurrentUser().Substring(4) + "currentMinigame3", minigameList[2]);
         return minigameList;
+    }
+
+    public string LoadMinigame1()
+    {
+        return PlayerPrefs.GetString("user" + LoadCurrentUser().Substring(4) + "currentMinigame1", "RabbitPursuit");
+    }
+
+    public string LoadMinigame2()
+    {
+        return PlayerPrefs.GetString("user" + LoadCurrentUser().Substring(4) + "currentMinigame2", "Whack-a-mole");
+    }
+
+    public string LoadMinigame3()
+    {
+        return PlayerPrefs.GetString("user" + LoadCurrentUser().Substring(4) + "currentMinigame3", "CowboyDuel");
     }
 
     public int LoadCurrentBattleStage()
