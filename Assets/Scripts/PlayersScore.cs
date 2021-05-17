@@ -105,4 +105,9 @@ public class PlayersScore : MonoBehaviour
     {
         return p1Score;
     }
+
+    public int GetP2Score()
+    {
+        return p2Score;
+    }
 }

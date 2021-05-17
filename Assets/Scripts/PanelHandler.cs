@@ -51,6 +51,9 @@ public class PanelHandler : MonoBehaviour
     [SerializeField]
     private RectTransform joystickHandleTransform;
 
+    [SerializeField]
+    private GameFinisher cowboyDuelFinisher;
+
     //Whack-a-Mole attributes
 
     [SerializeField]
@@ -67,6 +70,9 @@ public class PanelHandler : MonoBehaviour
                 break;
             case "Whack-a-Mole":
                 resetWhackAMoleController.ResetGame();
+                break;
+            case "CowboyDuel":
+                cowboyDuelFinisher.GameEnded();
                 break;
         }
         
@@ -98,6 +104,7 @@ public class PanelHandler : MonoBehaviour
         catchButton.SetActive(false);
         CheckResult(scoreController.FindWinner(), "RabbitPursuit");
         acornsText.text = earnAcorns.CalculateAcornsEarned("RabbitPursuit").ToString();
+        earnAcorns.AcornsRabbitPursuit();
         database.AddPlayerRabbitPursuitGames();
     }
 
@@ -107,7 +114,17 @@ public class PanelHandler : MonoBehaviour
         DestroyRemainingHammers();
         CheckResult(scoreController.FindWinner(), "WhackAMole");
         acornsText.text = earnAcorns.CalculateAcornsEarned("WhackAMole").ToString();
+        earnAcorns.AcornsWhackAMole();
         database.AddPlayerWhackAMoleGames();
+    }
+
+    public void ShowCowboyDuelPanel()
+    {
+        gameObject.SetActive(true);
+        CheckResult(scoreController.FindWinner(), "CowboyDuel");
+        acornsText.text = earnAcorns.CalculateAcornsEarned("CowboyDuel").ToString();
+        earnAcorns.AcornsCowboyDuel();
+        database.AddPlayerCowboyDuelGames();
     }
 
     public void CheckResult(Results winner, string minigame)
@@ -139,6 +156,9 @@ public class PanelHandler : MonoBehaviour
                 break;
             case "WhackAMole":
                 database.AddPlayerWhackAMoleWins();
+                break;
+            case "CowboyDuel":
+                database.AddPlayerCowboyDuelWins();
                 break;
         }
     }

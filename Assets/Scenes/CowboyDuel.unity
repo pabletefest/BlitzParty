@@ -151,7 +151,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1298039570}
-  m_RootOrder: 7
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1177,6 +1177,7 @@ GameObject:
   m_Component:
   - component: {fileID: 317213061}
   - component: {fileID: 317213060}
+  - component: {fileID: 317213062}
   m_Layer: 0
   m_Name: WinnerController
   m_TagString: Untagged
@@ -1196,8 +1197,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63761c1856f7a884b81d3e2c56689be2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  p1Score: {fileID: 588756121}
-  p2Score: {fileID: 1180648447}
   winnerLabel: {fileID: 9125771}
   playerShoot: {fileID: 578918192}
   enemyShoot: {fileID: 1419581544}
@@ -1205,6 +1204,7 @@ MonoBehaviour:
   enemyAnimator: {fileID: 1419581543}
   gameCountdown: {fileID: 1298039566}
   shootLabel: {fileID: 382356813}
+  scoreController: {fileID: 704070152}
 --- !u!4 &317213061
 Transform:
   m_ObjectHideFlags: 0
@@ -1219,6 +1219,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &317213062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317213059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5d7ce7aa9c6f334b9f860e55854b8eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  winnerChecker: {fileID: 317213060}
+  finalPanel: {fileID: 1484949183}
 --- !u!1 &356712317
 GameObject:
   m_ObjectHideFlags: 0
@@ -2253,7 +2267,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1298039570}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2351,6 +2365,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 703281438}
   m_CullTransparentMesh: 0
+--- !u!1 &704070151
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 704070153}
+  - component: {fileID: 704070152}
+  m_Layer: 0
+  m_Name: ScoreController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &704070152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704070151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cf07fe1fdc2995409f688ace74053f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Player1Score: {fileID: 588756121}
+  Player2Score: {fileID: 1180648447}
+  Player1ScorePanel: {fileID: 1115300831}
+  Player2ScorePanel: {fileID: 761726114}
+--- !u!4 &704070153
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704070151}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.6201915, y: 0.008489031, z: 51.198242}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &761726112
 GameObject:
   m_ObjectHideFlags: 0
@@ -2466,7 +2527,7 @@ RectTransform:
   - {fileID: 1109553447}
   - {fileID: 688508338}
   m_Father: {fileID: 1298039570}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2675,7 +2736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b196364d02fc1eb4e81bea63c21c94c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playersScore: {fileID: 0}
+  playersScore: {fileID: 704070152}
   database: {fileID: 876428271}
 --- !u!114 &876428271
 MonoBehaviour:
@@ -3474,10 +3535,10 @@ RectTransform:
   - {fileID: 169401581}
   - {fileID: 382356814}
   - {fileID: 124757441}
+  - {fileID: 9125770}
   - {fileID: 1484949182}
   - {fileID: 703281439}
   - {fileID: 801400715}
-  - {fileID: 9125770}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4026,7 +4087,7 @@ RectTransform:
   - {fileID: 130321307}
   - {fileID: 205905648}
   m_Father: {fileID: 1298039570}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4045,19 +4106,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fc8b1635c193496daf71d39031920b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreController: {fileID: 0}
-  orientationManager: {fileID: 0}
+  scoreController: {fileID: 704070152}
+  orientationManager: {fileID: 876428272}
   resultTitle: {fileID: 474711532}
   victoryImage: {fileID: 21300000, guid: a63eb699ef36d2f4e85e022d499d479b, type: 3}
   defeatImage: {fileID: 21300000, guid: 21e0b0142227d7b419c876348aa90bd7, type: 3}
   drawImage: {fileID: 21300000, guid: 5496354b8d204b2419758a55f7bc08ce, type: 3}
-  earnAcorns: {fileID: 0}
+  earnAcorns: {fileID: 876428270}
   acornsText: {fileID: 205905649}
-  database: {fileID: 0}
+  database: {fileID: 876428271}
   resetRabbitPursuitController: {fileID: 0}
   joystick: {fileID: 0}
   catchButton: {fileID: 0}
   joystickHandleTransform: {fileID: 0}
+  cowboyDuelFinisher: {fileID: 317213062}
   resetWhackAMoleController: {fileID: 0}
 --- !u!222 &1484949184
 CanvasRenderer:

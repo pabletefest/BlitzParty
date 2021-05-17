@@ -18,8 +18,6 @@ public class TimerUI : MonoBehaviour
     [SerializeField]
     private PanelHandler panelHandler;
 
-    [SerializeField]
-    private EarnAcorns earnAcorns;
 
     private void Awake() 
     {
@@ -34,13 +32,11 @@ public class TimerUI : MonoBehaviour
     private void OnEnable()
     {
         chronometer.OnTimerOver += EnableResultPanel;
-        chronometer.OnTimerOver += EarnAcorns;
     }
 
     private void OnDisable()
     {
         chronometer.OnTimerOver -= EnableResultPanel;
-        chronometer.OnTimerOver -= EarnAcorns;
     }
 
     // Update is called once per frame
@@ -70,20 +66,6 @@ public class TimerUI : MonoBehaviour
                 break;
         }
         Time.timeScale = 0;
-    }
-
-    private void EarnAcorns()
-    {
-        string sceneName = SceneManager.GetActiveScene().name;
-        switch (sceneName)
-        {
-            case "RabbitPursuit":
-                earnAcorns.AcornsRabbitPursuit();
-                break;
-            case "Whack-a-Mole":
-                earnAcorns.AcornsWhackAMole();
-                break;
-        }
     }
 
     private void UpdateTimer()

@@ -8,8 +8,6 @@ public class WinnerChecker : MonoBehaviour
 {
     public event Action OnGameEnd;
     
-    [SerializeField] private Text p1Score;
-    [SerializeField] private Text p2Score;
     [SerializeField] private Text winnerLabel;
 
     [SerializeField] private PlayerShoot playerShoot;
@@ -18,6 +16,7 @@ public class WinnerChecker : MonoBehaviour
     [SerializeField] private Animator enemyAnimator;
     [SerializeField] private CountdownUI gameCountdown;
     [SerializeField] private GameObject shootLabel;
+    [SerializeField] private PlayersScore scoreController;
 
     private bool playerShot;
     private float playerTime;
@@ -58,16 +57,14 @@ public class WinnerChecker : MonoBehaviour
         {
             if (playerTime < enemyTime)
             {
-                int newPoint = Int32.Parse(p1Score.text) + 1;
-                p1Score.text = newPoint.ToString();
+                scoreController.P1ScorePoints(1);
                 enemyAnimator.SetTrigger("Death");
                 winnerLabel.text = "RED POINT";
                 winnerLabel.gameObject.SetActive(true);
             }
             else if (playerTime > enemyTime)
             {
-                int newPoint = Int32.Parse(p2Score.text) + 1;
-                p2Score.text = newPoint.ToString();
+                scoreController.P2ScorePoints(1);
                 playerAnimator.SetTrigger("Death");
                 winnerLabel.text = "BLUE POINT";
                 winnerLabel.gameObject.SetActive(true);
@@ -78,13 +75,11 @@ public class WinnerChecker : MonoBehaviour
 
                 if (randomWinner == 1)
                 {
-                    int newPoint = Int32.Parse(p1Score.text) + 1;
-                    p1Score.text = newPoint.ToString();
+                    scoreController.P1ScorePoints(1);
                 }
                 else
                 {
-                    int newPoint = Int32.Parse(p2Score.text) + 1;
-                    p2Score.text = newPoint.ToString();
+                    scoreController.P2ScorePoints(1);
                 }
             }
             playerShot = false;
@@ -115,8 +110,8 @@ public class WinnerChecker : MonoBehaviour
 
     private void CheckEndGame()
     {
-        int player1Score = Int32.Parse(p1Score.text);
-        int player2Score = Int32.Parse(p2Score.text);
+        int player1Score = scoreController.GetP1Score();
+        int player2Score = scoreController.GetP2Score();
 
         if (player1Score < 2 && player2Score < 2)
         {
