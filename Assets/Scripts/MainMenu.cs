@@ -171,14 +171,15 @@ public class MainMenu : MonoBehaviour
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
         if (!database.IsBattleMode())
         {
+            orientationManager.ChangeScreenPortrait(true);
             acornLabel.text = database.LoadAcorns().ToString();
             SetZoomyItems();
             musicSlider.value = database.LoadMusicVolume();
             sfxSlider.value = database.LoadSFXVolume();
             if (database.LoadCurrentBattleStage() == 3)
             {
-                orientationManager.ChangeScreenPortrait(true);
                 ShowResultsPanel();
+                database.ResetMinigames();
             }
         }
         else 
