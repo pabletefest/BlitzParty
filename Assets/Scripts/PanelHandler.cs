@@ -64,9 +64,6 @@ public class PanelHandler : MonoBehaviour
     private GameObject catchButton;
 
     [SerializeField]
-    private RectTransform joystickHandleTransform;
-
-    [SerializeField]
     private GameFinisher cowboyDuelFinisher;
 
     //Whack-a-Mole attributes
@@ -129,10 +126,7 @@ public class PanelHandler : MonoBehaviour
             restartButton.SetActive(true);
             nextMinigameButton.SetActive(false);
         }
-        //joystickHandleTransform.position = new Vector3(-8.1f, -4.7f, 0f);
-        //joystick.SetActive(false);
-        //joystick.GetComponent<CanvasRenderer>().SetAlpha(0);
-        //joystick.GetComponent<FloatingJoystick>().enabled = false;
+
         joystick.GetComponent<Canvas>().enabled = false;
         catchButton.SetActive(false);
         CheckResult(scoreController.FindWinner(), "RabbitPursuit");

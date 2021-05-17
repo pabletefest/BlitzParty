@@ -34,6 +34,8 @@ namespace WhackAMole
                 scoreController.P1SubstractPoints(3);
             }
 
+            if (other.CompareTag("Background")) return;
+
             other.enabled = false;
         }
     }

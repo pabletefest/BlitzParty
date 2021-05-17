@@ -32,6 +32,20 @@ namespace RabbitPursuit
 		// Update is called once per frame
 		void Update()
 		{
+			#if UNITY_EDITOR
+				CatchButtonHandler();
+			#endif
+			
+			ControlJoystickInput();
+		}
+
+		void FixedUpdate()
+		{
+			controller.Move(horizontalMove * Time.fixedDeltaTime, verticalMove * Time.fixedDeltaTime);
+		}
+
+		private void ControlJoystickInput()
+		{
 			if (floatingJoystick.Horizontal >= .2f)
 			{
 				horizontalMove = runSpeed;
@@ -66,13 +80,8 @@ namespace RabbitPursuit
 			{
 				m_Animator.SetFloat("Speed", Mathf.Abs(verticalMove));
 			}
-
 		}
 
-		void FixedUpdate()
-		{
-			controller.Move(horizontalMove * Time.fixedDeltaTime, verticalMove * Time.fixedDeltaTime);
-		}
 		private void OnTriggerEnter2D(Collider2D collision)
 		{
 			if (collision.gameObject.CompareTag("Rabbit"))

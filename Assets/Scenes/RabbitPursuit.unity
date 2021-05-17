@@ -627,7 +627,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 812465223}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -766,7 +766,7 @@ RectTransform:
   - {fileID: 1907846036}
   - {fileID: 1908335178}
   m_Father: {fileID: 812465223}
-  m_RootOrder: 3
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -810,7 +810,7 @@ MonoBehaviour:
   resetRabbitPursuitController: {fileID: 1955060428}
   joystick: {fileID: 559284053}
   catchButton: {fileID: 389748451}
-  joystickHandleTransform: {fileID: 1869251645}
+  cowboyDuelFinisher: {fileID: 0}
   resetWhackAMoleController: {fileID: 0}
 --- !u!1 &477913368
 GameObject:
@@ -1224,7 +1224,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeText: {fileID: 1848823099}
   panelHandler: {fileID: 463597894}
-  earnAcorns: {fileID: 1955060430}
 --- !u!114 &522960166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1627,10 +1626,10 @@ RectTransform:
   - {fileID: 1468086877}
   - {fileID: 522960164}
   - {fileID: 1147255517}
-  - {fileID: 463597892}
   - {fileID: 2126691296}
   - {fileID: 389748452}
   - {fileID: 1100100931}
+  - {fileID: 463597892}
   - {fileID: 1767060725}
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -2869,7 +2868,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 812465223}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4713,7 +4712,7 @@ PrefabInstance:
     - target: {fileID: 8170153791668043268, guid: 0d230cc8be529a542a08cb878ab14b18,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8170153791668043268, guid: 0d230cc8be529a542a08cb878ab14b18,
         type: 3}
@@ -4859,12 +4858,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
---- !u!224 &1869251645 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8170153791961219456, guid: 0d230cc8be529a542a08cb878ab14b18,
-    type: 3}
-  m_PrefabInstance: {fileID: 1869251644}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1898330926
 GameObject:
   m_ObjectHideFlags: 0
