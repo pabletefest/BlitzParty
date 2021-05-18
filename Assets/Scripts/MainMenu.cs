@@ -161,6 +161,18 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private Sprite silverTrophy;
 
+    [SerializeField]
+    private Button volumeButton;
+
+    [SerializeField]
+    private Button creditsButton;
+
+    [SerializeField]
+    private GameObject volumeMenu;
+
+    [SerializeField]
+    private GameObject creditsMenu;
+
     private int progress;
 
     private string nextScene;
@@ -337,6 +349,24 @@ public class MainMenu : MonoBehaviour
             StartButtonsEnabled(false);
             settingsMenu.SetActive(true);
         }
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
+    }
+
+    public void volumeSettingsButtonHandler()
+    {
+        volumeButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("Settings/VolumeButtonSelected");
+        creditsButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("Settings/CreditsButton");
+        volumeMenu.SetActive(true);
+        creditsMenu.SetActive(false);
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
+    }
+
+    public void creditsButtonHandler()
+    {
+        volumeButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("Settings/VolumeButton");
+        creditsButton.GetComponent<Image>().sprite = Resources.Load<Sprite>("Settings/CreditsButtonSelected");
+        volumeMenu.SetActive(false);
+        creditsMenu.SetActive(true);
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
     }
 
