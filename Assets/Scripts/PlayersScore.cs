@@ -90,7 +90,7 @@ public class PlayersScore : MonoBehaviour
     public void ResetWhackAMoleScore()
     {
         p1Score = 0;
-        p2Score = 70;
+        p2Score = 80;
         UpdateScore();
     }
 

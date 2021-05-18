@@ -812,6 +812,7 @@ MonoBehaviour:
   catchButton: {fileID: 389748451}
   cowboyDuelFinisher: {fileID: 0}
   resetWhackAMoleController: {fileID: 0}
+  hammerSpawner: {fileID: 0}
 --- !u!1 &477913368
 GameObject:
   m_ObjectHideFlags: 0
@@ -2240,7 +2241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MovementSmoothing: 0.05
   player2: {fileID: 0}
-  speed: 300
+  speed: 275
   nextWaypointDistance: 1.2
   Player2GFX: {fileID: 1793075003}
   target: {x: 0, y: 0}
@@ -4012,6 +4013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf07fe1fdc2995409f688ace74053f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  p2Score: 0
   Player1Score: {fileID: 953227375}
   Player2Score: {fileID: 823598025}
   Player1ScorePanel: {fileID: 571345215}
