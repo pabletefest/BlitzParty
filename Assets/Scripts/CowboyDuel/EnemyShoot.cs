@@ -17,21 +17,24 @@ namespace CowboyDuel
     
         private void OnEnable()
         {
-            countdownUI.OnCountdownOver += ShootingTime;
+            countdownUI.OnShootAppeared += ShootingTime;
         }
 
 
         private void OnDisable()
         {
-            countdownUI.OnCountdownOver -= ShootingTime;
+            countdownUI.OnShootAppeared -= ShootingTime;
         }
     
-        private void ShootingTime()
+        private void ShootingTime(bool hasShootAppeared)
         {
-            canShoot = true;
-            shootTime = UnityEngine.Random.Range(0.2f, 0.75f);
-            remainingTime = shootTime;
-            Debug.Log("Enemy can shoot now");
+            if (hasShootAppeared)
+            {
+                canShoot = true;
+                shootTime = UnityEngine.Random.Range(0.2f, 0.75f);
+                remainingTime = shootTime;
+                Debug.Log("Enemy can shoot now");
+            }
         }
 
         // Update is called once per frame

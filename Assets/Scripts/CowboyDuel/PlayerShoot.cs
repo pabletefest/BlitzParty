@@ -11,6 +11,8 @@ namespace CowboyDuel
         [SerializeField] private Animator playerAnimator;
         
         private bool canShoot;
+        private bool hasShotEarly;
+        private bool hasShootAppeared;
 
         private float timeSinceReady;
 
@@ -21,12 +23,13 @@ namespace CowboyDuel
         private void OnEnable()
         {
             countdownUI.OnCountdownOver += ShootingTime;
+            countdownUI.OnShootAppeared += EnableCorrectShoot;
         }
-
 
         private void OnDisable()
         {
             countdownUI.OnCountdownOver -= ShootingTime;
+            countdownUI.OnShootAppeared -= EnableCorrectShoot;
         }
 
         void Awake()
@@ -37,12 +40,8 @@ namespace CowboyDuel
         // Update is called once per frame
         void Update()
         {
-
             if (canShoot)
             {
-                
-                timeSinceReady += Time.deltaTime;
-                
                 #if UNITY_EDITOR
 
                     bool playerClicked = CheckPlayerClick();
@@ -52,7 +51,7 @@ namespace CowboyDuel
                         Shoot();
                     }
 
-                    #else
+                #else
 
                     bool isMobileDeviceTouch = CheckPlayerTouch();
                 
@@ -61,36 +60,70 @@ namespace CowboyDuel
                         Shoot();
                     }
 
-                    #endif
+                #endif
 
-                
-                if(limitShootTime > 0)
+                if (hasShootAppeared)
                 {
-                    limitShootTime -= Time.deltaTime;
-                } 
-                else
-                {
-                    Debug.Log("Auto shoot");
-                    Shoot();
+                    timeSinceReady += Time.deltaTime;
+                    
+                    if(limitShootTime > 0)
+                    {
+                        limitShootTime -= Time.deltaTime;
+                    } 
+                    else
+                    {
+                        Debug.Log("Auto shoot");
+                        Shoot();
+                    }
                 }
             }
         }
 
         public void Shoot()
         {
-            playerAnimator.SetTrigger("Shoot");
+            if (!hasShootAppeared)
+            {
+                hasShotEarly = true;
+            }
+            
+            //Debug.Log($"hasShotEarly: {hasShotEarly}");
+                
+            if (hasShotEarly)
+            {
+                // Debug.Log("Shot Miss");
+                playerAnimator.SetTrigger("ShotMiss");
+                timeSinceReady = 2f;
+                hasShotEarly = false;
+            }
+            else
+            {
+                // Debug.Log("Correct Shot");
+                playerAnimator.SetTrigger("Shoot");
+            }
+            
+            // Debug.Log($"timeSinceReady: {timeSinceReady}");
+            // Debug.Log($"limitShootTime: {limitShootTime}");
+            
+            OnShot?.Invoke(gameObject.tag, timeSinceReady);
+            
+            // Debug.Log($"hasShootAppeared: {hasShootAppeared}");
             canShoot = false;
             limitShootTime = 1.2f;
-            OnShot?.Invoke(gameObject.tag, timeSinceReady);
             timeSinceReady = 0;
-            Debug.Log("Player shot");
+            hasShootAppeared = false;
             
+            Debug.Log("Player shot");
         }
     
         private void ShootingTime()
         {
             canShoot = true;
             Debug.Log("Player can shoot now");
+        }
+        
+        private void EnableCorrectShoot(bool shootAppeared)
+        {
+            hasShootAppeared = shootAppeared;
         }
 
         private bool CheckPlayerTouch()

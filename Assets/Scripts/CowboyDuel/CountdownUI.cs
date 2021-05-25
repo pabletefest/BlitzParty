@@ -8,6 +8,7 @@ namespace CowboyDuel
     public class CountdownUI : MonoBehaviour
     {
         public event Action OnCountdownOver;
+        public event Action<bool> OnShootAppeared;
     
         [SerializeField] private float startingTime = 3f;
 
@@ -23,7 +24,8 @@ namespace CowboyDuel
 
         public IEnumerator StartCountdown()
         {
-
+            OnShootAppeared?.Invoke(false);
+            
             countdownText.gameObject.SetActive(true);
         
             countdownText.text = Mathf.Ceil(time).ToString();
@@ -37,6 +39,12 @@ namespace CowboyDuel
                 yield return null;
             }
 
+            if (time <= 0f)
+            {
+                time = 0f;
+                OnCountdownOver?.Invoke();
+            }
+            
             float randomShootTime = UnityEngine.Random.Range(0.5f, 4f);
         
             while (randomShootTime > 0f)
@@ -46,13 +54,8 @@ namespace CowboyDuel
             }
         
             shootLabel.SetActive(true);
-
-            if (time <= 0f)
-            {
-                time = 0f;
-                OnCountdownOver?.Invoke();
-            }
-
+            OnShootAppeared?.Invoke(true);
+            
             countdownText.gameObject.SetActive(false);
 
             time = startingTime;

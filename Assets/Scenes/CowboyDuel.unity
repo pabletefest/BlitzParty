@@ -645,9 +645,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 179460814}
   m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.72, y: -0.65, z: 0}
+  m_LocalPosition: {x: 0.72, y: -0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 232690486}
   m_Father: {fileID: 1419581542}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -842,12 +843,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 232690485}
-  m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.9, y: -0.52, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.18, y: 0, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1419581542}
-  m_RootOrder: 1
+  m_Father: {fileID: 179460815}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &232690487
 Animator:
@@ -1125,9 +1126,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 302962227}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.72, y: -0.65, z: 0}
+  m_LocalPosition: {x: 0.72, y: -0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 489266944}
   m_Father: {fileID: 578918190}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1574,7 +1576,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &489266944
 Transform:
   m_ObjectHideFlags: 0
@@ -1583,11 +1585,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 489266943}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.9, y: -0.52, z: 0}
+  m_LocalPosition: {x: 1.18, y: -0, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 578918190}
-  m_RootOrder: 1
+  m_Father: {fileID: 302962229}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &489266945
 SpriteRenderer:
@@ -1909,7 +1911,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 302962229}
-  - {fileID: 489266944}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2394,6 +2395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cf07fe1fdc2995409f688ace74053f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  p2Score: 0
   Player1Score: {fileID: 588756121}
   Player2Score: {fileID: 1180648447}
   Player1ScorePanel: {fileID: 1115300831}
@@ -3865,7 +3867,6 @@ Transform:
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children:
   - {fileID: 179460815}
-  - {fileID: 232690486}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4141,6 +4142,7 @@ MonoBehaviour:
   catchButton: {fileID: 0}
   cowboyDuelFinisher: {fileID: 317213062}
   resetWhackAMoleController: {fileID: 0}
+  hammerSpawner: {fileID: 0}
 --- !u!222 &1484949184
 CanvasRenderer:
   m_ObjectHideFlags: 0
