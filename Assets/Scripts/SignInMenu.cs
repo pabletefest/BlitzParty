@@ -27,7 +27,9 @@ public class SignInMenu : MonoBehaviour
     public void SignInHandler()
     {
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
-        string username = usernameText.text;
+        
+        string username = usernameText.text.ToUpper();
+        
         if (!username.Equals(""))
         {
             User user = database.LoadUser(username);
@@ -45,9 +47,10 @@ public class SignInMenu : MonoBehaviour
     public void RegisterHandler()
     {
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
+        
         int id = database.LoadTotalUsers() + 1;
-        string username = usernameText.text;
-
+        string username = usernameText.text.ToUpper();
+        
         if (!username.Equals(""))
         {
             User user = new User(id, username);

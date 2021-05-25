@@ -29,7 +29,7 @@ namespace CowboyDuel
         private void ShootingTime()
         {
             canShoot = true;
-            shootTime = UnityEngine.Random.Range(0.2f, 0.4f);
+            shootTime = UnityEngine.Random.Range(0.2f, 0.75f);
             remainingTime = shootTime;
             Debug.Log("Enemy can shoot now");
         }

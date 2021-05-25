@@ -2241,7 +2241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MovementSmoothing: 0.05
   player2: {fileID: 0}
-  speed: 275
+  speed: 250
   nextWaypointDistance: 1.2
   Player2GFX: {fileID: 1793075003}
   target: {x: 0, y: 0}
