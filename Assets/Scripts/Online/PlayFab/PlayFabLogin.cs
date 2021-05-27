@@ -1,18 +1,72 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using PlayFab;
+using PlayFab.ClientModels;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class PlayFabLogin : MonoBehaviour
+namespace Online.PlayFab
 {
-    // Start is called before the first frame update
-    void Start()
+    public class PlayFabLogin : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private InputField emailField;
+        [SerializeField] private InputField usernameField;
+        [SerializeField] private InputField passwordField;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //sessionTicket for online multiplayer
+        public static string SessionTicket;
+    
+        public void LoginPlayer()
+        {
+            PlayFabClientAPI.LoginWithPlayFab(new LoginWithPlayFabRequest()
+            {
+                Username = usernameField.text,
+                Password = passwordField.text
+
+            }, result =>
+            {
+                SessionTicket = result.SessionTicket;
+                LoadMainMenu();
+            
+            }, error =>
+            {
+                Debug.LogError(error.GenerateErrorReport());
+            });
+        }
+
+        public void RegisterPlayer()
+        {
+            PlayFabClientAPI.RegisterPlayFabUser(new RegisterPlayFabUserRequest()
+            {
+                Email = emailField.text,
+                Username = usernameField.text,
+                Password = passwordField.text
+
+            }, result =>
+            {
+                SessionTicket = result.SessionTicket;
+                LoadMainMenu();
+            
+            }, error =>
+            {
+                Debug.LogError(error.GenerateErrorReport());
+            });
+        }
+
+        public void LogoutPlayer()
+        {
+            PlayFabClientAPI.ForgetAllCredentials();
+            SessionTicket = default;
+            LoadLoginScene();
+        }
+
+        private void LoadMainMenu()
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+
+        private void LoadLoginScene()
+        {
+            SceneManager.LoadScene("Login");
+        }
     }
 }
