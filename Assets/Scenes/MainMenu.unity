@@ -2644,6 +2644,7 @@ MonoBehaviour:
   emailField: {fileID: 0}
   usernameField: {fileID: 0}
   passwordField: {fileID: 0}
+  localDatabase: {fileID: 435670714}
 --- !u!4 &265644785
 Transform:
   m_ObjectHideFlags: 0

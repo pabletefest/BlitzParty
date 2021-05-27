@@ -11,6 +11,9 @@ namespace Online.PlayFab
         [SerializeField] private InputField emailField;
         [SerializeField] private InputField usernameField;
         [SerializeField] private InputField passwordField;
+        [SerializeField] private Text errorText;
+
+        [SerializeField] private Database localDatabase;
 
         //sessionTicket for online multiplayer
         public static string SessionTicket;
@@ -25,10 +28,12 @@ namespace Online.PlayFab
             }, result =>
             {
                 SessionTicket = result.SessionTicket;
+                localDatabase.SetAccountActiveToken(1);
                 LoadMainMenu();
             
             }, error =>
             {
+                ShowLoginErrorMessage();
                 Debug.LogError(error.GenerateErrorReport());
             });
         }
@@ -44,10 +49,12 @@ namespace Online.PlayFab
             }, result =>
             {
                 SessionTicket = result.SessionTicket;
+                localDatabase.SetAccountActiveToken(1);
                 LoadMainMenu();
             
             }, error =>
             {
+                ShowRegisterErrorMessage();
                 Debug.LogError(error.GenerateErrorReport());
             });
         }
@@ -56,6 +63,7 @@ namespace Online.PlayFab
         {
             PlayFabClientAPI.ForgetAllCredentials();
             SessionTicket = default;
+            localDatabase.SetAccountActiveToken(0);
             LoadLoginScene();
         }
 
@@ -67,6 +75,40 @@ namespace Online.PlayFab
         private void LoadLoginScene()
         {
             SceneManager.LoadScene("Login");
+        }
+
+        private void ShowRegisterErrorMessage()
+        {
+            if (emailField.text == string.Empty || usernameField.text == string.Empty ||
+                passwordField.text == string.Empty)
+            {
+                errorText.text = "Please, check that there are no empty fields!";
+            }
+            else if (passwordField.text.Length < 6 || passwordField.text.Length > 100)
+            {
+                errorText.text = "Password must be at least 6 characters!";
+            }
+            else
+            {
+                errorText.text = "The account you are trying to register could be already in use!";
+            }
+        }
+
+        private void ShowLoginErrorMessage()
+        {
+            if (emailField.text == string.Empty || usernameField.text == string.Empty ||
+                passwordField.text == string.Empty)
+            {
+                errorText.text = "Please, check that there are no empty fields!";
+            }
+            else if (passwordField.text.Length < 6 || passwordField.text.Length > 100)
+            {
+                errorText.text = "Password must be at least 6 characters!";
+            }
+            else
+            {
+                errorText.text = "The account you are trying to login is not registered yet!";
+            }
         }
     }
 }

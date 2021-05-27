@@ -1009,6 +1009,8 @@ MonoBehaviour:
   emailField: {fileID: 1793727098}
   usernameField: {fileID: 1999873166}
   passwordField: {fileID: 1262053154}
+  errorText: {fileID: 1176087570}
+  localDatabase: {fileID: 1123821792}
 --- !u!1 &1176087569
 GameObject:
   m_ObjectHideFlags: 0
@@ -1047,13 +1049,13 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 12800000, guid: e311821ddfb2d424cb16f3f3f7683297, type: 3}
-    m_FontSize: 70
+    m_Font: {fileID: 12800000, guid: e9b4b390b6d2c21418de7efcbe2a0429, type: 3}
+    m_FontSize: 120
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
-    m_MaxSize: 100
-    m_Alignment: 0
+    m_MaxSize: 150
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0

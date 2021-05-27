@@ -321,4 +321,13 @@ public class Database : MonoBehaviour
 
     }
 
+    public void SetAccountActiveToken(int accountActiveToken)
+    {
+        PlayerPrefs.SetInt("IsAccountActive", accountActiveToken);
+    }
+
+    public int GetAccountActiveToken()
+    {
+        return PlayerPrefs.GetInt("IsAccountActive", 0);
+    }
 }
