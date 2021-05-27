@@ -1,0 +1,64 @@
+﻿using System;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace Online.CowboyDuel
+{
+    public class CountdownUIOnline : MonoBehaviour
+    {
+        public event Action OnCountdownOver;
+        public event Action<bool> OnShootAppeared;
+    
+        [SerializeField] private float startingTime = 3f;
+
+        private float time;
+
+        [SerializeField] private Text countdownText;
+        [SerializeField] private GameObject shootLabel;
+    
+        private void Awake()
+        {
+            time = startingTime;
+        }
+
+        public IEnumerator StartCountdown()
+        {
+            OnShootAppeared?.Invoke(false);
+            
+            countdownText.gameObject.SetActive(true);
+        
+            countdownText.text = Mathf.Ceil(time).ToString();
+
+            while (time > 0f)
+            {
+                countdownText.text = Mathf.Ceil(time).ToString();
+                //countdownText.text = ((int) time).ToString();
+                //Debug.Log($"CurrentTime Timer: {currentTime}");
+                time -= Time.deltaTime;
+                yield return null;
+            }
+
+            if (time <= 0f)
+            {
+                time = 0f;
+                OnCountdownOver?.Invoke();
+            }
+            
+            float randomShootTime = UnityEngine.Random.Range(0.5f, 4f);
+        
+            while (randomShootTime > 0f)
+            {
+                randomShootTime -= Time.deltaTime;
+                yield return null;
+            }
+        
+            shootLabel.SetActive(true);
+            OnShootAppeared?.Invoke(true);
+            
+            countdownText.gameObject.SetActive(false);
+
+            time = startingTime;
+        }
+    }
+}
