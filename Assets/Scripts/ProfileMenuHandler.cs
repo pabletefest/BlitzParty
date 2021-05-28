@@ -29,12 +29,16 @@ public class ProfileMenuHandler : MonoBehaviour
 
     void Start()
     {
-        UpdateProfileData();
+        //UpdateProfileData();
     }
 
-    public void UpdateProfileData()
+    public void UpdateProfileData(string usernameCloud)
     {
-        username.text = database.LoadUsername();
+        if (usernameCloud == null)
+            return;
+        
+        //username.text = database.LoadUsername();
+        username.text = usernameCloud;
 
         rabbitPursuitGames.text = database.LoadPlayerRabbitPursuitGames().ToString();
         rabbitPursuitWins.text = database.LoadPlayerRabbitPursuitWins().ToString();

@@ -330,4 +330,34 @@ public class Database : MonoBehaviour
     {
         return PlayerPrefs.GetInt("IsAccountActive", 0);
     }
+
+    public void SetPlayFabId(string playFabId)
+    {
+        PlayerPrefs.SetString("PlayFabId", playFabId);
+    }
+    
+    public string GetPlayFabId()
+    {
+        return PlayerPrefs.GetString("PlayFabId", default);
+    }
+
+    public void SetUsername(string username)
+    {
+        PlayerPrefs.SetString("Username", username);
+    }
+    
+    public string GetUsername()
+    {
+        return PlayerPrefs.GetString("Username", default);
+    }
+
+    public void SetPassword(string password)
+    {
+        PlayerPrefs.SetString("Password", password);
+    }
+    
+    public string GetPassword()
+    {
+        return PlayerPrefs.GetString("Password", default);
+    }
 }

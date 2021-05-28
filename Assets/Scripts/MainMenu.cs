@@ -3,6 +3,10 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System;
+using System.Collections.Generic;
+using Online.PlayFab;
+using PlayFab;
+using PlayFab.ClientModels;
 using Services;
 
 public class MainMenu : MonoBehaviour
@@ -177,17 +181,55 @@ public class MainMenu : MonoBehaviour
 
     private string nextScene;
 
+    private Dictionary<string, string> userData;
+    private string playFabId;
+
+    private static bool isFirstLoad;
+
     private void Awake()
     {
         Time.timeScale = 1;
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
+
+        //acornLabel.text = database.LoadAcorns().ToString();
+        //musicSlider.value = database.LoadMusicVolume();
+        //sfxSlider.value = database.LoadSFXVolume();
+        
+        if (!PlayFabClientAPI.IsClientLoggedIn() || database.GetAccountActiveToken() == 1)
+        {
+            PlayFabClientAPI.LoginWithPlayFab(new LoginWithPlayFabRequest()
+            {
+                Username = database.GetUsername(),
+                Password = database.GetPassword()
+            }, result =>
+                {
+                    Debug.Log($"LoggedIn on MainMenu");
+
+                    if (!isFirstLoad)
+                    {
+                        PlayFabLogin.SessionTicket = result.SessionTicket;
+                        PlayFabLogin.PlayFabId = result.PlayFabId;
+                        Debug.Log(PlayFabLogin.PlayFabId);
+                        
+                        CloudStoragePlayFab cloudStorage = new CloudStoragePlayFab();
+                        cloudStorage.GetUserData(PlayFabLogin.PlayFabId);
+                        cloudStorage.OnDataRecieved += UpdateUserData;
+                        
+                        isFirstLoad = true;
+                    }
+                },
+                error => Debug.LogError($"Couldn't login on MainMenu: {error.GenerateErrorReport()}"));
+        }
+
         if (!database.IsBattleMode())
         {
             orientationManager.ChangeScreenPortrait(true);
-            acornLabel.text = database.LoadAcorns().ToString();
+            //acornLabel.text = database.LoadAcorns().ToString();
             SetZoomyItems();
-            musicSlider.value = database.LoadMusicVolume();
-            sfxSlider.value = database.LoadSFXVolume();
+            //musicSlider.value = database.LoadMusicVolume();
+            //sfxSlider.value = database.LoadSFXVolume();
+
+            
             if (database.LoadCurrentBattleStage() == 3)
             {
                 ShowResultsPanel();
@@ -199,6 +241,16 @@ public class MainMenu : MonoBehaviour
             nextScene = database.LoadCurrentBattleMinigame();
             StartTransition();
         }
+    }
+
+    private void UpdateUserData(Dictionary<string, string> cloudUserData)
+    {
+        acornLabel.text = cloudUserData["Acorns"];
+        musicSlider.value = float.Parse(cloudUserData["MusicVolume"]);
+        sfxSlider.value = float.Parse(cloudUserData["SFXVolume"]);
+        playFabId = PlayFabLogin.PlayFabId ?? cloudUserData["PlayFabId"] ?? database.GetPlayFabId();
+        profileMenuHandler.UpdateProfileData(cloudUserData["Username"]);
+        userData = cloudUserData;
     }
 
     private void ShowResultsPanel() 
@@ -317,8 +369,8 @@ public class MainMenu : MonoBehaviour
 
         ButtonsEnabled(true);
         profileButton.enabled = false;
-
-        profileMenuHandler.UpdateProfileData();
+        
+        profileMenuHandler.UpdateProfileData(userData?["Username"]);
 
         profileMenu.SetActive(true);
         

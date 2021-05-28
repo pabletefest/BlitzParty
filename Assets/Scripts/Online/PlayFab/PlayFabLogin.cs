@@ -17,6 +17,7 @@ namespace Online.PlayFab
 
         //sessionTicket for online multiplayer
         public static string SessionTicket;
+        public static string PlayFabId;
     
         public void LoginPlayer()
         {
@@ -28,7 +29,9 @@ namespace Online.PlayFab
             }, result =>
             {
                 SessionTicket = result.SessionTicket;
+                PlayFabId = result.PlayFabId;
                 localDatabase.SetAccountActiveToken(1);
+                StoreUserDataLocalDB(PlayFabId, usernameField.text, passwordField.text);
                 LoadMainMenu();
             
             }, error =>
@@ -49,7 +52,9 @@ namespace Online.PlayFab
             }, result =>
             {
                 SessionTicket = result.SessionTicket;
+                PlayFabId = result.PlayFabId;
                 localDatabase.SetAccountActiveToken(1);
+                StoreUserDataLocalDB(PlayFabId, result.Username, passwordField.text);
                 LoadMainMenu();
             
             }, error =>
@@ -61,19 +66,23 @@ namespace Online.PlayFab
 
         public void LogoutPlayer()
         {
+            StoreUserDataOnCloud();
             PlayFabClientAPI.ForgetAllCredentials();
             SessionTicket = default;
+            PlayFabId = default;
             localDatabase.SetAccountActiveToken(0);
             LoadLoginScene();
         }
 
         private void LoadMainMenu()
         {
+            Debug.Log("Loading MainMenu");
             SceneManager.LoadScene("MainMenu");
         }
 
         private void LoadLoginScene()
         {
+            Debug.Log("Loading Login");
             SceneManager.LoadScene("Login");
         }
 
@@ -109,6 +118,29 @@ namespace Online.PlayFab
             {
                 errorText.text = "The account you are trying to login is not registered yet!";
             }
+        }
+
+        private void StoreUserDataLocalDB(string playFabId, string username, string password)
+        {
+            localDatabase.SetPlayFabId(playFabId);
+            localDatabase.SetUsername(username);
+            localDatabase.SetPassword(password);
+        }
+
+        private void StoreUserDataOnCloud()
+        {
+            string playFabId = localDatabase.GetPlayFabId();
+            string username = localDatabase.GetUsername();
+        
+            int acorns = localDatabase.LoadAcorns();
+        
+            float musicVolume = localDatabase.LoadMusicVolume();
+            float sfxVolume = localDatabase.LoadSFXVolume();
+            GameSettings gameSettings = new GameSettings(musicVolume, sfxVolume);
+
+            CloudStoragePlayFab cloudStorage = new CloudStoragePlayFab();
+        
+            cloudStorage.SetUserData(playFabId, username, acorns, gameSettings);
         }
     }
 }
