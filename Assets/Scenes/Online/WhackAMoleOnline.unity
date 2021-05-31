@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fc8b1635c193496daf71d39031920b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreController: {fileID: 1553071695}
+  scoreController: {fileID: 0}
   orientationManager: {fileID: 1955060426}
   resultTitle: {fileID: 942783219}
   victoryImage: {fileID: 21300000, guid: a63eb699ef36d2f4e85e022d499d479b, type: 3}
@@ -368,8 +368,8 @@ MonoBehaviour:
   joystick: {fileID: 0}
   catchButton: {fileID: 0}
   cowboyDuelFinisher: {fileID: 0}
-  resetWhackAMoleController: {fileID: 1955060428}
-  hammerSpawner: {fileID: 1052494425}
+  resetWhackAMoleController: {fileID: 0}
+  hammerSpawner: {fileID: 0}
 --- !u!222 &174698076
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1426,6 +1426,107 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 625245926}
   m_CullTransparentMesh: 0
+--- !u!1 &748100014
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 748100018}
+  - component: {fileID: 748100017}
+  - component: {fileID: 748100016}
+  - component: {fileID: 748100015}
+  m_Layer: 0
+  m_Name: NetworkManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &748100015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748100014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showGUI: 1
+  offsetX: 0
+  offsetY: 0
+--- !u!114 &748100016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748100014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b0fecffa3f624585964b0d0eb21b18e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Port: 7777
+  NoDelay: 1
+  Interval: 10
+  FastResend: 2
+  CongestionWindow: 0
+  SendWindowSize: 4096
+  ReceiveWindowSize: 4096
+  debugLog: 0
+  statisticsGUI: 0
+  statisticsLog: 0
+--- !u!114 &748100017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748100014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aab4c8111b7c411b9b92cf3dbc5bd4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 1
+  PersistNetworkManagerToOfflineScene: 0
+  runInBackground: 1
+  autoStartServerBuild: 1
+  serverTickRate: 30
+  serverBatching: 1
+  serverBatchInterval: 0
+  offlineScene: 
+  onlineScene: 
+  transport: {fileID: 748100016}
+  networkAddress: localhost
+  maxConnections: 100
+  disconnectInactiveConnections: 0
+  disconnectInactiveTimeout: 60
+  authenticator: {fileID: 0}
+  playerPrefab: {fileID: 0}
+  autoCreatePlayer: 1
+  playerSpawnMethod: 0
+  spawnPrefabs: []
+--- !u!4 &748100018
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 748100014}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: 90}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &802528345
 GameObject:
   m_ObjectHideFlags: 0
@@ -1730,6 +1831,7 @@ GameObject:
   m_Component:
   - component: {fileID: 835983140}
   - component: {fileID: 835983139}
+  - component: {fileID: 835983141}
   m_Layer: 0
   m_Name: EnemySpawnerZoomy
   m_TagString: Untagged
@@ -1746,17 +1848,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 835983138}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09e1f1baee724744c85a7ac275cb751b, type: 3}
+  m_Script: {fileID: 11500000, guid: 087c3ba1368d92e4b885c2d5b758fb68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoints:
-  - {fileID: 197058304}
-  - {fileID: 1267108055}
-  - {fileID: 1384364450}
-  - {fileID: 1054890372}
-  - {fileID: 1287475957}
-  - {fileID: 327322322}
-  - {fileID: 1417188095}
+  spawnPoints: []
   enemyPrefab: {fileID: 6285520231607209658, guid: afa4b0159bbd26e47b050ca8a7bda2c2,
     type: 3}
   initialSpawnTime: 5
@@ -1775,6 +1870,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &835983141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835983138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1161494118
+  serverOnly: 1
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1 &893955205
 GameObject:
   m_ObjectHideFlags: 0
@@ -1785,6 +1897,7 @@ GameObject:
   m_Component:
   - component: {fileID: 893955207}
   - component: {fileID: 893955206}
+  - component: {fileID: 893955208}
   m_Layer: 0
   m_Name: EnemySpawnerGoldenMole
   m_TagString: Untagged
@@ -1801,17 +1914,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 893955205}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c8d0d90fb7a2fa4c970876b4d86aa82, type: 3}
+  m_Script: {fileID: 11500000, guid: 4936481cd665efa47b67374c7bf27a3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoints:
-  - {fileID: 197058304}
-  - {fileID: 1267108055}
-  - {fileID: 1384364450}
-  - {fileID: 1054890372}
-  - {fileID: 1287475957}
-  - {fileID: 327322322}
-  - {fileID: 1417188095}
+  spawnPoints: []
   enemyPrefab: {fileID: 4335566353773967901, guid: 97b5dd946cd23a6488b26772286d7af1,
     type: 3}
   initialSpawnTime: 20
@@ -1830,6 +1936,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &893955208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 893955205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 300627215
+  serverOnly: 1
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1 &942783218
 GameObject:
   m_ObjectHideFlags: 0
@@ -2328,7 +2451,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1052494424}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dee0088c87f4db542a4b4ff85907cf9c, type: 3}
+  m_Script: {fileID: 11500000, guid: faea646cb22b0a544941ee63c9fad873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hammerPrefab: {fileID: 8124419346229253404, guid: 79ccce02ba71f9240a93819c77343d8c,
@@ -3096,6 +3219,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1316434617}
   - component: {fileID: 1316434616}
+  - component: {fileID: 1316434618}
   m_Layer: 0
   m_Name: EnemySpawnerMole
   m_TagString: Untagged
@@ -3112,17 +3236,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1316434615}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4dab9dbce110f5428343008362b900d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e107f21ff570ff41a2ece1bd6668da4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoints:
-  - {fileID: 197058304}
-  - {fileID: 1267108055}
-  - {fileID: 1384364450}
-  - {fileID: 1054890372}
-  - {fileID: 1287475957}
-  - {fileID: 327322322}
-  - {fileID: 1417188095}
+  spawnPoints: []
   enemyPrefab: {fileID: 8532954234781776406, guid: 9383c3d6845a81349b5d610e32533a78,
     type: 3}
   initialSpawnTime: 3
@@ -3141,6 +3258,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1316434618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316434615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1021784210
+  serverOnly: 1
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1 &1321814931
 GameObject:
   m_ObjectHideFlags: 0
@@ -3792,9 +3926,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1553071694}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cf07fe1fdc2995409f688ace74053f4, type: 3}
+  m_Script: {fileID: 11500000, guid: 86a440da154c4bc2a3cd6adb78098a9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  p2Score: 0
   Player1Score: {fileID: 953227375}
   Player2Score: {fileID: 823598025}
   Player1ScorePanel: {fileID: 166827828}
@@ -4285,12 +4420,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1955060427}
   - component: {fileID: 1955060426}
-  - component: {fileID: 1955060428}
-  - component: {fileID: 1955060429}
   - component: {fileID: 1955060430}
   - component: {fileID: 1955060431}
   - component: {fileID: 1955060432}
   - component: {fileID: 1955060433}
+  - component: {fileID: 1955060429}
+  - component: {fileID: 1955060428}
   m_Layer: 0
   m_Name: Whack-a-MoleManager
   m_TagString: Untagged
@@ -4333,10 +4468,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1955060425}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb87eecf0fcfd044384e71578a3a7f7c, type: 3}
+  m_Script: {fileID: 11500000, guid: c48a33c766c73344d87a2a34da9cef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreController: {fileID: 1553071695}
+  scoreController: {fileID: 0}
   pauseButton: {fileID: 1176865272}
   hammerSpawner: {fileID: 1052494425}
 --- !u!114 &1955060429
@@ -4348,7 +4483,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1955060425}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c941b79f61595941a8ab16f3d0b0d5e, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e1743ef91e96104c83929c267f5922e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoints:
@@ -4383,7 +4518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b196364d02fc1eb4e81bea63c21c94c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playersScore: {fileID: 1553071695}
+  playersScore: {fileID: 0}
   database: {fileID: 1955060430}
 --- !u!114 &1955060432
 MonoBehaviour:
