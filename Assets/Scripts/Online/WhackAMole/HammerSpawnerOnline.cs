@@ -7,7 +7,6 @@ namespace Online.WhackAMole
 {
     public class HammerSpawnerOnline : NetworkBehaviour, ITool
     {
-
         private Camera mainCamera;
 
         [SerializeField]
@@ -17,6 +16,8 @@ namespace Online.WhackAMole
         private float hitRate = 0.2f;
         private bool hammerInUse;
 
+        public int PlayerNumber { get; set; }
+
         public void PerformAction()
         {
             if (Input.touchCount > 0 && !hammerInUse)
@@ -25,13 +26,12 @@ namespace Online.WhackAMole
                 Touch touch = Input.GetTouch(0);
                 Vector3 touchPosition = GetTouchPosition(touch);
                 ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("HammerSwing");
-                Instantiate(hammerPrefab, touchPosition, Quaternion.identity);
+                SpawnHammerOnNetwork(hammerPrefab, touchPosition, Quaternion.identity);
                 StartCoroutine(FreeHammer());
             }
 
         }
 
-        [Command]
         private void PlayerInputClick()
         {
             Vector3 clickPosition;
@@ -40,11 +40,19 @@ namespace Online.WhackAMole
             if (clicked && !hammerInUse)
             {
                 hammerInUse = true;
-                ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("HammerSwing");
-                GameObject hammer = Instantiate(hammerPrefab, clickPosition, Quaternion.identity);
-                NetworkServer.Spawn(hammer);
+                //ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("HammerSwing");
+                SpawnHammerOnNetwork(hammerPrefab, clickPosition, Quaternion.identity);
                 StartCoroutine(FreeHammer());
             }
+        }
+
+        [Command]
+        private void SpawnHammerOnNetwork(GameObject hammerPrefabServer, Vector3 clickPosition, Quaternion rotation)
+        {
+            Debug.Log(hammerPrefabServer);
+            GameObject hammer = Instantiate(hammerPrefabServer, clickPosition, rotation);
+            NetworkServer.Spawn(hammer);
+            hammer.GetComponent<HammerOnline>().SetPlayerOwner(gameObject);
         }
         
         private bool CheckPlayerClick(out Vector3 clickPosition)
@@ -82,9 +90,12 @@ namespace Online.WhackAMole
             //hammerInUse = false;
         }
 
-        // Update is called once per frame
+
+        [Client]
         void Update()
         {
+            if (!isLocalPlayer) return;
+
             #if UNITY_EDITOR
                 PlayerInputClick();
             #else

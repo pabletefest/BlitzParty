@@ -2,12 +2,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Mirror;
 
 public class PlayersScoreOnline : MonoBehaviour
 {
 
     private int p1Score;
-    [SerializeField] private int p2Score;
+    private int p2Score;
 
     [SerializeField]
     private Text Player1Score;
@@ -85,6 +86,20 @@ public class PlayersScoreOnline : MonoBehaviour
         p1Score = 0;
         p2Score = 0;
         UpdateScore();
+    }
+
+    public void PlayerScorePoints(int amount, int playerIdentity) 
+    {
+        if (playerIdentity == 1)
+        {
+            P1ScorePoints(amount);
+            if (p1Score < 0) p1Score = 0;
+        }   
+        else if(playerIdentity == 2)
+        {
+            P2ScorePoints(amount);
+            if (p2Score < 0) p2Score = 0;
+        }
     }
 
     public void ResetWhackAMoleScore()
