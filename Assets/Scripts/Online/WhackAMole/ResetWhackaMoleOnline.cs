@@ -10,8 +10,8 @@ namespace Online.WhackAMole
         public static event Action OnSceneRestarted;
 
         [SerializeField]
-        private PlayersScore scoreController;
-
+        private PlayersScoreOnline scoreController;
+            
         [SerializeField]
         private GameObject pauseButton;
 

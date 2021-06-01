@@ -156,7 +156,7 @@ Transform:
   - {fileID: 327322323}
   - {fileID: 1417188096}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &107487861
 GameObject:
@@ -356,7 +356,7 @@ MonoBehaviour:
   victoryImage: {fileID: 21300000, guid: a63eb699ef36d2f4e85e022d499d479b, type: 3}
   defeatImage: {fileID: 21300000, guid: 21e0b0142227d7b419c876348aa90bd7, type: 3}
   drawImage: {fileID: 21300000, guid: 5496354b8d204b2419758a55f7bc08ce, type: 3}
-  earnAcorns: {fileID: 1955060431}
+  earnAcorns: {fileID: 0}
   acornsText: {fileID: 509048329}
   database: {fileID: 1955060430}
   pauseButton: {fileID: 1176865272}
@@ -1270,9 +1270,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 522960164}
-  - component: {fileID: 522960165}
   - component: {fileID: 522960167}
   - component: {fileID: 522960166}
+  - component: {fileID: 522960165}
   m_Layer: 5
   m_Name: Time
   m_TagString: Untagged
@@ -1310,7 +1310,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 522960163}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 200b911432cb46f42b2623bc7cca9bfa, type: 3}
+  m_Script: {fileID: 11500000, guid: 770fbcc56c9157b4cbf1f331315219ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   timeText: {fileID: 1848823099}
@@ -1509,10 +1509,15 @@ MonoBehaviour:
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 0}
+  playerPrefab: {fileID: 2086461855311879443, guid: d3173b68203e8bc419440db78c8158e9,
+    type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
-  spawnPrefabs: []
+  spawnPrefabs:
+  - {fileID: 4335566353773967901, guid: 528e5a0b5600fa640bd607f039928c64, type: 3}
+  - {fileID: 8124419346229253404, guid: 02bd1d91f8d711b44865bf19c6e2e960, type: 3}
+  - {fileID: 8532954234781776406, guid: e2c06e00cb78e304899bb5f5fc1f8cd9, type: 3}
+  - {fileID: 6285520231607209658, guid: ad5b164176023004e8bea565c46f4efa, type: 3}
 --- !u!4 &748100018
 Transform:
   m_ObjectHideFlags: 0
@@ -1525,7 +1530,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &802528345
 GameObject:
@@ -1851,8 +1856,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 087c3ba1368d92e4b885c2d5b758fb68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoints: []
-  enemyPrefab: {fileID: 6285520231607209658, guid: afa4b0159bbd26e47b050ca8a7bda2c2,
+  syncMode: 0
+  syncInterval: 0.1
+  spawnPoints:
+  - {fileID: 197058304}
+  - {fileID: 1267108055}
+  - {fileID: 1384364450}
+  - {fileID: 1054890372}
+  - {fileID: 1287475957}
+  - {fileID: 327322322}
+  - {fileID: 1417188095}
+  enemyPrefab: {fileID: 6285520231607209658, guid: ad5b164176023004e8bea565c46f4efa,
     type: 3}
   initialSpawnTime: 5
   decreasingRate: 0.2
@@ -1917,8 +1931,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4936481cd665efa47b67374c7bf27a3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoints: []
-  enemyPrefab: {fileID: 4335566353773967901, guid: 97b5dd946cd23a6488b26772286d7af1,
+  syncMode: 0
+  syncInterval: 0.1
+  spawnPoints:
+  - {fileID: 197058304}
+  - {fileID: 1267108055}
+  - {fileID: 1384364450}
+  - {fileID: 1054890372}
+  - {fileID: 1287475957}
+  - {fileID: 327322322}
+  - {fileID: 1417188095}
+  enemyPrefab: {fileID: 4335566353773967901, guid: 528e5a0b5600fa640bd607f039928c64,
     type: 3}
   initialSpawnTime: 20
   decreasingRate: 5
@@ -2425,51 +2448,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1052494424
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1052494426}
-  - component: {fileID: 1052494425}
-  m_Layer: 0
-  m_Name: Player
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1052494425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1052494424}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faea646cb22b0a544941ee63c9fad873, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hammerPrefab: {fileID: 8124419346229253404, guid: 79ccce02ba71f9240a93819c77343d8c,
-    type: 3}
---- !u!4 &1052494426
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1052494424}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.9006686, y: 0.34842408, z: -0.2715625}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1054890372
 GameObject:
   m_ObjectHideFlags: 0
@@ -3239,8 +3217,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e107f21ff570ff41a2ece1bd6668da4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoints: []
-  enemyPrefab: {fileID: 8532954234781776406, guid: 9383c3d6845a81349b5d610e32533a78,
+  syncMode: 0
+  syncInterval: 0.1
+  spawnPoints:
+  - {fileID: 197058304}
+  - {fileID: 1267108055}
+  - {fileID: 1384364450}
+  - {fileID: 1054890372}
+  - {fileID: 1287475957}
+  - {fileID: 327322322}
+  - {fileID: 1417188095}
+  enemyPrefab: {fileID: 8532954234781776406, guid: e2c06e00cb78e304899bb5f5fc1f8cd9,
     type: 3}
   initialSpawnTime: 3
   decreasingRate: 0.1
@@ -4421,11 +4408,11 @@ GameObject:
   - component: {fileID: 1955060427}
   - component: {fileID: 1955060426}
   - component: {fileID: 1955060430}
-  - component: {fileID: 1955060431}
   - component: {fileID: 1955060432}
   - component: {fileID: 1955060433}
   - component: {fileID: 1955060429}
   - component: {fileID: 1955060428}
+  - component: {fileID: 1955060431}
   m_Layer: 0
   m_Name: Whack-a-MoleManager
   m_TagString: Untagged
@@ -4457,7 +4444,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1955060428
 MonoBehaviour:
@@ -4471,9 +4458,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c48a33c766c73344d87a2a34da9cef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreController: {fileID: 0}
+  scoreController: {fileID: 1553071695}
   pauseButton: {fileID: 1176865272}
-  hammerSpawner: {fileID: 1052494425}
+  hammerSpawner: {fileID: 0}
 --- !u!114 &1955060429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4515,10 +4502,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1955060425}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b196364d02fc1eb4e81bea63c21c94c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 99ed69c95d19efc499ede4440783b51f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playersScore: {fileID: 0}
+  playersScore: {fileID: 1553071695}
   database: {fileID: 1955060430}
 --- !u!114 &1955060432
 MonoBehaviour:

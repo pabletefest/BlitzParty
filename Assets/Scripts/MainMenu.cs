@@ -487,6 +487,13 @@ public class MainMenu : MonoBehaviour
         StartTransition();
     }
     
+    public void StartWhackAMoleGameOnline()
+    {
+        nextScene = "WhackAMoleOnline";
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
+        StartTransition();
+    }
+    
     public void StartCowboyDuelGame()
     {
         nextScene = "CowboyDuel";

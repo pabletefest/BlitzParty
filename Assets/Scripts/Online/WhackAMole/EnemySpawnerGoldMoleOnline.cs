@@ -3,10 +3,11 @@ using System.Collections;
 using Services;
 using UnityEngine;
 using WhackAMole;
+using Mirror;
 
 namespace Online.WhackAMole
 {
-    public class EnemySpawnerGoldMoleOnline : MonoBehaviour
+    public class EnemySpawnerGoldMoleOnline : NetworkBehaviour
     {
         private readonly string POOL_GOLDMOLE = "Whack-a-mole Golden Mole";
         public static event Action<GameObject> OnEnemySpawn;
@@ -75,6 +76,8 @@ namespace Online.WhackAMole
         // Update is called once per frame
         void Update()
         {
+            if (!isServer) return;
+
             if (time > 0)
             {
                 time -= Time.deltaTime;
@@ -109,8 +112,10 @@ namespace Online.WhackAMole
                     }
 
                     holeAvailability.OccupyHoleSpawn(spawnPoints[randomSpot]);
-                    GameObject enemy = objectPoolerService.SpawnFromPool(POOL_GOLDMOLE,
-                        spawnPoints[randomSpot].transform.position, Quaternion.identity);
+                    //GameObject enemy = objectPoolerService.SpawnFromPool(POOL_GOLDMOLE,
+                    //spawnPoints[randomSpot].transform.position, Quaternion.identity);
+                    GameObject enemy = Instantiate(enemyPrefab, spawnPoints[randomSpot].transform.position, Quaternion.identity);
+                    NetworkServer.Spawn(enemy);
                     StartCoroutine(LiberateHole(spawnPoints, randomSpot));
                 }
                 //GameObject enemy = Instantiate(enemyPrefab, spawnPoints[randomSpot].transform.position, Quaternion.identity);

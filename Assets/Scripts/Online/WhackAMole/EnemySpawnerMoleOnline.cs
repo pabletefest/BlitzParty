@@ -3,152 +3,157 @@ using System.Collections;
 using Services;
 using UnityEngine;
 using WhackAMole;
+using Mirror;
 
 namespace Online.WhackAMole
 {
-    public class EnemySpawnerMoleOnline : MonoBehaviour
-{
-    private readonly string POOL_MOLE = "Whack-a-mole Normal Mole";
-    public static event Action<GameObject> OnEnemySpawn;
+    public class EnemySpawnerMoleOnline : NetworkBehaviour
+    {
+        private readonly string POOL_MOLE = "Whack-a-mole Normal Mole";
+        public static event Action<GameObject> OnEnemySpawn;
 
-    [SerializeField]
-    private GameObject[] spawnPoints;
+        [SerializeField]
+        private GameObject[] spawnPoints;
 
-    [SerializeField]
-    private GameObject enemyPrefab;
+        [SerializeField]
+        private GameObject enemyPrefab;
 
-    [SerializeField]
-    private float initialSpawnTime = 5f;
+        [SerializeField]
+        private float initialSpawnTime = 5f;
 
-    private float spawnTime;
+        private float spawnTime;
     
-    [SerializeField]
-    private float decreasingRate = 0.2f;
+        [SerializeField]
+        private float decreasingRate = 0.2f;
 
-    private float time;
-    private const float minimumSpawnTime = 0.75f;
+        private float time;
+        private const float minimumSpawnTime = 0.75f;
 
-    private ITimer chronometerService;
+        private ITimer chronometerService;
 
-    private IObjectPooler objectPoolerService;
+        private IObjectPooler objectPoolerService;
 
-    private CheckHoleAvailabilityOnline holeAvailability;
-
-
-    private void OnEnable()
-    {
-        //MainMenu.OnRabbitPursuitLoaded += SceneLoaded;
-        ResetWhackaMoleOnline.OnSceneRestarted += SceneRestarted;
-    }
+        private CheckHoleAvailabilityOnline holeAvailability;
 
 
-    private void OnDisable()
-    {
-        //MainMenu.OnRabbitPursuitLoaded -= SceneLoaded;
-        ResetWhackaMoleOnline.OnSceneRestarted -= SceneRestarted;
-    }
-    
-    /*
-    private void SceneLoaded()
-    {
-        objectPoolerService.InstanciatePools();
-        SpawnEnemy(1); //Initial spawn
-    }
-    */
-
-    private void SceneRestarted()
-    {
-        objectPoolerService.DisableObjectsInPool(POOL_MOLE);
-        RestartTimings();
-    }
-
-    private void Awake()
-    {
-        chronometerService = ServiceLocator.Instance.GetService<ITimer>();
-        objectPoolerService = ServiceLocator.Instance.GetService<IObjectPooler>();
-        RestartTimings();
-    }
-
-    private void Start()
-    {
-       //objectPoolerService.RemovePoolFromDictionary(SceneManager.GetActiveScene().name);
-        objectPoolerService.InstanciatePool(POOL_MOLE);
-        holeAvailability = CheckHoleAvailabilityOnline.Instance;
-        //SpawnEnemy(1); //Initial spawn
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (time > 0)
+        private void OnEnable()
         {
-            time -= Time.deltaTime;
+            //MainMenu.OnRabbitPursuitLoaded += SceneLoaded;
+            ResetWhackaMoleOnline.OnSceneRestarted += SceneRestarted;
         }
-        else
+
+
+        private void OnDisable()
         {
-            if (spawnTime > minimumSpawnTime)
-            {
-                spawnTime -= decreasingRate;
-            }
+            //MainMenu.OnRabbitPursuitLoaded -= SceneLoaded;
+            ResetWhackaMoleOnline.OnSceneRestarted -= SceneRestarted;
+        }
+    
+        /*
+        private void SceneLoaded()
+        {
+            objectPoolerService.InstanciatePools();
+            SpawnEnemy(1); //Initial spawn
+        }
+        */
 
-            if (spawnTime < minimumSpawnTime) spawnTime = minimumSpawnTime;
-            time = spawnTime;
+        private void SceneRestarted()
+        {
+            objectPoolerService.DisableObjectsInPool(POOL_MOLE);
+            RestartTimings();
+        }
 
-            float totalChronometerTime = chronometerService.GetTotalTime();
-            float chronometerTime = chronometerService.GetCurrentTime();
-            
+        private void Awake()
+        {
+            chronometerService = ServiceLocator.Instance.GetService<ITimer>();
+            objectPoolerService = ServiceLocator.Instance.GetService<IObjectPooler>();
+            RestartTimings();
+        }
 
-            if (chronometerTime >= totalChronometerTime / 2)
+        private void Start()
+        {
+           //objectPoolerService.RemovePoolFromDictionary(SceneManager.GetActiveScene().name);
+            objectPoolerService.InstanciatePool(POOL_MOLE);
+            holeAvailability = CheckHoleAvailabilityOnline.Instance;
+            //SpawnEnemy(1); //Initial spawn
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            if (!isServer) return;
+
+            if (time > 0)
             {
-                int numberOfEnemies = 1;
-                SpawnEnemy(numberOfEnemies);
-            }
-            else if (chronometerTime >= totalChronometerTime / 6)
-            {
-                int numberOfEnemies = UnityEngine.Random.Range(1,2);
-                SpawnEnemy(numberOfEnemies);
+                time -= Time.deltaTime;
             }
             else
             {
-                int numberOfEnemies = UnityEngine.Random.Range(1,3);
-                SpawnEnemy(numberOfEnemies);
-            }
-        }
-    }
-
-    private void SpawnEnemy(int numberOfEnemies)
-    {
-        for (int i = 0; i < numberOfEnemies; i++)
-        {
-            int randomSpot = UnityEngine.Random.Range(0, spawnPoints.Length);
-            if (!holeAvailability.AllOccupiedSpawn())
-            {
-                while (holeAvailability.IsOccupiedSpawn(spawnPoints[randomSpot]))
+                if (spawnTime > minimumSpawnTime)
                 {
-                    randomSpot = UnityEngine.Random.Range(0, spawnPoints.Length);
-                    Debug.Log("Mole " + randomSpot + " " + holeAvailability.IsOccupied(randomSpot));
+                    spawnTime -= decreasingRate;
                 }
-                holeAvailability.OccupyHoleSpawn(spawnPoints[randomSpot]);
-                GameObject enemy = objectPoolerService.SpawnFromPool(POOL_MOLE, spawnPoints[randomSpot].transform.position, Quaternion.identity);
-                StartCoroutine(LiberateHole(spawnPoints, randomSpot));
-            }
-            //GameObject enemy = Instantiate(enemyPrefab, spawnPoints[randomSpot].transform.position, Quaternion.identity);
+
+                if (spawnTime < minimumSpawnTime) spawnTime = minimumSpawnTime;
+                time = spawnTime;
+
+                float totalChronometerTime = chronometerService.GetTotalTime();
+                float chronometerTime = chronometerService.GetCurrentTime();
             
-            //enemy.GetComponent<Animator>().SetTrigger("MoleRestart");
-            //OnEnemySpawn?.Invoke(enemy);      
+
+                if (chronometerTime >= totalChronometerTime / 2)
+                {
+                    int numberOfEnemies = 1;
+                    SpawnEnemy(numberOfEnemies);
+                }
+                else if (chronometerTime >= totalChronometerTime / 6)
+                {
+                    int numberOfEnemies = UnityEngine.Random.Range(1,2);
+                    SpawnEnemy(numberOfEnemies);
+                }
+                else
+                {
+                    int numberOfEnemies = UnityEngine.Random.Range(1,3);
+                    SpawnEnemy(numberOfEnemies);
+                }
+            }
+        }
+
+        private void SpawnEnemy(int numberOfEnemies)
+        {
+            for (int i = 0; i < numberOfEnemies; i++)
+            {
+                int randomSpot = UnityEngine.Random.Range(0, spawnPoints.Length);
+                if (!holeAvailability.AllOccupiedSpawn())
+                {
+                    while (holeAvailability.IsOccupiedSpawn(spawnPoints[randomSpot]))
+                    {
+                        randomSpot = UnityEngine.Random.Range(0, spawnPoints.Length);
+                        Debug.Log("Mole " + randomSpot + " " + holeAvailability.IsOccupied(randomSpot));
+                    }
+                    holeAvailability.OccupyHoleSpawn(spawnPoints[randomSpot]);
+                    //GameObject enemy = objectPoolerService.SpawnFromPool(POOL_MOLE, spawnPoints[randomSpot].transform.position, Quaternion.identity);
+                    GameObject enemy = Instantiate(enemyPrefab, spawnPoints[randomSpot].transform.position, Quaternion.identity);
+                    NetworkServer.Spawn(enemy);
+                    StartCoroutine(LiberateHole(spawnPoints, randomSpot));
+                }
+                //GameObject enemy = Instantiate(enemyPrefab, spawnPoints[randomSpot].transform.position, Quaternion.identity);
+            
+                //enemy.GetComponent<Animator>().SetTrigger("MoleRestart");
+                //OnEnemySpawn?.Invoke(enemy);      
+            }
+        }
+
+        private IEnumerator LiberateHole(GameObject[] spawnPoints, int randomSpot)
+        {
+            yield return new WaitForSeconds(2f);
+            holeAvailability.LiberateHoleSpawn(spawnPoints[randomSpot]);
+        }
+        private void RestartTimings()
+        {
+            spawnTime = initialSpawnTime;
+            time = spawnTime;
         }
     }
-
-    private IEnumerator LiberateHole(GameObject[] spawnPoints, int randomSpot)
-    {
-        yield return new WaitForSeconds(2f);
-        holeAvailability.LiberateHoleSpawn(spawnPoints[randomSpot]);
-    }
-    private void RestartTimings()
-    {
-        spawnTime = initialSpawnTime;
-        time = spawnTime;
-    }
-}
 }
 

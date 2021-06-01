@@ -1,10 +1,11 @@
 ﻿using System.Collections;
+using Mirror;
 using Services;
 using UnityEngine;
 
 namespace Online.WhackAMole
 {
-    public class HammerSpawnerOnline : MonoBehaviour, ITool
+    public class HammerSpawnerOnline : NetworkBehaviour, ITool
     {
 
         private Camera mainCamera;
@@ -30,6 +31,7 @@ namespace Online.WhackAMole
 
         }
 
+        [Command]
         private void PlayerInputClick()
         {
             Vector3 clickPosition;
@@ -39,7 +41,8 @@ namespace Online.WhackAMole
             {
                 hammerInUse = true;
                 ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("HammerSwing");
-                Instantiate(hammerPrefab, clickPosition, Quaternion.identity);
+                GameObject hammer = Instantiate(hammerPrefab, clickPosition, Quaternion.identity);
+                NetworkServer.Spawn(hammer);
                 StartCoroutine(FreeHammer());
             }
         }

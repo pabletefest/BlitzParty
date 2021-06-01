@@ -3,10 +3,11 @@ using System.Collections;
 using Services;
 using UnityEngine;
 using WhackAMole;
+using Mirror;
 
 namespace Online.WhackAMole
 {
-    public class EnemySpawnerZoomyOnline : MonoBehaviour
+    public class EnemySpawnerZoomyOnline : NetworkBehaviour
     {
         private readonly string POOL_ZOOMYMOLE = "Whack-a-mole Zoomy";
         public static event Action<GameObject> OnEnemySpawn;
@@ -80,6 +81,8 @@ namespace Online.WhackAMole
         // Update is called once per frame
         void Update()
         {
+            if (!isServer) return;
+
             if (time > 0)
             {
                 time -= Time.deltaTime;
@@ -129,11 +132,15 @@ namespace Online.WhackAMole
                         Debug.Log("Zoomy " + randomSpot + " " + holeAvailability.IsOccupied(randomSpot));
                     }
                     holeAvailability.OccupyHoleSpawn(spawnPoints[randomSpot]);
-                    GameObject enemy = objectPoolerService.SpawnFromPool(POOL_ZOOMYMOLE, spawnPoints[randomSpot].transform.position, Quaternion.identity);
+
+                    //GameObject enemy = objectPoolerService.SpawnFromPool(POOL_ZOOMYMOLE, spawnPoints[randomSpot].transform.position, Quaternion.identity);
+                    GameObject enemy = Instantiate(enemyPrefab, spawnPoints[randomSpot].transform.position, Quaternion.identity);
+                    NetworkServer.Spawn(enemy);
                     StartCoroutine(LiberateHole(spawnPoints, randomSpot));
                 }
                 //GameObject enemy = Instantiate(enemyPrefab, spawnPoints[randomSpot].transform.position, Quaternion.identity);
                 
+                //enemy.GetComponent<Animator>().SetTrigger("ZoomyRestart");
                 //enemy.GetComponent<Animator>().SetTrigger("ZoomyRestart");
                 //OnEnemySpawn?.Invoke(enemy);            
             }
