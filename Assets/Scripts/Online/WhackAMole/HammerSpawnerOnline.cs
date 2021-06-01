@@ -26,7 +26,7 @@ namespace Online.WhackAMole
                 Touch touch = Input.GetTouch(0);
                 Vector3 touchPosition = GetTouchPosition(touch);
                 ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("HammerSwing");
-                SpawnHammerOnNetwork(hammerPrefab, touchPosition, Quaternion.identity);
+                SpawnHammerOnNetwork(touchPosition, Quaternion.identity);
                 StartCoroutine(FreeHammer());
             }
 
@@ -41,16 +41,16 @@ namespace Online.WhackAMole
             {
                 hammerInUse = true;
                 //ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("HammerSwing");
-                SpawnHammerOnNetwork(hammerPrefab, clickPosition, Quaternion.identity);
+                SpawnHammerOnNetwork(clickPosition, Quaternion.identity);
                 StartCoroutine(FreeHammer());
             }
         }
 
         [Command]
-        private void SpawnHammerOnNetwork(GameObject hammerPrefabServer, Vector3 clickPosition, Quaternion rotation)
+        private void SpawnHammerOnNetwork(Vector3 clickPosition, Quaternion rotation)
         {
-            Debug.Log(hammerPrefabServer);
-            GameObject hammer = Instantiate(hammerPrefabServer, clickPosition, rotation);
+            Debug.Log(hammerPrefab);
+            GameObject hammer = Instantiate(hammerPrefab, clickPosition, rotation);
             NetworkServer.Spawn(hammer);
             hammer.GetComponent<HammerOnline>().SetPlayerOwner(gameObject);
         }
