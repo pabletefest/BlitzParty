@@ -51,7 +51,7 @@ namespace Online.WhackAMole
         {
             Debug.Log(hammerPrefab);
             GameObject hammer = Instantiate(hammerPrefab, clickPosition, rotation);
-            NetworkServer.Spawn(hammer);
+            NetworkServer.Spawn(hammer, connectionToClient);
             hammer.GetComponent<HammerOnline>().SetPlayerOwner(gameObject);
         }
         

@@ -55,21 +55,21 @@ namespace Online.WhackAMole
 
         private void SceneRestarted()
         {
-            objectPoolerService.DisableObjectsInPool(POOL_GOLDMOLE);
+            //objectPoolerService.DisableObjectsInPool(POOL_GOLDMOLE);
             RestartTimings();
         }
 
         private void Awake()
         {
             chronometerService = ServiceLocator.Instance.GetService<ITimer>();
-            objectPoolerService = ServiceLocator.Instance.GetService<IObjectPooler>();
+            //objectPoolerService = ServiceLocator.Instance.GetService<IObjectPooler>();
             RestartTimings();
         }
 
         private void Start()
         {
             //objectPoolerService.RemovePoolFromDictionary(SceneManager.GetActiveScene().name);
-            objectPoolerService.InstanciatePool(POOL_GOLDMOLE);
+            //objectPoolerService.InstanciatePool(POOL_GOLDMOLE);
             holeAvailability = CheckHoleAvailabilityOnline.Instance;
         }
 

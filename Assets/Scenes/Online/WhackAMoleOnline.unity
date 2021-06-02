@@ -1673,7 +1673,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '10
+  m_Text: '0
 
 '
 --- !u!222 &823598026
@@ -3791,6 +3791,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1553071696}
   - component: {fileID: 1553071695}
+  - component: {fileID: 1553071697}
   m_Layer: 0
   m_Name: ScoreController
   m_TagString: Untagged
@@ -3810,6 +3811,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a440da154c4bc2a3cd6adb78098a9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   Player1Score: {fileID: 953227375}
   Player2Score: {fileID: 823598025}
   Player1ScorePanel: {fileID: 166827828}
@@ -3828,6 +3831,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1553071697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1553071694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3897740243
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1 &1575490686
 GameObject:
   m_ObjectHideFlags: 0
@@ -4387,7 +4407,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 50
+  m_Text: 0
 --- !u!222 &1869078489
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -4,10 +4,12 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Mirror;
 
-public class PlayersScoreOnline : MonoBehaviour
+public class PlayersScoreOnline : NetworkBehaviour
 {
-
+    [SyncVar(hook = nameof(UpdateOnClientsP1))]
     private int p1Score;
+
+    [SyncVar(hook = nameof(UpdateOnClientsP2))]
     private int p2Score;
 
     [SerializeField]
@@ -62,6 +64,16 @@ public class PlayersScoreOnline : MonoBehaviour
 
     }
 
+    private void UpdateOnClientsP1(int oldValue, int newValue)
+    {
+        Player1Score.text = newValue.ToString();
+    }
+    
+    private void UpdateOnClientsP2(int oldValue, int newValue)
+    {
+        Player2Score.text = newValue.ToString();
+    }
+
     public void P1ScorePoints(int points)
     {
         p1Score += points;
@@ -87,18 +99,20 @@ public class PlayersScoreOnline : MonoBehaviour
         p2Score = 0;
         UpdateScore();
     }
-
+    
     public void PlayerScorePoints(int amount, int playerIdentity) 
     {
         if (playerIdentity == 1)
         {
-            P1ScorePoints(amount);
+            p1Score += amount;
             if (p1Score < 0) p1Score = 0;
+            UpdateScore();
         }   
         else if(playerIdentity == 2)
         {
-            P2ScorePoints(amount);
+            p2Score += amount;
             if (p2Score < 0) p2Score = 0;
+            UpdateScore();
         }
     }
 

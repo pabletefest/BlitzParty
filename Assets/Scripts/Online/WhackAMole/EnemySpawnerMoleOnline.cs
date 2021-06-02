@@ -59,21 +59,21 @@ namespace Online.WhackAMole
 
         private void SceneRestarted()
         {
-            objectPoolerService.DisableObjectsInPool(POOL_MOLE);
+            //objectPoolerService.DisableObjectsInPool(POOL_MOLE);
             RestartTimings();
         }
 
         private void Awake()
         {
             chronometerService = ServiceLocator.Instance.GetService<ITimer>();
-            objectPoolerService = ServiceLocator.Instance.GetService<IObjectPooler>();
+            //objectPoolerService = ServiceLocator.Instance.GetService<IObjectPooler>();
             RestartTimings();
         }
 
         private void Start()
         {
            //objectPoolerService.RemovePoolFromDictionary(SceneManager.GetActiveScene().name);
-            objectPoolerService.InstanciatePool(POOL_MOLE);
+            //objectPoolerService.InstanciatePool(POOL_MOLE);
             holeAvailability = CheckHoleAvailabilityOnline.Instance;
             //SpawnEnemy(1); //Initial spawn
         }

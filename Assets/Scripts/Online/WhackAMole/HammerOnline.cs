@@ -22,12 +22,22 @@ namespace Online.WhackAMole
             playerOwner = player.GetComponent<HammerSpawnerOnline>();
             Debug.Log(playerOwner);
         }
-    
+        
+        
         private void OnTriggerEnter2D(Collider2D other)
         {
+            if (!isClient) return;
+            Debug.Log($"Player {playerOwner.PlayerNumber} hit da sh*t");
+            /*
+            if (isClient) Debug.Log("Heyyyyyy ima client boii");
+            if (isServer) Debug.Log("Heyyyyyy ima server ma men");
+            if (isLocalPlayer) Debug.Log("Heyyyyyy ima local boii");
+            if (isServerOnly) Debug.Log("Heyyyyyy ima only server madafaka");
+            if (isClientOnly) Debug.Log("Just a sad client F");
             Debug.Log("A fucking mole was hit madafaka");
             Debug.Log(scoreController);
             Debug.Log(playerOwner);
+            */
 
             Animator animator = other.gameObject.GetComponent<Animator>();
 
@@ -35,19 +45,19 @@ namespace Online.WhackAMole
             {
                 //SpawnSoundEffect(other.tag);
                 animator.SetTrigger("MoleHit");
-                scoreController.PlayerScorePoints(1, playerOwner.PlayerNumber);
+                UpdateScoreOnClients(1, playerOwner.PlayerNumber);
             }
             else if (other.CompareTag("GoldMole"))
             {
                 //SpawnSoundEffect(other.tag);
                 animator.SetTrigger("GoldMoleHit");
-                scoreController.PlayerScorePoints(5, playerOwner.PlayerNumber);
+                UpdateScoreOnClients(5, playerOwner.PlayerNumber);
             }
             else if (other.CompareTag("ZoomyWhackAMole"))
             {
                 //SpawnSoundEffect(other.tag);
                 animator.SetTrigger("ZoomyHit");
-                scoreController.PlayerScorePoints(-3, playerOwner.PlayerNumber);
+                UpdateScoreOnClients(-3, playerOwner.PlayerNumber);
             }
 
             if (other.CompareTag("Background")) return;
@@ -70,6 +80,12 @@ namespace Online.WhackAMole
             {
                 ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("HitZoomy");
             }
+        }
+
+        [Command]
+        private void UpdateScoreOnClients(int amount, int playerNumber)
+        {
+            scoreController.PlayerScorePoints(amount, playerNumber);
         }
     }
 }
