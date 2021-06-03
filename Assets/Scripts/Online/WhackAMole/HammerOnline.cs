@@ -54,21 +54,24 @@ namespace Online.WhackAMole
             {
                 //SpawnSoundEffect(other.tag);
                 animator.SetTrigger("MoleHit");
-                scoreController.PlayerScorePoints(1, playerOwner.PlayerNumber);
+                int playerId = playerOwner.PlayerNumber;
+                scoreController.PlayerScorePoints(1, playerId);
                 //UpdateScoreOnClients(1, playerOwner.PlayerNumber);
             }
             else if (other.CompareTag("GoldMole"))
             {
                 //SpawnSoundEffect(other.tag);
                 animator.SetTrigger("GoldMoleHit");
-                scoreController.PlayerScorePoints(5, playerOwner.PlayerNumber);
+                int playerId = playerOwner.PlayerNumber;
+                scoreController.PlayerScorePoints(5, playerId);
                 //UpdateScoreOnClients(5, playerOwner.PlayerNumber);
             }
             else if (other.CompareTag("ZoomyWhackAMole"))
             {
                 //SpawnSoundEffect(other.tag);
                 animator.SetTrigger("ZoomyHit");
-                scoreController.PlayerScorePoints(-3, playerOwner.PlayerNumber);
+                int playerId = playerOwner.PlayerNumber;
+                scoreController.PlayerScorePoints(-3, playerId);
                 //UpdateScoreOnClients(-3, playerOwner.PlayerNumber);
             }
 
