@@ -9,6 +9,8 @@ namespace Online.WhackAMole
         private PlayersScoreOnline scoreController;
         private HammerSpawnerOnline playerOwner;
 
+        [SerializeField] private Collider2D ownCollider;
+
         public override void OnStartClient()
         {
             Debug.Log("Client started");
@@ -29,6 +31,7 @@ namespace Online.WhackAMole
         {
             playerOwner = player.GetComponent<HammerSpawnerOnline>();
             Debug.Log(playerOwner);
+            ownCollider.enabled = true;
         }
         
         
