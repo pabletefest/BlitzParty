@@ -301,6 +301,7 @@ GameObject:
   - component: {fileID: 174698074}
   - component: {fileID: 174698076}
   - component: {fileID: 174698075}
+  - component: {fileID: 174698077}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -378,6 +379,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 174698073}
   m_CullTransparentMesh: 0
+--- !u!114 &174698077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 174698073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc3bc850c6574a738352403666b699d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scoreController: {fileID: 1553071695}
+  orientationManager: {fileID: 1955060426}
+  resultTitle: {fileID: 942783219}
+  victoryImage: {fileID: 21300000, guid: a63eb699ef36d2f4e85e022d499d479b, type: 3}
+  defeatImage: {fileID: 21300000, guid: 21e0b0142227d7b419c876348aa90bd7, type: 3}
+  drawImage: {fileID: 21300000, guid: 5496354b8d204b2419758a55f7bc08ce, type: 3}
+  earnAcorns: {fileID: 1955060431}
+  acornsText: {fileID: 509048329}
+  database: {fileID: 1955060430}
+  pauseButton: {fileID: 1176865272}
+  menuButton: {fileID: 1575490686}
+  restartButton: {fileID: 1462652194}
+  nextMinigameButton: {fileID: 1480032674}
+  battleModeHandler: {fileID: 1955060433}
+  resetRabbitPursuitController: {fileID: 0}
+  joystick: {fileID: 0}
+  catchButton: {fileID: 0}
+  cowboyDuelFinisher: {fileID: 0}
+  resetWhackAMoleController: {fileID: 0}
+  hammerSpawner: {fileID: 0}
 --- !u!1 &180303448
 GameObject:
   m_ObjectHideFlags: 0
@@ -1273,6 +1306,7 @@ GameObject:
   - component: {fileID: 522960167}
   - component: {fileID: 522960166}
   - component: {fileID: 522960165}
+  - component: {fileID: 522960168}
   m_Layer: 5
   m_Name: Time
   m_TagString: Untagged
@@ -1313,8 +1347,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 770fbcc56c9157b4cbf1f331315219ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   timeText: {fileID: 1848823099}
-  panelHandler: {fileID: 174698075}
+  panelHandler: {fileID: 174698077}
 --- !u!114 &522960166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1352,6 +1388,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 522960163}
   m_CullTransparentMesh: 0
+--- !u!114 &522960168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522960163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 3903107013
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1 &625245926
 GameObject:
   m_ObjectHideFlags: 0
@@ -1737,7 +1790,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &835983139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1812,7 +1865,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &893955206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3098,7 +3151,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1316434616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4244,6 +4297,11 @@ MonoBehaviour:
   - {fileID: 8124419346229253404, guid: 02bd1d91f8d711b44865bf19c6e2e960, type: 3}
   - {fileID: 8532954234781776406, guid: e2c06e00cb78e304899bb5f5fc1f8cd9, type: 3}
   - {fileID: 6285520231607209658, guid: ad5b164176023004e8bea565c46f4efa, type: 3}
+  timerUI: {fileID: 522960165}
+  enemySpawners:
+  - {fileID: 1316434615}
+  - {fileID: 893955205}
+  - {fileID: 835983138}
 --- !u!4 &1822694038
 Transform:
   m_ObjectHideFlags: 0
@@ -4327,7 +4385,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '0:30
+  m_Text: '1:00
 
 '
 --- !u!222 &1848823100

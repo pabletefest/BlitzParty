@@ -1,20 +1,66 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
 using Mirror;
 using Online.WhackAMole;
+using UnityEngine;
 
-public class WhackAMoleNetworkManager : NetworkManager
+namespace Online
 {
-    public override void OnServerAddPlayer(NetworkConnection conn)
+    public class WhackAMoleNetworkManager : NetworkManager
     {
-        GameObject player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
-        player.GetComponent<HammerSpawnerOnline>().PlayerNumber = numPlayers + 1;
-        NetworkServer.AddPlayerForConnection(conn, player);
+        [Header("Custom variables")]
+        [SerializeField] private TimerUIOnline timerUI;
 
-        if (numPlayers == 2)
+        [SerializeField] private GameObject[] enemySpawners;
+    
+        public override void OnServerAddPlayer(NetworkConnection conn)
         {
+            GameObject player = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+            player.GetComponent<HammerSpawnerOnline>().PlayerNumber = numPlayers + 1;
+            NetworkServer.AddPlayerForConnection(conn, player);
 
+            if (numPlayers == 2)
+            {
+                timerUI.InitializeTimer();
+                StartCoroutine(timerUI.StartTimer());
+                EnableSpawners();
+            }
+        }
+
+        private void OnEnable()
+        {
+            timerUI.OnTimerEnd += TimerEnded;
+        }
+
+
+        private void OnDisable()
+        {
+            timerUI.OnTimerEnd -= TimerEnded;
+        }
+        
+        private void TimerEnded()
+        {
+            Debug.Log("Server recieved OnTimerEnd event!!");
+            DestroyRemainingHammers();
+        }
+
+        private void EnableSpawners()
+        {
+            foreach (var spawner in enemySpawners)
+            {
+                spawner.SetActive(true);
+            }
+        }
+    
+        private void DestroyRemainingHammers()
+        {
+            GameObject[] hammers = GameObject.FindGameObjectsWithTag("Hammer");
+
+            foreach (var hammer in hammers)
+            {
+                NetworkServer.UnSpawn(hammer);
+            }
+
+            //hammerSpawner.enabled = false;
         }
     }
 }
