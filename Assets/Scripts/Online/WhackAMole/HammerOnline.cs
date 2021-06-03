@@ -16,8 +16,16 @@ namespace Online.WhackAMole
             Debug.Log(scoreController);
         }
 
-        [ClientRpc]
+        //[ClientRpc]
         public void SetPlayerOwner(GameObject player)
+        {
+            playerOwner = player.GetComponent<HammerSpawnerOnline>();
+            SetPlayerOnClients(player);
+            Debug.Log(playerOwner);
+        }
+        
+        [ClientRpc]
+        private void SetPlayerOnClients(GameObject player)
         {
             playerOwner = player.GetComponent<HammerSpawnerOnline>();
             Debug.Log(playerOwner);
@@ -26,6 +34,7 @@ namespace Online.WhackAMole
         
         private void OnTriggerEnter2D(Collider2D other)
         {
+            Debug.Log($"Has the hammer authority? {hasAuthority}");
             if (!isClient) return;
             Debug.Log($"Player {playerOwner.PlayerNumber} hit da sh*t");
             /*
@@ -45,19 +54,22 @@ namespace Online.WhackAMole
             {
                 //SpawnSoundEffect(other.tag);
                 animator.SetTrigger("MoleHit");
-                UpdateScoreOnClients(1, playerOwner.PlayerNumber);
+                scoreController.PlayerScorePoints(1, playerOwner.PlayerNumber);
+                //UpdateScoreOnClients(1, playerOwner.PlayerNumber);
             }
             else if (other.CompareTag("GoldMole"))
             {
                 //SpawnSoundEffect(other.tag);
                 animator.SetTrigger("GoldMoleHit");
-                UpdateScoreOnClients(5, playerOwner.PlayerNumber);
+                scoreController.PlayerScorePoints(5, playerOwner.PlayerNumber);
+                //UpdateScoreOnClients(5, playerOwner.PlayerNumber);
             }
             else if (other.CompareTag("ZoomyWhackAMole"))
             {
                 //SpawnSoundEffect(other.tag);
                 animator.SetTrigger("ZoomyHit");
-                UpdateScoreOnClients(-3, playerOwner.PlayerNumber);
+                scoreController.PlayerScorePoints(-3, playerOwner.PlayerNumber);
+                //UpdateScoreOnClients(-3, playerOwner.PlayerNumber);
             }
 
             if (other.CompareTag("Background")) return;
