@@ -22,7 +22,7 @@ namespace Online
             {
                 timerUI.InitializeTimer();
                 StartCoroutine(timerUI.StartTimer());
-                EnableSpawners();
+                CreateSpawners();
             }
         }
 
@@ -43,12 +43,16 @@ namespace Online
             DestroyRemainingHammers();
         }
 
-        private void EnableSpawners()
+        private void CreateSpawners()
         {
-            foreach (var spawner in enemySpawners)
-            {
-                spawner.SetActive(true);
-            }
+            GameObject goldMole = Instantiate(spawnPrefabs.Find(prefab => prefab.name == "EnemySpawnerGoldenMole"));
+            NetworkServer.Spawn(goldMole);
+            
+            GameObject mole = Instantiate(spawnPrefabs.Find(prefab => prefab.name == "EnemySpawnerMole"));
+            NetworkServer.Spawn(mole);
+            
+            GameObject zoomy = Instantiate(spawnPrefabs.Find(prefab => prefab.name == "EnemySpawnerZoomy"));
+            NetworkServer.Spawn(zoomy);
         }
     
         private void DestroyRemainingHammers()

@@ -68,6 +68,7 @@ namespace Online.WhackAMole
             chronometerService = ServiceLocator.Instance.GetService<ITimer>();
             //objectPoolerService = ServiceLocator.Instance.GetService<IObjectPooler>();
             RestartTimings();
+            GetSpawnPoints();
         }
 
         private void Start()
@@ -153,6 +154,11 @@ namespace Online.WhackAMole
         {
             spawnTime = initialSpawnTime;
             time = spawnTime;
+        }
+        
+        private void GetSpawnPoints()
+        {
+            spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
         }
     }
 }
