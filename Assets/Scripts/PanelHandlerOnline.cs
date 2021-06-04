@@ -1,4 +1,6 @@
-﻿using Online.BinkyPursuit;
+﻿using Mirror;
+using Online;
+using Online.BinkyPursuit;
 using Online.WhackAMole;
 using RabbitPursuit;
 using Services;
@@ -7,9 +9,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using WhackAMole;
 
-public class PanelHandlerOnline : MonoBehaviour
+public class PanelHandlerOnline : NetworkBehaviour
 {
-         //Common atributes
+    //Common atributes
 
     [SerializeField]
     private PlayersScoreOnline scoreController;
@@ -74,6 +76,28 @@ public class PanelHandlerOnline : MonoBehaviour
 
     [SerializeField]
     private HammerSpawnerOnline hammerSpawner;
+    
+    public override void OnStartClient()
+    {
+        //gameObject.SetActive(false);
+    }
+
+    public override void OnStartAuthority()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+        switch (sceneName)
+        {
+            case "RabbitPursuitOnline":
+                ShowRabbitPursuitPanel();
+                break;
+            case "WhackAMoleOnline":
+                ShowWhackAMolePanel();
+                break;
+            case "CowboyDuelOnline":
+                ShowCowboyDuelPanel();
+                break;
+        }
+    }
 
     public void RestartButtonHandler()
     {
@@ -175,10 +199,17 @@ public class PanelHandlerOnline : MonoBehaviour
         }
         */
         
+        CheckClientsResult();
         //CheckResult(scoreController.FindWinner(), "WhackAMole");
         //acornsText.text = earnAcorns.CalculateAcornsEarned("WhackAMole").ToString();
         //earnAcorns.AcornsWhackAMole();
         //database.AddPlayerWhackAMoleGames();
+    }
+
+    [Command]
+    private void CheckClientsResult()
+    {
+        CheckResult(scoreController.FindWinner(), "WhackAMole");
     }
 
     public void ShowCowboyDuelPanel()
@@ -213,30 +244,69 @@ public class PanelHandlerOnline : MonoBehaviour
 
     public void CheckResult(Results winner, string minigame)
     {
+        if (!isServer) return;
+        
         if (winner == Results.PLAYER1WIN)
         {
             if (database.IsBattleMode())
             {
                 database.UpdatePlayer1BattleWins(database.LoadPlayer1BattleWins() + 1);
             }
-            resultTitle.sprite = victoryImage;
-            ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("Win");
-            UpdateWins(minigame);
+            
+            //resultTitle.sprite = victoryImage;
+            //ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("Win");
+            //UpdateWins(minigame);
+
+            NetworkConnection player1Conn = ((WhackAMoleNetworkManager) NetworkManager.singleton).playersConnections[1];
+            SetClientResult(player1Conn, minigame, true);
+            
+            NetworkConnection player2Conn = ((WhackAMoleNetworkManager) NetworkManager.singleton).playersConnections[2];
+            SetClientResult(player2Conn, minigame, false);
         }
-        else if (winner == Results.PLAYER1LOSE)
+        else if (winner == Results.PLAYER2WIN)
         {
             if (database.IsBattleMode())
             {
                 database.UpdatePlayer2BattleWins(database.LoadPlayer2BattleWins() + 1);
             }
-            resultTitle.sprite = defeatImage;
-            ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("Lose");
+            
+            //resultTitle.sprite = defeatImage;
+            //ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("Lose");
+            NetworkConnection player1Conn = ((WhackAMoleNetworkManager) NetworkManager.singleton).playersConnections[1];
+            SetClientResult(player1Conn, minigame, false);
+            
+            
+            NetworkConnection player2Conn = ((WhackAMoleNetworkManager) NetworkManager.singleton).playersConnections[2];
+            SetClientResult(player2Conn, minigame, true);
         }
         else
         {
-            resultTitle.sprite = drawImage;
-            ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("Draw");
+            //resultTitle.sprite = drawImage;
+            //ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("Draw");
+            ClientsDrawGame();
         }
+    }
+
+    [TargetRpc]
+    private void SetClientResult(NetworkConnection target, string minigame, bool isWinner)
+    {
+        if (isWinner)
+        {
+            resultTitle.sprite = victoryImage;
+        }
+        else
+        {
+            resultTitle.sprite = defeatImage;
+        }
+        
+        UpdateWins(minigame);
+    }
+
+    [ClientRpc]
+    private void ClientsDrawGame()
+    {
+        resultTitle.sprite = drawImage;
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("Draw");
     }
 
     private void UpdateWins(string minigame)

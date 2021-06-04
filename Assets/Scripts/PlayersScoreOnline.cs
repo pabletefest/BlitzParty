@@ -100,8 +100,10 @@ public class PlayersScoreOnline : NetworkBehaviour
         UpdateScore();
     }
     
-    public void PlayerScorePoints(int amount, int playerIdentity) 
+    public void PlayerScorePoints(int amount, int playerIdentity)
     {
+        if (!isServer) return;
+        
         if (playerIdentity == 1)
         {
             p1Score += amount;
@@ -122,12 +124,12 @@ public class PlayersScoreOnline : NetworkBehaviour
         p2Score = 80;
         UpdateScore();
     }
-
+    
     public Results FindWinner()
     {
         if (p1Score > p2Score) return Results.PLAYER1WIN;
         else if (p1Score == p2Score) return Results.DRAW;
-        else return Results.PLAYER1LOSE;
+        else return Results.PLAYER2WIN;
     }
 
     public int GetP1Score()

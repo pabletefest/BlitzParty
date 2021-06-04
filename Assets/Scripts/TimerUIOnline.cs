@@ -13,6 +13,9 @@ public class TimerUIOnline : NetworkBehaviour
     [SerializeField]
     private Text timeText;
 
+    [SerializeField] private GameObject sandClock;
+
+    [SerializeField] private GameObject timeUI;
     //[SerializeField]
     //private float timeGameplay;
 
@@ -20,7 +23,7 @@ public class TimerUIOnline : NetworkBehaviour
     private float time;
     private ITimer chronometer;
 
-    [SerializeField]
+    //[SerializeField]
     private PanelHandlerOnline panelHandler;
 
     [SyncVar(hook = nameof(OnTimeChanged))]
@@ -69,10 +72,51 @@ public class TimerUIOnline : NetworkBehaviour
 
     private void EnableResultPanelOnline()
     {
+        if (!isServer) return;
+        
         Debug.Log($"Am I client? {isClient}");
         Debug.Log($"Am I server? {isServer}");
         OnTimerEnd?.Invoke();
         
+        /*
+        string sceneName = SceneManager.GetActiveScene().name;
+        switch (sceneName)
+        {
+            case "RabbitPursuitOnline":
+                panelHandler.ShowRabbitPursuitPanel();
+                break;
+            case "WhackAMoleOnline":
+                panelHandler.ShowWhackAMolePanel();
+                break;
+        }
+        */
+        //Time.timeScale = 0;
+
+        chronometer.OnTimerOver -= EnableResultPanelOnline;
+
+        /*
+        foreach (var playerConn in NetworkServer.connections)
+        {
+            Debug.Log(playerConn.Value);
+            Debug.Log(connectionToClient);
+            Debug.Log(connectionToClient.identity);
+            connectionToClient.identity.AssignClientAuthority(playerConn.Value);
+        }*/
+
+        GameObject resultPanelCanvas = Instantiate(NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "CanvasResultPanel"));
+        NetworkServer.Spawn(resultPanelCanvas, connectionToClient);
+        
+        //EnableResultPanelOnClients();
+        DisableTimerOnClients();
+        sandClock.GetComponent<Animator>().enabled = false;
+        timeUI.SetActive(false);
+    }
+
+    
+    [ClientRpc]
+    private void DisableTimerOnClients()
+    {
+        /*
         string sceneName = SceneManager.GetActiveScene().name;
         switch (sceneName)
         {
@@ -84,9 +128,12 @@ public class TimerUIOnline : NetworkBehaviour
                 break;
         }
         //Time.timeScale = 0;
+        */
         
-        chronometer.OnTimerOver -= EnableResultPanelOnline;
+        sandClock.GetComponent<Animator>().enabled = false;
+        timeUI.SetActive(false);
     }
+    
 
     private void UpdateTimer()
     {
