@@ -10,19 +10,19 @@ public class EarnAcornsOnline : MonoBehaviour
     [SerializeField]
     private Database database;
 
-    public void AcornsRabbitPursuit()
+    public void AcornsRabbitPursuit(int acornsEarned)
     {
-        UpdateAcorns(CalculateAcornsEarned("RabbitPursuit"));
+        UpdateAcorns(acornsEarned);
     }
 
-    public void AcornsWhackAMole()
+    public void AcornsWhackAMole(int acornsEarned)
     {
-        UpdateAcorns(CalculateAcornsEarned("WhackAMole"));
+        UpdateAcorns(acornsEarned);
     }
 
-    public void AcornsCowboyDuel()
+    public void AcornsCowboyDuel(int acornsEarned)
     {
-        UpdateAcorns(CalculateAcornsEarned("CowboyDuel"));
+        UpdateAcorns(acornsEarned);
     }
 
     private void UpdateAcorns(int acornsEarned)
@@ -30,32 +30,43 @@ public class EarnAcornsOnline : MonoBehaviour
         database.SaveAcorns(database.LoadAcorns() + acornsEarned);
     }
 
-     public int CalculateAcornsEarned(string minigame)
+     public int CalculateAcornsEarned(string minigame, int playerNumber)
     {
         int moreAcorns = 0;
         switch (minigame)
         {
             case "RabbitPursuit":
-                moreAcorns = (int)Math.Floor(playersScore.GetP1Score() * 0.5);
+                if (playerNumber == 1)
+                {
+                    moreAcorns = (int)Math.Floor(playersScore.GetP1Score() * 0.5);
+                }
+                else if (playerNumber == 2)
+                {
+                    moreAcorns = (int)Math.Floor(playersScore.GetP2Score() * 0.5);
+                }
+                
                 break;
 
             case "WhackAMole":
-                moreAcorns = (int)Math.Floor(playersScore.GetP1Score() * 0.25);
+                if (playerNumber == 1)
+                {
+                    moreAcorns = (int)Math.Floor(playersScore.GetP1Score() * 0.25);
+                }
+                else if (playerNumber == 2)
+                {
+                    moreAcorns = (int)Math.Floor(playersScore.GetP2Score() * 0.25);
+                }
+                
                 break;
 
             case "CowboyDuel":
                 moreAcorns = 10;
+                
                 break;
         }
-        int acornsEarned = 0;
-        if (playersScore.FindWinner() == Results.DRAW)
-        {
-            acornsEarned = 10;
-        }
-        else if (playersScore.FindWinner() == Results.PLAYER1WIN)
-        {
-            acornsEarned = 20 + moreAcorns;
-        }
+        
+        int acornsEarned = 20 + moreAcorns;
+
         return acornsEarned;
     }
 }

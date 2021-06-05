@@ -10,8 +10,9 @@ namespace Online
     {
         [Header("Custom variables")]
         [SerializeField] private TimerUIOnline timerUI;
+        [SerializeField] private PlayerIndicatorUI playerIndicatorUI;
 
-        [SerializeField] private GameObject[] enemySpawners;
+        //[SerializeField] private GameObject[] enemySpawners;
 
         private List<GameObject> clients;
         private List<GameObject> spawners;
@@ -38,6 +39,11 @@ namespace Online
 
             if (numPlayers == 2)
             {
+                foreach (var playerConn in playersConnections)
+                {
+                    playerIndicatorUI.StartAnimationIndicator(playerConn.Value, playerConn.Key);
+                }
+                
                 timerUI.InitializeTimer();
                 StartCoroutine(timerUI.StartTimer());
                 CreateSpawners();

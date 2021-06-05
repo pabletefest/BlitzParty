@@ -170,9 +170,9 @@ public class PanelHandlerOnline : NetworkBehaviour
         joystick.GetComponent<Canvas>().enabled = false;
         catchButton.SetActive(false);
         CheckResult(scoreController.FindWinner(), "RabbitPursuit");
-        acornsText.text = earnAcorns.CalculateAcornsEarned("RabbitPursuit").ToString();
-        earnAcorns.AcornsRabbitPursuit();
-        database.AddPlayerRabbitPursuitGames();
+        // acornsText.text = earnAcorns.CalculateAcornsEarned("RabbitPursuit").ToString();
+        // earnAcorns.AcornsRabbitPursuit();
+        // database.AddPlayerRabbitPursuitGames();
     }
 
     public void ShowWhackAMolePanel()
@@ -246,9 +246,9 @@ public class PanelHandlerOnline : NetworkBehaviour
             nextMinigameButton.SetActive(false);
         }
         CheckResult(scoreController.FindWinner(), "CowboyDuel");
-        acornsText.text = earnAcorns.CalculateAcornsEarned("CowboyDuel").ToString();
-        earnAcorns.AcornsCowboyDuel();
-        database.AddPlayerCowboyDuelGames();
+        // acornsText.text = earnAcorns.CalculateAcornsEarned("CowboyDuel").ToString();
+        // earnAcorns.AcornsCowboyDuel();
+        // database.AddPlayerCowboyDuelGames();
     }
 
     public void CheckResult(Results winner, string minigame)
@@ -299,10 +299,14 @@ public class PanelHandlerOnline : NetworkBehaviour
     [TargetRpc]
     private void SetClientResult(NetworkConnection target, string minigame, bool isWinner)
     {
+        Debug.Log($"Am in server: {isServer}");
+        Debug.Log("Someone won");
         if (isWinner)
         {
             resultTitle.sprite = victoryImage;
             ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("Win");
+            
+            ObtainAcornsEarnedCommand();
         }
         else
         {
@@ -319,12 +323,37 @@ public class PanelHandlerOnline : NetworkBehaviour
     [ClientRpc]
     private void ClientsDrawGame()
     {
+        Debug.Log($"Am in server: {isServer}");
+        Debug.Log("Game draw");
         resultTitle.sprite = drawImage;
+        
+        int acornsEarned = 10;
+        acornsText.text = acornsEarned.ToString();
+        earnAcorns.AcornsWhackAMole(acornsEarned);
+        database.AddPlayerWhackAMoleGames();
         
         panel.SetActive(true);
         pauseButton.SetActive(false);
         
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("Draw");
+    }
+
+    [Command(requiresAuthority = false)]
+    private void ObtainAcornsEarnedCommand(NetworkConnectionToClient sender = null)
+    {
+        int playerNumber = sender.identity.gameObject.GetComponent<HammerSpawnerOnline>().PlayerNumber;
+        Debug.Log($"PlayerNumber is: {playerNumber}");
+        int acornsEarned = earnAcorns.CalculateAcornsEarned("WhackAMole", playerNumber);
+        Debug.Log($"AcornsEarned: {acornsEarned}");
+        StoreAcorsLocallyOnWinnerClient(sender, acornsEarned);
+    }
+
+    [TargetRpc]
+    private void StoreAcorsLocallyOnWinnerClient(NetworkConnection target, int acornsEarned)
+    {
+        acornsText.text = acornsEarned.ToString();
+        earnAcorns.AcornsWhackAMole(acornsEarned);
+        database.AddPlayerWhackAMoleGames();
     }
 
     private void UpdateWins(string minigame)
