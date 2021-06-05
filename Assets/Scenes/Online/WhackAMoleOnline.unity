@@ -300,8 +300,6 @@ GameObject:
   m_Component:
   - component: {fileID: 174698074}
   - component: {fileID: 174698076}
-  - component: {fileID: 174698077}
-  - component: {fileID: 174698075}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -339,23 +337,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -24.999878}
   m_SizeDelta: {x: 199.99976, y: 349.99976}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &174698075
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 174698073}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 3258973028
-  serverOnly: 0
-  visible: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!222 &174698076
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -364,40 +345,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 174698073}
   m_CullTransparentMesh: 0
---- !u!114 &174698077
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 174698073}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc3bc850c6574a738352403666b699d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  scoreController: {fileID: 1553071695}
-  orientationManager: {fileID: 1955060426}
-  resultTitle: {fileID: 942783219}
-  victoryImage: {fileID: 21300000, guid: a63eb699ef36d2f4e85e022d499d479b, type: 3}
-  defeatImage: {fileID: 21300000, guid: 21e0b0142227d7b419c876348aa90bd7, type: 3}
-  drawImage: {fileID: 21300000, guid: 5496354b8d204b2419758a55f7bc08ce, type: 3}
-  earnAcorns: {fileID: 1955060431}
-  acornsText: {fileID: 509048329}
-  database: {fileID: 1955060430}
-  pauseButton: {fileID: 1176865272}
-  menuButton: {fileID: 1575490686}
-  restartButton: {fileID: 1462652194}
-  nextMinigameButton: {fileID: 1480032674}
-  battleModeHandler: {fileID: 1955060433}
-  resetRabbitPursuitController: {fileID: 0}
-  joystick: {fileID: 0}
-  catchButton: {fileID: 0}
-  cowboyDuelFinisher: {fileID: 0}
-  resetWhackAMoleController: {fileID: 0}
-  hammerSpawner: {fileID: 0}
 --- !u!1 &180303448
 GameObject:
   m_ObjectHideFlags: 0
@@ -1292,8 +1239,6 @@ GameObject:
   - component: {fileID: 522960164}
   - component: {fileID: 522960167}
   - component: {fileID: 522960166}
-  - component: {fileID: 522960165}
-  - component: {fileID: 522960168}
   m_Layer: 5
   m_Name: Time
   m_TagString: Untagged
@@ -1322,24 +1267,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 327}
   m_SizeDelta: {x: 220, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &522960165
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 522960163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 770fbcc56c9157b4cbf1f331315219ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  timeText: {fileID: 1848823099}
-  sandClock: {fileID: 1040752842}
-  timeUI: {fileID: 522960163}
-  panelHandler: {fileID: 174698077}
 --- !u!114 &522960166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1377,23 +1304,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 522960163}
   m_CullTransparentMesh: 0
---- !u!114 &522960168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 522960163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 3903107013
-  serverOnly: 0
-  visible: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!1 &625245926
 GameObject:
   m_ObjectHideFlags: 0
@@ -2839,6 +2749,109 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1235375982}
   m_CullTransparentMesh: 0
+--- !u!1 &1260839772
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1260839776}
+  - component: {fileID: 1260839775}
+  - component: {fileID: 1260839774}
+  - component: {fileID: 1260839773}
+  m_Layer: 0
+  m_Name: GUIController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1260839773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260839772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc3bc850c6574a738352403666b699d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  scoreController: {fileID: 1553071695}
+  orientationManager: {fileID: 1955060426}
+  resultTitle: {fileID: 942783219}
+  victoryImage: {fileID: 21300000, guid: a63eb699ef36d2f4e85e022d499d479b, type: 3}
+  defeatImage: {fileID: 21300000, guid: 21e0b0142227d7b419c876348aa90bd7, type: 3}
+  drawImage: {fileID: 21300000, guid: 5496354b8d204b2419758a55f7bc08ce, type: 3}
+  earnAcorns: {fileID: 1955060431}
+  acornsText: {fileID: 509048329}
+  database: {fileID: 1955060430}
+  pauseButton: {fileID: 1176865272}
+  menuButton: {fileID: 1575490686}
+  restartButton: {fileID: 1462652194}
+  nextMinigameButton: {fileID: 1480032674}
+  battleModeHandler: {fileID: 1955060433}
+  resetRabbitPursuitController: {fileID: 0}
+  joystick: {fileID: 0}
+  catchButton: {fileID: 0}
+  cowboyDuelFinisher: {fileID: 0}
+  resetWhackAMoleController: {fileID: 0}
+  hammerSpawner: {fileID: 0}
+  panel: {fileID: 174698073}
+--- !u!114 &1260839774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260839772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 770fbcc56c9157b4cbf1f331315219ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  timeText: {fileID: 1848823099}
+  sandClock: {fileID: 1040752842}
+  timeUI: {fileID: 522960163}
+  panelHandler: {fileID: 1260839773}
+--- !u!114 &1260839775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260839772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 1270635518
+  serverOnly: 0
+  visible: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!4 &1260839776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1260839772}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 90}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1267108055
 GameObject:
   m_ObjectHideFlags: 0
@@ -4064,8 +4077,8 @@ MonoBehaviour:
   - {fileID: 7403520856018804853, guid: 3eab9747c6edc8148af2e7bc9c2ba1d5, type: 3}
   - {fileID: 2080820214425543054, guid: f9408a75ac9054143b3a87c406f76c0b, type: 3}
   - {fileID: 8076541103105826768, guid: 71b0c817b7a7bdf42bf798e93fb5d410, type: 3}
-  - {fileID: 2879111976187700135, guid: 2212a0d9036083046b5c10f6b44eb643, type: 3}
-  timerUI: {fileID: 522960165}
+  - {fileID: 8113517547745728120, guid: c6fce5187402e3247a6620d56c09eaae, type: 3}
+  timerUI: {fileID: 1260839774}
   enemySpawners:
   - {fileID: 0}
   - {fileID: 0}

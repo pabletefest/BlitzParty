@@ -48,6 +48,8 @@ MonoBehaviour:
   syncInterval: 0.1
   hammerPrefab: {fileID: 8124419346229253404, guid: 02bd1d91f8d711b44865bf19c6e2e960,
     type: 3}
+  hammer2Prefab: {fileID: 8113517547745728120, guid: c6fce5187402e3247a6620d56c09eaae,
+    type: 3}
 --- !u!114 &2086461855311879440
 MonoBehaviour:
   m_ObjectHideFlags: 0

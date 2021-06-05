@@ -11,6 +11,8 @@ namespace Online.WhackAMole
 
         [SerializeField]
         private GameObject hammerPrefab;
+        [SerializeField]
+        private GameObject hammer2Prefab;
 
         private float hitTime;
         private float hitRate = 0.2f;
@@ -50,9 +52,20 @@ namespace Online.WhackAMole
         private void SpawnHammerOnNetwork(Vector3 clickPosition, Quaternion rotation)
         {
             Debug.Log(hammerPrefab);
-            GameObject hammer = Instantiate(hammerPrefab, clickPosition, rotation);
-            NetworkServer.Spawn(hammer, connectionToClient);
-            hammer.GetComponent<HammerOnline>().SetPlayerOwner(gameObject);
+            Debug.Log(hammer2Prefab);
+
+            if (PlayerNumber == 1)
+            {
+                GameObject hammer1 = Instantiate(hammerPrefab, clickPosition, rotation);
+                NetworkServer.Spawn(hammer1, connectionToClient);
+                hammer1.GetComponent<HammerOnline>().SetPlayerOwner(gameObject);
+            }
+            else if (PlayerNumber == 2)
+            {
+                GameObject hammer2 = Instantiate(hammer2Prefab, clickPosition, rotation);
+                NetworkServer.Spawn(hammer2, connectionToClient);
+                hammer2.GetComponent<HammerOnline>().SetPlayerOwner(gameObject);
+            }
         }
         
         private bool CheckPlayerClick(out Vector3 clickPosition)

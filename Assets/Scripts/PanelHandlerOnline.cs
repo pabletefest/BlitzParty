@@ -76,6 +76,8 @@ public class PanelHandlerOnline : NetworkBehaviour
 
     [SerializeField]
     private HammerSpawnerOnline hammerSpawner;
+
+    [SerializeField] private GameObject panel;
     
     public override void OnStartClient()
     {
@@ -141,7 +143,8 @@ public class PanelHandlerOnline : NetworkBehaviour
 
     public void ShowRabbitPursuitPanel()
     {
-        gameObject.SetActive(true);
+        panel.SetActive(true);
+        //gameObject.SetActive(true);
         pauseButton.SetActive(false);
         if (database.IsBattleMode())
         {
@@ -174,7 +177,11 @@ public class PanelHandlerOnline : NetworkBehaviour
 
     public void ShowWhackAMolePanel()
     {
-        gameObject.SetActive(true);
+        Debug.Log($"Is server calling this? {isServer}");
+        if (!isServer) return;
+        
+        panel.SetActive(true);
+        //gameObject.SetActive(true);
         pauseButton.SetActive(false);
         /*
         if (database.IsBattleMode())
@@ -206,15 +213,17 @@ public class PanelHandlerOnline : NetworkBehaviour
         //database.AddPlayerWhackAMoleGames();
     }
 
-    [Command]
+    //[Command(requiresAuthority = false)]
     private void CheckClientsResult()
     {
+        Debug.Log("Checking results...");
         CheckResult(scoreController.FindWinner(), "WhackAMole");
     }
 
     public void ShowCowboyDuelPanel()
     {
-        gameObject.SetActive(true);
+        panel.SetActive(true);
+        //gameObject.SetActive(true);
         pauseButton.SetActive(false);
         if (database.IsBattleMode())
         {
@@ -293,11 +302,16 @@ public class PanelHandlerOnline : NetworkBehaviour
         if (isWinner)
         {
             resultTitle.sprite = victoryImage;
+            ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("Win");
         }
         else
         {
             resultTitle.sprite = defeatImage;
+            ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("Lose");
         }
+        
+        panel.SetActive(true);
+        pauseButton.SetActive(false);
         
         UpdateWins(minigame);
     }
@@ -306,6 +320,10 @@ public class PanelHandlerOnline : NetworkBehaviour
     private void ClientsDrawGame()
     {
         resultTitle.sprite = drawImage;
+        
+        panel.SetActive(true);
+        pauseButton.SetActive(false);
+        
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("Draw");
     }
 

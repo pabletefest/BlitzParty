@@ -67,11 +67,13 @@ public class PlayersScoreOnline : NetworkBehaviour
     private void UpdateOnClientsP1(int oldValue, int newValue)
     {
         Player1Score.text = newValue.ToString();
+        Player1ScorePanel.text = newValue.ToString();
     }
     
     private void UpdateOnClientsP2(int oldValue, int newValue)
     {
         Player2Score.text = newValue.ToString();
+        Player2ScorePanel.text = newValue.ToString();
     }
 
     public void P1ScorePoints(int points)

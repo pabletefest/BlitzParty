@@ -23,7 +23,7 @@ public class TimerUIOnline : NetworkBehaviour
     private float time;
     private ITimer chronometer;
 
-    //[SerializeField]
+    [SerializeField]
     private PanelHandlerOnline panelHandler;
 
     [SyncVar(hook = nameof(OnTimeChanged))]
@@ -78,7 +78,7 @@ public class TimerUIOnline : NetworkBehaviour
         Debug.Log($"Am I server? {isServer}");
         OnTimerEnd?.Invoke();
         
-        /*
+        
         string sceneName = SceneManager.GetActiveScene().name;
         switch (sceneName)
         {
@@ -89,23 +89,13 @@ public class TimerUIOnline : NetworkBehaviour
                 panelHandler.ShowWhackAMolePanel();
                 break;
         }
-        */
+        
         //Time.timeScale = 0;
 
         chronometer.OnTimerOver -= EnableResultPanelOnline;
-
-        /*
-        foreach (var playerConn in NetworkServer.connections)
-        {
-            Debug.Log(playerConn.Value);
-            Debug.Log(connectionToClient);
-            Debug.Log(connectionToClient.identity);
-            connectionToClient.identity.AssignClientAuthority(playerConn.Value);
-        }*/
-
-        GameObject resultPanelCanvas = Instantiate(NetworkManager.singleton.spawnPrefabs.Find(prefab => prefab.name == "CanvasResultPanel"));
-        NetworkServer.Spawn(resultPanelCanvas, connectionToClient);
         
+
+
         //EnableResultPanelOnClients();
         DisableTimerOnClients();
         sandClock.GetComponent<Animator>().enabled = false;
