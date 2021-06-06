@@ -1,16 +1,17 @@
-﻿using Services;
+﻿using Mirror;
+using Services;
 using UnityEngine;
 using CharacterController = RabbitPursuit.CharacterController;
 
 namespace Online.BinkyPursuit
 {
-	public class PlayerMovementOnline : MonoBehaviour
+	public class PlayerMovementOnline : NetworkBehaviour
 	{
 
 		[SerializeField]
 		private Animator animator;
 
-		public CharacterController controller;
+		public CharacterControllerOnline controller;
 		public FloatingJoystick floatingJoystick;
 		Animator m_Animator;
 
@@ -21,18 +22,26 @@ namespace Online.BinkyPursuit
 
 		bool touchingRabbit = false;
 
-		PlayersScore scoreController;
+		PlayersScoreOnline scoreController;
 
 		GameObject objectCollided;
 
-		private void Start()
+		private bool isClientReady;
+		public int PlayerNumber { get; set; }
+
+		public override void OnStartClient()
 		{
 			m_Animator = gameObject.GetComponent<Animator>();
-			scoreController = GameObject.Find("ScoreController").GetComponent<PlayersScore>();
+			scoreController = GameObject.Find("ScoreController").GetComponent<PlayersScoreOnline>();
+			floatingJoystick = GameObject.FindGameObjectWithTag("FloatingJoystick").GetComponent<FloatingJoystick>();
+			isClientReady = true;
 		}
+		
 		// Update is called once per frame
 		void Update()
 		{
+			if (!isClientReady) return;
+			
 			#if UNITY_EDITOR
 				if(Input.GetKeyDown(KeyCode.Space))	
 					CatchButtonHandler();
@@ -43,6 +52,8 @@ namespace Online.BinkyPursuit
 
 		void FixedUpdate()
 		{
+			if (!isClientReady) return;
+			
 			controller.Move(horizontalMove * Time.fixedDeltaTime, verticalMove * Time.fixedDeltaTime);
 		}
 

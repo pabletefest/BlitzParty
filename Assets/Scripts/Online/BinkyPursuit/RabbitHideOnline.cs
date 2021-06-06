@@ -14,7 +14,7 @@ namespace Online.BinkyPursuit
 
         private void Awake()
         {
-            objectPooler = ServiceLocator.Instance.GetService<IObjectPooler>();
+            //objectPooler = ServiceLocator.Instance.GetService<IObjectPooler>();
             isSpawnHole = true;
         }
 
@@ -28,7 +28,8 @@ namespace Online.BinkyPursuit
             if (other.gameObject.CompareTag("Hole") && !isSpawnHole)
             {
                 OnEnemyHidden?.Invoke(gameObject);
-                objectPooler.DisableObject(gameObject.name, SceneManager.GetActiveScene().name);
+                //objectPooler.DisableObject(gameObject.name, SceneManager.GetActiveScene().name);
+                Destroy(gameObject);
             }
         }
 

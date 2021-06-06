@@ -15,6 +15,7 @@ TagManager:
   - CountdownUI
   - Background
   - Enemy
+  - FloatingJoystick
   layers:
   - Default
   - TransparentFX

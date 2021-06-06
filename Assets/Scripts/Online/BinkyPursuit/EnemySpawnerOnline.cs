@@ -1,11 +1,12 @@
 ﻿using System;
+using Mirror;
 using Services;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Online.BinkyPursuit
 {
-    public class EnemySpawnerOnline : MonoBehaviour
+    public class EnemySpawnerOnline : NetworkBehaviour
     {
         public static event Action<GameObject> OnEnemySpawn;
 
@@ -30,7 +31,7 @@ namespace Online.BinkyPursuit
 
         private IObjectPooler objectPoolerService;
 
-    
+        /*
         private void OnEnable()
         {
             //MainMenu.OnRabbitPursuitLoaded += SceneLoaded;
@@ -45,30 +46,31 @@ namespace Online.BinkyPursuit
         }
     
         /*
-    private void SceneLoaded()
-    {
-        objectPoolerService.InstanciatePools();
-        SpawnEnemy(1); //Initial spawn
-    }
-    */
+        private void SceneLoaded()
+        {
+            objectPoolerService.InstanciatePools();
+            SpawnEnemy(1); //Initial spawn
+        }
+        */
 
         private void SceneRestarted(string activeScene)
         {
-            objectPoolerService.DisableObjectsInPool(activeScene);
-            RestartTimings();
+            //objectPoolerService.DisableObjectsInPool(activeScene);
+            //RestartTimings();
         }
 
         private void Awake()
         {
             chronometerService = ServiceLocator.Instance.GetService<ITimer>();
-            objectPoolerService = ServiceLocator.Instance.GetService<IObjectPooler>();
+            //objectPoolerService = ServiceLocator.Instance.GetService<IObjectPooler>();
             RestartTimings();
+            //GetSpawnPoints();
         }
 
         private void Start()
         {
             //objectPoolerService.RemovePoolFromDictionary(SceneManager.GetActiveScene().name);
-            objectPoolerService.InstanciatePool(SceneManager.GetActiveScene().name);
+            //objectPoolerService.InstanciatePool(SceneManager.GetActiveScene().name);
             SpawnEnemy(1); //Initial spawn
         }
 
@@ -118,7 +120,9 @@ namespace Online.BinkyPursuit
             {
                 int randomSpot = UnityEngine.Random.Range(0, spawnPoints.Length);
                 //GameObject enemy = Instantiate(enemyPrefab, spawnPoints[randomSpot].transform.position, Quaternion.identity);
-                GameObject enemy = objectPoolerService.SpawnFromPool("RabbitPursuit", spawnPoints[randomSpot].transform.position, Quaternion.identity);
+                //GameObject enemy = objectPoolerService.SpawnFromPool("RabbitPursuit", spawnPoints[randomSpot].transform.position, Quaternion.identity);
+                GameObject enemy = Instantiate(enemyPrefab, spawnPoints[randomSpot].transform.position, Quaternion.identity);
+                NetworkServer.Spawn(enemy);
                 OnEnemySpawn?.Invoke(enemy);
             }
         }
@@ -126,6 +130,11 @@ namespace Online.BinkyPursuit
         {
             spawnTime = initialSpawnTime;
             time = spawnTime;
+        }
+        
+        private void GetSpawnPoints()
+        {
+            spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
         }
     }
 }

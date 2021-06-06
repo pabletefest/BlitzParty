@@ -479,6 +479,13 @@ public class MainMenu : MonoBehaviour
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
         StartTransition();
     }
+    
+    public void StartRabbitPursuitGameOnline()
+    {
+        nextScene = "RabbitPursuitOnline";
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
+        StartTransition();
+    }
 
     public void StartWhackAMoleGame()
     {

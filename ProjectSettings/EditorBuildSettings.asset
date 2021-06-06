@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/CowboyDuel.unity
     guid: 24b8dd2b371a65b4dbca8de5103526d4
   - enabled: 1
+    path: Assets/Scenes/Online/RabbitPursuitOnline.unity
+    guid: b9d87d03a4efeb84a9fc7cb7f31dffc8
+  - enabled: 1
     path: Assets/Scenes/Online/WhackAMoleOnline.unity
     guid: 4a1de7a7d292d344391b84445811500d
   m_configObjects: {}
