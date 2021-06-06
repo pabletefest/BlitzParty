@@ -11,20 +11,21 @@ namespace Online
         [Header("Custom variables")]
         [SerializeField] private TimerUIOnline timerUI;
         [SerializeField] private PlayerIndicatorUI playerIndicatorUI;
+        [SerializeField] private PanelHandlerOnline panelHandler;
 
         //[SerializeField] private GameObject[] enemySpawners;
 
         private List<GameObject> clients;
         private List<GameObject> spawners;
 
-        public Dictionary<int, NetworkConnection> playersConnections { get; private set; }
+        public Dictionary<int, NetworkConnection> PlayersConnections { get; private set; }
 
         public override void Awake()
         {
             base.Awake();
             clients = new List<GameObject>();
             spawners = new List<GameObject>();
-            playersConnections = new Dictionary<int, NetworkConnection>();
+            PlayersConnections = new Dictionary<int, NetworkConnection>();
         }
 
         public override void OnServerAddPlayer(NetworkConnection conn)
@@ -35,11 +36,11 @@ namespace Online
 
             NetworkServer.AddPlayerForConnection(conn, player);
             
-            playersConnections.Add(numPlayers, conn);
+            PlayersConnections.Add(numPlayers, conn);
 
             if (numPlayers == 2)
             {
-                foreach (var playerConn in playersConnections)
+                foreach (var playerConn in PlayersConnections)
                 {
                     playerIndicatorUI.StartAnimationIndicator(playerConn.Value, playerConn.Key);
                 }
@@ -47,6 +48,7 @@ namespace Online
                 timerUI.InitializeTimer();
                 StartCoroutine(timerUI.StartTimer());
                 CreateSpawners();
+                panelHandler.RpcActivateWhackAMoleVisualElements();
             }
         }
 

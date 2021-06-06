@@ -11,6 +11,9 @@ namespace Online
         [Header("Custom variables")]
         [SerializeField] private TimerUIOnline timerUI;
         [SerializeField] private PlayerIndicatorUI playerIndicatorUI;
+        [SerializeField] private PanelHandlerOnline panelHandler;
+
+        private int clientNumber = 0;
 
         //[SerializeField] private GameObject[] enemySpawners;
 
@@ -28,42 +31,48 @@ namespace Online
 
         public override void OnServerAddPlayer(NetworkConnection conn)
         {
-            if (numPlayers == 0)
+            if (clientNumber == 0)
             {
                 GameObject player = Instantiate(playerPrefab, Vector3.zero + new Vector3(-2,0,0), Quaternion.identity);
-                player.GetComponent<PlayerMovementOnline>().PlayerNumber = numPlayers + 1;
+                player.GetComponent<PlayerMovementOnline>().playerNumber = ++clientNumber;
                 clients.Add(player);
+                PlayersConnections.Add(clientNumber, conn);
                 //NetworkServer.AddPlayerForConnection(conn, player);
             }
-            else if (numPlayers == 1)
+            else if (clientNumber == 1)
             {
                 GameObject player = Instantiate(spawnPrefabs.Find(prefab => prefab.name == "Player2"), Vector3.zero + new Vector3(2,0,0), Quaternion.identity);
-                player.GetComponent<PlayerMovementOnline>().PlayerNumber = numPlayers + 1;
+                player.GetComponent<PlayerMovementOnline>().playerNumber = ++clientNumber;
                 clients.Add(player);
+                PlayersConnections.Add(clientNumber, conn);
                 //NetworkServer.AddPlayerForConnection(conn, player);
             }
             
-            PlayersConnections.Add(numPlayers + 1, conn);
+            //Debug.Log($"Number of clients: {clients.Count}");
 
-            
-            int i = 0;
-            
-            foreach (var playerConn in PlayersConnections)
+            if (clientNumber == 2)
             {
-                GameObject player = clients[i];
-                NetworkServer.AddPlayerForConnection(playerConn.Value, player);
-                i++;
+                int i = 0;
+            
+                foreach (var playerConn in PlayersConnections)
+                {
+                    Debug.Log($"Client: {clients[i]}");
+                    GameObject player = clients[i];
+                    NetworkServer.AddPlayerForConnection(playerConn.Value, player);
+                    Debug.Log($"Player {player.GetComponent<PlayerMovementOnline>().PlayerNumber} was given authority");
+                    i++;
+                }
+                
+                foreach (var playerConn in PlayersConnections)
+                {
+                    playerIndicatorUI.StartAnimationIndicator(playerConn.Value, playerConn.Key);
+                }
+            
+                timerUI.InitializeTimer();
+                StartCoroutine(timerUI.StartTimer());
+                CreateSpawner();
+                panelHandler.RpcActivateBinkyPursuitVisualElements();
             }
-            
-            foreach (var playerConn in PlayersConnections)
-            {
-                playerIndicatorUI.StartAnimationIndicator(playerConn.Value, playerConn.Key);
-            }
-            
-            timerUI.InitializeTimer();
-            StartCoroutine(timerUI.StartTimer());
-            CreateSpawner();
-            
         }
 
         private void OnEnable()
@@ -100,9 +109,7 @@ namespace Online
 
         private void UnSpawnSpawner()
         {
-
             NetworkServer.UnSpawn(spawner);
-
         }
     }
 }

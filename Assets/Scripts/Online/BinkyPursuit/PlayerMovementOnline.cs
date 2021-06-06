@@ -1,4 +1,5 @@
-﻿using Mirror;
+﻿using System.Security.Cryptography;
+using Mirror;
 using Services;
 using UnityEngine;
 using CharacterController = RabbitPursuit.CharacterController;
@@ -13,7 +14,6 @@ namespace Online.BinkyPursuit
 
 		public CharacterControllerOnline controller;
 		public FloatingJoystick floatingJoystick;
-		Animator m_Animator;
 
 		public float runSpeed = 40f;
 
@@ -27,11 +27,15 @@ namespace Online.BinkyPursuit
 		GameObject objectCollided;
 
 		private bool isClientReady;
-		public int PlayerNumber { get; set; }
+		
+		[SyncVar]
+		public int playerNumber;
+
+		public int PlayerNumber => playerNumber;
 
 		public override void OnStartClient()
 		{
-			m_Animator = gameObject.GetComponent<Animator>();
+			//m_Animator = gameObject.GetComponent<Animator>();
 			scoreController = GameObject.Find("ScoreController").GetComponent<PlayersScoreOnline>();
 			floatingJoystick = GameObject.FindGameObjectWithTag("FloatingJoystick").GetComponent<FloatingJoystick>();
 			isClientReady = true;
@@ -41,6 +45,8 @@ namespace Online.BinkyPursuit
 		void Update()
 		{
 			if (!isClientReady) return;
+			
+			if (!isLocalPlayer) return;
 			
 			#if UNITY_EDITOR
 				if(Input.GetKeyDown(KeyCode.Space))	
@@ -87,11 +93,11 @@ namespace Online.BinkyPursuit
 
 			if (horizontalMove != 0f)
 			{
-				m_Animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+				animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
 			}
 			else
 			{
-				m_Animator.SetFloat("Speed", Mathf.Abs(verticalMove));
+				animator.SetFloat("Speed", Mathf.Abs(verticalMove));
 			}
 		}
 
@@ -110,20 +116,36 @@ namespace Online.BinkyPursuit
 			{
 				touchingRabbit = false;
 			}
-			objectCollided = null;
+			//objectCollided = null;
 		}
 
 		public void CatchButtonHandler()
 		{
-			animator.SetTrigger("Catching");
+			if (!isLocalPlayer) return;
+			
 			ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("NetSwing");
 			if (touchingRabbit)
 			{
 				//Destroy(objectCollided);
 				ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("CaptureBinkySFX");
-				objectCollided.SetActive(false);
-				scoreController.P1ScorePoints(1);
+				Debug.Log($"Player {PlayerNumber} is catching some weird mammal");
+				//scoreController.PlayerScorePoints(1, PlayerNumber);
+				CmdScorePoint(1, PlayerNumber);
 			}
+		}
+
+		[Command]
+		private void CmdScorePoint(int amount, int playerIdentity)
+		{
+			scoreController.PlayerScorePoints(amount, playerIdentity);
+			RpcDestroyEnemyOnClients();
+		}
+
+		[ClientRpc]
+		private void RpcDestroyEnemyOnClients()
+		{
+			Debug.Log($"Is enemy null? {objectCollided}");
+			Destroy(objectCollided);
 		}
 	}
 }

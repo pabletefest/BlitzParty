@@ -1,13 +1,15 @@
-﻿using UnityEngine;
+﻿using Mirror;
+using UnityEditorInternal;
+using UnityEngine;
 
 namespace Online.BinkyPursuit
 {
-	public class CharacterControllerOnline : MonoBehaviour
+	public class CharacterControllerOnline : NetworkBehaviour
 	{
 		[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = .05f;
 
 		private Rigidbody2D m_Rigidbody2D;
-	
+
 		private bool isFacingRight = true; 
 		private Vector3 m_Velocity = Vector3.zero;
 
@@ -16,7 +18,22 @@ namespace Online.BinkyPursuit
 		private void Awake()
 		{
 			m_Rigidbody2D = GetComponent<Rigidbody2D>();	
-			playerCollider = GetComponent<Collider2D>();	
+			playerCollider = GetComponent<Collider2D>();
+			
+			
+		}
+
+		public override void OnStartClient()
+		{
+			int playerNumber = GetComponent<PlayerMovementOnline>().PlayerNumber;
+			if (playerNumber == 1)
+			{
+				isFacingRight = true;
+			}
+			else if (playerNumber == 2)
+			{
+				isFacingRight = false;
+			}
 		}
 
 		public void Move(float moveH, float moveV)
@@ -28,17 +45,23 @@ namespace Online.BinkyPursuit
 
 			if (moveH > 0 && !isFacingRight)
 			{
-				Flip();
+				CmdFlip();
 			}
 			else if (moveH < 0 && isFacingRight)
 			{
-				Flip();
+				CmdFlip();
 			}
 		}
 
+		[Command]
+		private void CmdFlip()
+		{
+			RpcFlip();
+		}
 
 
-		private void Flip()
+		[ClientRpc]
+		private void RpcFlip()
 		{
 			isFacingRight = !isFacingRight;
 

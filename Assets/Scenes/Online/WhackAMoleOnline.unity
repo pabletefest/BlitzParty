@@ -2658,7 +2658,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1176865273
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4284,6 +4284,7 @@ MonoBehaviour:
   - {fileID: 8113517547745728120, guid: c6fce5187402e3247a6620d56c09eaae, type: 3}
   timerUI: {fileID: 1260839774}
   playerIndicatorUI: {fileID: 1260839777}
+  panelHandler: {fileID: 1260839773}
 --- !u!4 &1822694038
 Transform:
   m_ObjectHideFlags: 0

@@ -101,6 +101,24 @@ public class PanelHandlerOnline : NetworkBehaviour
         }
     }
 
+    [ClientRpc]
+    public void RpcActivateBinkyPursuitVisualElements()
+    {
+        joystick.GetComponent<Canvas>().enabled = true;
+        catchButton.GetComponent<Image>().enabled = true;
+        catchButton.GetComponent<Button>().enabled = true;
+        pauseButton.SetActive(true);
+    }
+    
+    [ClientRpc]
+    public void RpcActivateWhackAMoleVisualElements()
+    {
+        pauseButton.SetActive(true);
+    }
+
+    
+
+
     public void RestartButtonHandler()
     {
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
@@ -265,12 +283,7 @@ public class PanelHandlerOnline : NetworkBehaviour
             //resultTitle.sprite = victoryImage;
             //ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("Win");
             //UpdateWins(minigame);
-
-            NetworkConnection player1Conn = ((WhackAMoleNetworkManager) NetworkManager.singleton).playersConnections[1];
-            SetClientResult(player1Conn, minigame, true);
-            
-            NetworkConnection player2Conn = ((WhackAMoleNetworkManager) NetworkManager.singleton).playersConnections[2];
-            SetClientResult(player2Conn, minigame, false);
+            SetClientResultByMinigame(minigame, true, false);
         }
         else if (winner == Results.PLAYER2WIN)
         {
@@ -281,12 +294,7 @@ public class PanelHandlerOnline : NetworkBehaviour
             
             //resultTitle.sprite = defeatImage;
             //ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("Lose");
-            NetworkConnection player1Conn = ((WhackAMoleNetworkManager) NetworkManager.singleton).playersConnections[1];
-            SetClientResult(player1Conn, minigame, false);
-            
-            
-            NetworkConnection player2Conn = ((WhackAMoleNetworkManager) NetworkManager.singleton).playersConnections[2];
-            SetClientResult(player2Conn, minigame, true);
+            SetClientResultByMinigame(minigame, false, true);
         }
         else
         {
@@ -296,6 +304,39 @@ public class PanelHandlerOnline : NetworkBehaviour
         }
     }
 
+    private void SetClientResultByMinigame(string minigame, bool isP1Winner, bool isP2Winner)
+    {
+        NetworkConnection player1Conn = null;
+
+        NetworkConnection player2Conn = null;
+            
+        string sceneName = SceneManager.GetActiveScene().name;
+        switch (sceneName)
+        {
+            case "RabbitPursuitOnline":
+                player1Conn = ((RabbitPursuitNetworkManager) NetworkManager.singleton).PlayersConnections[1];
+                SetClientResult(player1Conn, minigame, isP1Winner);
+            
+                player2Conn = ((RabbitPursuitNetworkManager) NetworkManager.singleton).PlayersConnections[2];
+                SetClientResult(player2Conn, minigame, isP2Winner);
+                break;
+            case "WhackAMoleOnline":
+                player1Conn = ((WhackAMoleNetworkManager) NetworkManager.singleton).PlayersConnections[1];
+                SetClientResult(player1Conn, minigame, isP1Winner);
+            
+                player2Conn = ((WhackAMoleNetworkManager) NetworkManager.singleton).PlayersConnections[2];
+                SetClientResult(player2Conn, minigame, isP2Winner);
+                break;
+            case "CowboyDuelOnline":
+                player1Conn = ((WhackAMoleNetworkManager) NetworkManager.singleton).PlayersConnections[1];
+                SetClientResult(player1Conn, minigame, isP1Winner);
+            
+                player2Conn = ((WhackAMoleNetworkManager) NetworkManager.singleton).PlayersConnections[2];
+                SetClientResult(player2Conn, minigame, isP2Winner);
+                break;
+        }
+    }
+    
     [TargetRpc]
     private void SetClientResult(NetworkConnection target, string minigame, bool isWinner)
     {
