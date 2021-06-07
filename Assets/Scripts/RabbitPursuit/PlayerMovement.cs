@@ -105,13 +105,30 @@ namespace RabbitPursuit
 		{
 			animator.SetTrigger("Catching");
 			ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("NetSwing");
-			if (touchingRabbit)
+			
+			
+			RabbitHide rabbitHide = default;
+			bool isEnemyAlive;
+
+			if (objectCollided)
 			{
+				rabbitHide = objectCollided.GetComponent<RabbitHide>();
+				isEnemyAlive = rabbitHide.IsAlive;
+			}
+			else
+			{
+				isEnemyAlive = false;
+			}
+			
+			
+			if (touchingRabbit && isEnemyAlive)
+			{
+				touchingRabbit = false;
+				rabbitHide.IsAlive = false;
 				//Destroy(objectCollided);
 				ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("CaptureBinkySFX");
 				objectCollided.SetActive(false);
 				scoreController.P1ScorePoints(1);
-				touchingRabbit = false;
 			}
 		}
 	}

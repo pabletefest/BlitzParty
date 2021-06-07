@@ -11,6 +11,7 @@ namespace RabbitPursuit
         public static event Action<GameObject> OnEnemyHidden;
         private IObjectPooler objectPooler;
         private bool isSpawnHole;
+        public bool IsAlive { get; set; }
 
         private void Awake()
         {
