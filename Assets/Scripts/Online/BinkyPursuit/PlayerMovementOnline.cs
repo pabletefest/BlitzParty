@@ -129,7 +129,20 @@ namespace Online.BinkyPursuit
 		{
 			if (Input.touchCount > 0)
 			{
-				Touch touch = Input.GetTouch(0);
+				for (int  i= 0; i < Input.touchCount; i++)
+				{
+					Touch touch = Input.GetTouch(i);
+					Ray ray = mainCamera.ScreenPointToRay(touch.position);
+					RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
+                
+					if (hit.collider.CompareTag("CatchButton"))
+					{
+						return true;
+						//Debug.Log("Player clicked the screen");
+					}
+				}
+				
+				/*Touch touch = Input.GetTouch(0);
 				Ray ray = mainCamera.ScreenPointToRay(touch.position);
 				RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
                 
@@ -137,7 +150,7 @@ namespace Online.BinkyPursuit
 				{
 					return true;
 					//Debug.Log("Player clicked the screen");
-				}
+				}*/
 				
 				ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("HammerSwing");
 			}
