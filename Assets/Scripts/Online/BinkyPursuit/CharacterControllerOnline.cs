@@ -56,12 +56,22 @@ namespace Online.BinkyPursuit
 		[Command]
 		private void CmdFlip()
 		{
+			//Flip();
 			RpcFlip();
 		}
 
 
 		[ClientRpc]
 		private void RpcFlip()
+		{
+			isFacingRight = !isFacingRight;
+
+			Vector3 theScale = transform.localScale;
+			theScale.x *= -1;
+			transform.localScale = theScale;
+		}
+
+		private void Flip()
 		{
 			isFacingRight = !isFacingRight;
 

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Mirror;
+﻿using Mirror;
 using Services;
 using UnityEngine;
 
@@ -32,6 +31,19 @@ namespace Online.BinkyPursuit
 
 		public int PlayerNumber => playerNumber;
 
+		
+		private readonly SyncList<GameObject> enemiesCollided = new SyncList<GameObject>();
+		
+		void Start()
+		{
+			enemiesCollided.Callback += OnEnemyKilled;
+		}
+
+		private void OnEnemyKilled(SyncList<GameObject>.Operation op, int itemindex, GameObject olditem, GameObject newitem)
+		{
+			Destroy(newitem);
+		}
+
 		public override void OnStartClient()
 		{
 			//m_Animator = gameObject.GetComponent<Animator>();
@@ -39,7 +51,7 @@ namespace Online.BinkyPursuit
 			floatingJoystick = GameObject.FindGameObjectWithTag("FloatingJoystick").GetComponent<FloatingJoystick>();
 			isClientReady = true;
 		}
-		
+
 		// Update is called once per frame
 		void Update()
 		{
@@ -113,8 +125,9 @@ namespace Online.BinkyPursuit
 		{
 			if (collision.gameObject.CompareTag("Rabbit"))
 			{
+				Debug.Log("Enemy got out");
 				touchingRabbit = false;
-				objectCollided = null;
+				//objectCollided = null;
 			}
 		}
 
@@ -123,12 +136,30 @@ namespace Online.BinkyPursuit
 			if (!isLocalPlayer) return;
 			
 			ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("NetSwing");
-			if (touchingRabbit)
+
+			RabbitHideOnline rabbitHide = default;
+			bool isEnemyAlive;
+
+			if (objectCollided)
 			{
+				rabbitHide = objectCollided.GetComponent<RabbitHideOnline>();
+				isEnemyAlive = rabbitHide.IsAlive;
+			}
+			else
+			{
+				isEnemyAlive = false;
+			}
+			
+			
+			if (touchingRabbit && isEnemyAlive)
+			{
+				touchingRabbit = false;
+				rabbitHide.IsAlive = false;
 				//Destroy(objectCollided);
 				ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("CaptureBinkySFX");
 				Debug.Log($"Player {PlayerNumber} is catching some weird mammal");
 				//scoreController.PlayerScorePoints(1, PlayerNumber);
+				//objectCollided.GetComponent<RabbitHideOnline>().DestroyEnemy();
 				CmdScorePoint(1, PlayerNumber);
 			}
 		}
@@ -136,21 +167,42 @@ namespace Online.BinkyPursuit
 		[Command]
 		private void CmdScorePoint(int amount, int playerIdentity)
 		{
-			scoreController.PlayerScorePoints(amount, playerIdentity);
-			//NetworkServer.UnSpawn(objectCollided);
-			RpcDestroyEnemyOnClients();
+			Debug.Log($"Is touching rabbit? {touchingRabbit}");
+			/*if (objectCollided)
+				NetworkServer.UnSpawn(objectCollided);
 			
 			if (objectCollided)
-				Destroy(objectCollided);
+				Destroy(objectCollided);*/
+			enemiesCollided.Add(objectCollided);
+			scoreController.PlayerScorePoints(amount, playerIdentity);
+			
+			//RpcDestroyEnemyOnClients();
+			//Destroy(objectCollided);
+			/*RpcDestroyEnemyOnClients();
+			
+			if (objectCollided)
+				Destroy(objectCollided);*/
 		}
 
 		[ClientRpc]
 		private void RpcDestroyEnemyOnClients()
 		{
 			Debug.Log($"Is enemy null? {objectCollided}");
+			
+			//DestroyEnemiesKilled();
+			/*if (objectCollided)
+				Destroy(objectCollided);*/
+		}
 
-			if (objectCollided)
-				Destroy(objectCollided);
+		private void DestroyEnemiesKilled()
+		{
+			for (int i = 0; i < enemiesCollided.Count; i++)
+			{
+				GameObject enemyKilled = enemiesCollided[i];
+
+				enemiesCollided.Remove(enemyKilled);
+				Destroy(enemyKilled);
+			}
 		}
 	}
 }

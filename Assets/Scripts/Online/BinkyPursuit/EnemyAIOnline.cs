@@ -114,8 +114,6 @@ namespace Online.BinkyPursuit
             {
                 currentWaypoint++;
             }
-
-            RpcSwapEnemySprite();
             /*if (rb.velocity.x >= 0.01f)
             {
                 opossumGFX.localScale = new Vector3(-1f, 1f, 1f);
@@ -130,20 +128,19 @@ namespace Online.BinkyPursuit
         [ClientRpc]
         private void RpcMoveEnemyOnClients(Vector2 force)
         {
-            if (rb) rb.AddForce(force);
-        }
-
-        [ClientRpc]
-        private void RpcSwapEnemySprite()
-        {
-            if (rb.velocity.x >= 0.01f)
+            if (rb)
             {
-                opossumGFX.localScale = new Vector3(-1f, 1f, 1f);
+                rb.AddForce(force);
+                
+                if (rb.velocity.x >= 0.01f)
+                {
+                    opossumGFX.localScale = new Vector3(-1f, 1f, 1f);
 
-            }
-            else if (rb.velocity.x <= -0.01f)
-            {
-                opossumGFX.localScale = new Vector3(1f, 1f, 1f);
+                }
+                else if (rb.velocity.x <= -0.01f)
+                {
+                    opossumGFX.localScale = new Vector3(1f, 1f, 1f);
+                }
             }
         }
     }

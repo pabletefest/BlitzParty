@@ -111,6 +111,7 @@ namespace RabbitPursuit
 				ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("CaptureBinkySFX");
 				objectCollided.SetActive(false);
 				scoreController.P1ScorePoints(1);
+				touchingRabbit = false;
 			}
 		}
 	}

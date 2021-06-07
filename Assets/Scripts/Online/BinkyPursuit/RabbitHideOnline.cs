@@ -13,11 +13,14 @@ namespace Online.BinkyPursuit
         public static event Action<GameObject> OnEnemyHidden;
         private IObjectPooler objectPooler;
         private bool isSpawnHole;
+        
+        public bool IsAlive { get; set; }
 
         private void Awake()
         {
             //objectPooler = ServiceLocator.Instance.GetService<IObjectPooler>();
             isSpawnHole = true;
+            IsAlive = true;
         }
 
         private void OnEnable()
@@ -31,13 +34,19 @@ namespace Online.BinkyPursuit
             {
                 //OnEnemyHidden?.Invoke(gameObject);
                 //objectPooler.DisableObject(gameObject.name, SceneManager.GetActiveScene().name);
-                CmdUnspawnOverNetwork();
+                //CmdUnspawnOverNetwork();
                 /*if(gameObject)
                     Destroy(gameObject);*/
+                Destroy(gameObject);
             }
         }
 
-        [Command(requiresAuthority = false)]
+        public void DestroyEnemy()
+        {
+            Destroy(gameObject);
+        }
+
+        /*[Command(requiresAuthority = false)]
         private void CmdUnspawnOverNetwork()
         {
             RpcDestroyOnClients();
@@ -52,7 +61,7 @@ namespace Online.BinkyPursuit
         {
             if(gameObject)
                 Destroy(gameObject);
-        }
+        }*/
 
         private IEnumerator DisableColliderSpawnHole()
         {
