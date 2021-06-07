@@ -161,10 +161,12 @@ public class PanelHandlerOnline : NetworkBehaviour
 
     public void ShowRabbitPursuitPanel()
     {
+        if (!isServer) return;
+        
         panel.SetActive(true);
         //gameObject.SetActive(true);
         pauseButton.SetActive(false);
-        if (database.IsBattleMode())
+        /*if (database.IsBattleMode())
         {
             menuButton.SetActive(false);
             restartButton.SetActive(false);
@@ -183,11 +185,13 @@ public class PanelHandlerOnline : NetworkBehaviour
             menuButton.SetActive(true);
             restartButton.SetActive(true);
             nextMinigameButton.SetActive(false);
-        }
+        }*/
 
-        joystick.GetComponent<Canvas>().enabled = false;
-        catchButton.SetActive(false);
-        CheckResult(scoreController.FindWinner(), "RabbitPursuit");
+        Destroy(joystick);
+        Destroy(catchButton);
+        //joystick.GetComponent<Canvas>().enabled = false;
+        //catchButton.SetActive(false);
+        CheckClientsResult("RabbitPursuit");
         // acornsText.text = earnAcorns.CalculateAcornsEarned("RabbitPursuit").ToString();
         // earnAcorns.AcornsRabbitPursuit();
         // database.AddPlayerRabbitPursuitGames();
@@ -224,19 +228,13 @@ public class PanelHandlerOnline : NetworkBehaviour
         }
         */
         
-        CheckClientsResult();
+        CheckClientsResult("WhackAMole");
         //CheckResult(scoreController.FindWinner(), "WhackAMole");
         //acornsText.text = earnAcorns.CalculateAcornsEarned("WhackAMole").ToString();
         //earnAcorns.AcornsWhackAMole();
         //database.AddPlayerWhackAMoleGames();
     }
 
-    //[Command(requiresAuthority = false)]
-    private void CheckClientsResult()
-    {
-        Debug.Log("Checking results...");
-        CheckResult(scoreController.FindWinner(), "WhackAMole");
-    }
 
     public void ShowCowboyDuelPanel()
     {
@@ -269,6 +267,13 @@ public class PanelHandlerOnline : NetworkBehaviour
         // database.AddPlayerCowboyDuelGames();
     }
 
+    //[Command(requiresAuthority = false)]
+    private void CheckClientsResult(string minigame)
+    {
+        Debug.Log("Checking results...");
+        CheckResult(scoreController.FindWinner(), minigame);
+    }
+    
     public void CheckResult(Results winner, string minigame)
     {
         if (!isServer) return;
@@ -300,7 +305,7 @@ public class PanelHandlerOnline : NetworkBehaviour
         {
             //resultTitle.sprite = drawImage;
             //ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("Draw");
-            ClientsDrawGame();
+            ClientsDrawGame(minigame);
         }
     }
 
@@ -347,7 +352,7 @@ public class PanelHandlerOnline : NetworkBehaviour
             resultTitle.sprite = victoryImage;
             ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("Win");
             
-            ObtainAcornsEarnedCommand();
+            ObtainAcornsEarnedCommand(minigame);
         }
         else
         {
@@ -362,7 +367,7 @@ public class PanelHandlerOnline : NetworkBehaviour
     }
 
     [ClientRpc]
-    private void ClientsDrawGame()
+    private void ClientsDrawGame(string minigame)
     {
         Debug.Log($"Am in server: {isServer}");
         Debug.Log("Game draw");
@@ -370,9 +375,23 @@ public class PanelHandlerOnline : NetworkBehaviour
         
         int acornsEarned = 10;
         acornsText.text = acornsEarned.ToString();
-        earnAcorns.AcornsWhackAMole(acornsEarned);
-        database.AddPlayerWhackAMoleGames();
         
+        switch (minigame)
+        {
+            case "RabbitPursuit":
+                earnAcorns.AcornsRabbitPursuit(acornsEarned);
+                database.AddPlayerRabbitPursuitGames();
+                break;
+            case "WhackAMole":
+                earnAcorns.AcornsWhackAMole(acornsEarned);
+                database.AddPlayerWhackAMoleGames();
+                break;
+            case "CowboyDuel":
+                earnAcorns.AcornsCowboyDuel(acornsEarned);
+                database.AddPlayerCowboyDuelGames();
+                break;
+        }
+
         panel.SetActive(true);
         pauseButton.SetActive(false);
         
@@ -380,21 +399,57 @@ public class PanelHandlerOnline : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    private void ObtainAcornsEarnedCommand(NetworkConnectionToClient sender = null)
+    private void ObtainAcornsEarnedCommand(string minigame, NetworkConnectionToClient sender = null)
     {
-        int playerNumber = sender.identity.gameObject.GetComponent<HammerSpawnerOnline>().PlayerNumber;
-        Debug.Log($"PlayerNumber is: {playerNumber}");
-        int acornsEarned = earnAcorns.CalculateAcornsEarned("WhackAMole", playerNumber);
-        Debug.Log($"AcornsEarned: {acornsEarned}");
-        StoreAcorsLocallyOnWinnerClient(sender, acornsEarned);
+        int playerNumber = 0;
+        int acornsEarned = 0;
+        
+        switch (minigame)
+        {
+            case "RabbitPursuit":
+                playerNumber = sender.identity.gameObject.GetComponent<PlayerMovementOnline>().PlayerNumber;
+                Debug.Log($"PlayerNumber is: {playerNumber}");
+                acornsEarned = earnAcorns.CalculateAcornsEarned(minigame, playerNumber);
+                Debug.Log($"AcornsEarned: {acornsEarned}");
+                StoreAcornsLocallyOnWinnerClient(sender, acornsEarned, minigame);
+                break;
+            case "WhackAMole":
+                playerNumber = sender.identity.gameObject.GetComponent<HammerSpawnerOnline>().PlayerNumber;
+                Debug.Log($"PlayerNumber is: {playerNumber}");
+                acornsEarned = earnAcorns.CalculateAcornsEarned(minigame, playerNumber);
+                Debug.Log($"AcornsEarned: {acornsEarned}");
+                StoreAcornsLocallyOnWinnerClient(sender, acornsEarned, minigame);
+                break;
+            case "CowboyDuel":
+                playerNumber = sender.identity.gameObject.GetComponent<HammerSpawnerOnline>().PlayerNumber;
+                Debug.Log($"PlayerNumber is: {playerNumber}");
+                acornsEarned = earnAcorns.CalculateAcornsEarned(minigame, playerNumber);
+                Debug.Log($"AcornsEarned: {acornsEarned}");
+                StoreAcornsLocallyOnWinnerClient(sender, acornsEarned, minigame);
+                break;
+        }
     }
 
     [TargetRpc]
-    private void StoreAcorsLocallyOnWinnerClient(NetworkConnection target, int acornsEarned)
+    private void StoreAcornsLocallyOnWinnerClient(NetworkConnection target, int acornsEarned, string minigame)
     {
         acornsText.text = acornsEarned.ToString();
-        earnAcorns.AcornsWhackAMole(acornsEarned);
-        database.AddPlayerWhackAMoleGames();
+        
+        switch (minigame)
+        {
+            case "RabbitPursuit":
+                earnAcorns.AcornsRabbitPursuit(acornsEarned);
+                database.AddPlayerRabbitPursuitGames();
+                break;
+            case "WhackAMole":
+                earnAcorns.AcornsWhackAMole(acornsEarned);
+                database.AddPlayerWhackAMoleGames();
+                break;
+            case "CowboyDuel":
+                earnAcorns.AcornsCowboyDuel(acornsEarned);
+                database.AddPlayerCowboyDuelGames();
+                break;
+        }
     }
 
     private void UpdateWins(string minigame)

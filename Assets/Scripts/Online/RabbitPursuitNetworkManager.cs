@@ -91,6 +91,7 @@ namespace Online
             Debug.Log("Server recieved OnTimerEnd event!!");
             UnSpawnPlayers();
             UnSpawnSpawner();
+            UnSpawnEnemies();
         }
 
         private void CreateSpawner()
@@ -110,6 +111,16 @@ namespace Online
         private void UnSpawnSpawner()
         {
             NetworkServer.UnSpawn(spawner);
+        }
+
+        private void UnSpawnEnemies()
+        {
+            GameObject[] enemiesOnScene = GameObject.FindGameObjectsWithTag("Rabbit");
+
+            foreach (var enemy in enemiesOnScene)
+            {
+                NetworkServer.UnSpawn(enemy);
+            }
         }
     }
 }

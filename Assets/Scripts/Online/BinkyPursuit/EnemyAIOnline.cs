@@ -35,9 +35,21 @@ namespace Online.BinkyPursuit
             seeker = GetComponent<Seeker>();
             rb = GetComponent<Rigidbody2D>();
 
-            objectPooler = ServiceLocator.Instance.GetService<IObjectPooler>();
+            //objectPooler = ServiceLocator.Instance.GetService<IObjectPooler>();
 
             InvokeRepeating("UpdatePath", 0f, 1.5f);
+        }
+
+        public override void OnStartClient()
+        {
+            seeker = GetComponent<Seeker>();
+            rb = GetComponent<Rigidbody2D>();
+        }
+
+        public override void OnStartServer()
+        {
+            seeker = GetComponent<Seeker>();
+            rb = GetComponent<Rigidbody2D>();
         }
 
         void UpdatePath()
@@ -118,7 +130,7 @@ namespace Online.BinkyPursuit
         [ClientRpc]
         private void RpcMoveEnemyOnClients(Vector2 force)
         {
-            rb.AddForce(force);
+            if (rb) rb.AddForce(force);
         }
 
         [ClientRpc]
