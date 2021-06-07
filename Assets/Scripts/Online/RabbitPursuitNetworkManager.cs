@@ -53,7 +53,7 @@ namespace Online
             if (clientNumber == 2)
             {
                 int i = 0;
-            
+
                 foreach (var playerConn in PlayersConnections)
                 {
                     Debug.Log($"Client: {clients[i]}");

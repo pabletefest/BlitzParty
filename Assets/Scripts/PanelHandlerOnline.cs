@@ -2,12 +2,11 @@
 using Online;
 using Online.BinkyPursuit;
 using Online.WhackAMole;
-using RabbitPursuit;
 using Services;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.Events;
 using UnityEngine.UI;
-using WhackAMole;
+using UnityEngine.SceneManagement;
 
 public class PanelHandlerOnline : NetworkBehaviour
 {
@@ -108,6 +107,7 @@ public class PanelHandlerOnline : NetworkBehaviour
         catchButton.GetComponent<Image>().enabled = true;
         catchButton.GetComponent<Button>().enabled = true;
         pauseButton.SetActive(true);
+        //AnchorCatchButtonToPlayer();
     }
     
     [ClientRpc]
@@ -478,5 +478,19 @@ public class PanelHandlerOnline : NetworkBehaviour
         }
 
         hammerSpawner.enabled = false;
+    }
+
+    /*[TargetRpc]
+    public void AnchorCatchButtonToPlayer(NetworkConnection target, int playerNumber)
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        GameObject clientPlayer = Array.Find(players, player => player.GetComponent<PlayerMovementOnline>().playerNumber == playerNumber);
+        catchButton.GetComponent<Button>().onClick.AddListener(clientPlayer.GetComponent<PlayerMovementOnline>().CatchButtonHandler);
+    }*/
+
+    public void AnchorCatchButtonToPlayer(UnityAction call)
+    {
+        catchButton.GetComponent<Button>().onClick.AddListener(call);
     }
 }

@@ -16,6 +16,7 @@ TagManager:
   - Background
   - Enemy
   - FloatingJoystick
+  - CatchButton
   layers:
   - Default
   - TransparentFX

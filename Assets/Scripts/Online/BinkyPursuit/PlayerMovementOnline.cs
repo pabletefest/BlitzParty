@@ -6,7 +6,8 @@ namespace Online.BinkyPursuit
 {
 	public class PlayerMovementOnline : NetworkBehaviour
 	{
-
+		private Camera mainCamera;
+		
 		[SerializeField]
 		private Animator animator;
 
@@ -36,6 +37,7 @@ namespace Online.BinkyPursuit
 		
 		void Start()
 		{
+			mainCamera = Camera.main;
 			enemiesCollided.Callback += OnEnemyKilled;
 		}
 
@@ -65,6 +67,7 @@ namespace Online.BinkyPursuit
 			#endif
 
 			ControlJoystickInput();
+			PerformAction();
 		}
 
 		void FixedUpdate()
@@ -110,6 +113,36 @@ namespace Online.BinkyPursuit
 			{
 				animator.SetFloat("Speed", Mathf.Abs(verticalMove));
 			}
+		}
+		
+		private void PerformAction()
+		{
+			bool playerTouched = CheckPlayerTouch();
+
+			if (playerTouched)
+			{
+				CatchButtonHandler();
+			}
+		}
+		
+		private bool CheckPlayerTouch()
+		{
+			if (Input.touchCount > 0)
+			{
+				Touch touch = Input.GetTouch(0);
+				Ray ray = mainCamera.ScreenPointToRay(touch.position);
+				RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
+                
+				if (hit.collider.CompareTag("CatchButton"))
+				{
+					return true;
+					//Debug.Log("Player clicked the screen");
+				}
+				
+				ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("HammerSwing");
+			}
+
+			return false;
 		}
 
 		private void OnTriggerEnter2D(Collider2D collision)

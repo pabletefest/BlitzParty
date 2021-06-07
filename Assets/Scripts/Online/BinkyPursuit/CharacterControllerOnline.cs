@@ -1,5 +1,4 @@
 ﻿using Mirror;
-using UnityEditorInternal;
 using UnityEngine;
 
 namespace Online.BinkyPursuit
