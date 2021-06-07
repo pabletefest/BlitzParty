@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 3063244300562781784}
   - component: {fileID: 5091882196535787169}
   - component: {fileID: 815690535238767922}
+  - component: {fileID: 5246097081997060644}
   m_Layer: 0
   m_Name: EnemyOnline
   m_TagString: Rabbit
@@ -233,6 +234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edea1c4f1175d8e4481a0ad39ce0afa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   player: {fileID: 0}
   speed: 500
   nextWaypointDistance: 1.2
@@ -251,7 +254,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fa16544ec456604286db574c8b4b131, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
 --- !u!114 &815690535238767922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2522372906570346492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2cbc52526ea384ba280d13cd1a57b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  target: {fileID: 2522372906570346494}
+  clientAuthority: 0
+  syncVelocity: 1
+  clearVelocity: 0
+  velocitySensitivity: 0.1
+  syncAngularVelocity: 1
+  clearAngularVelocity: 0
+  angularVelocitySensitivity: 0.1
+--- !u!114 &5246097081997060644
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

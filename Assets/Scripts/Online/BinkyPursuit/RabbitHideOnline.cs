@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections;
+using System.Security.Cryptography;
+using Mirror;
 using Services;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Online.BinkyPursuit
 {
-    public class RabbitHideOnline: MonoBehaviour
+    public class RabbitHideOnline: NetworkBehaviour
     {
         public static event Action<GameObject> OnEnemyHidden;
         private IObjectPooler objectPooler;
@@ -27,10 +29,29 @@ namespace Online.BinkyPursuit
         {
             if (other.gameObject.CompareTag("Hole") && !isSpawnHole)
             {
-                OnEnemyHidden?.Invoke(gameObject);
+                //OnEnemyHidden?.Invoke(gameObject);
                 //objectPooler.DisableObject(gameObject.name, SceneManager.GetActiveScene().name);
-                Destroy(gameObject);
+                CmdUnspawnOverNetwork();
+                /*if(gameObject)
+                    Destroy(gameObject);*/
             }
+        }
+
+        [Command(requiresAuthority = false)]
+        private void CmdUnspawnOverNetwork()
+        {
+            RpcDestroyOnClients();
+            
+            if(gameObject)
+                Destroy(gameObject);
+            //NetworkServer.UnSpawn(gameObject);
+        }
+
+        [ClientRpc]
+        private void RpcDestroyOnClients()
+        {
+            if(gameObject)
+                Destroy(gameObject);
         }
 
         private IEnumerator DisableColliderSpawnHole()

@@ -1,10 +1,11 @@
-﻿using Pathfinding;
+﻿using Mirror;
+using Pathfinding;
 using Services;
 using UnityEngine;
 
 namespace Online.BinkyPursuit
 {
-    public class EnemyAIOnline : MonoBehaviour
+    public class EnemyAIOnline : NetworkBehaviour
     {
 
         public Transform player;
@@ -29,6 +30,8 @@ namespace Online.BinkyPursuit
         // Start is called before the first frame update
         void Start()
         {
+            //if (!isServer) return;
+            
             seeker = GetComponent<Seeker>();
             rb = GetComponent<Rigidbody2D>();
 
@@ -73,7 +76,8 @@ namespace Online.BinkyPursuit
         // Update is called once per frame
         void FixedUpdate()
         {
-
+            if (!isServer) return;
+            
             if (path == null)
                 return;
 
@@ -89,7 +93,8 @@ namespace Online.BinkyPursuit
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
             Vector2 force = direction * speed * Time.deltaTime;
 
-            rb.AddForce(force);
+            RpcMoveEnemyOnClients(force);
+            //rb.AddForce(force);
 
             float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
 
@@ -98,6 +103,27 @@ namespace Online.BinkyPursuit
                 currentWaypoint++;
             }
 
+            RpcSwapEnemySprite();
+            /*if (rb.velocity.x >= 0.01f)
+            {
+                opossumGFX.localScale = new Vector3(-1f, 1f, 1f);
+
+            }
+            else if (rb.velocity.x <= -0.01f)
+            {
+                opossumGFX.localScale = new Vector3(1f, 1f, 1f);
+            }*/
+        }
+
+        [ClientRpc]
+        private void RpcMoveEnemyOnClients(Vector2 force)
+        {
+            rb.AddForce(force);
+        }
+
+        [ClientRpc]
+        private void RpcSwapEnemySprite()
+        {
             if (rb.velocity.x >= 0.01f)
             {
                 opossumGFX.localScale = new Vector3(-1f, 1f, 1f);

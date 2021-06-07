@@ -1,8 +1,7 @@
-﻿using System.Security.Cryptography;
+﻿using System.Collections.Generic;
 using Mirror;
 using Services;
 using UnityEngine;
-using CharacterController = RabbitPursuit.CharacterController;
 
 namespace Online.BinkyPursuit
 {
@@ -106,8 +105,8 @@ namespace Online.BinkyPursuit
 			if (collision.gameObject.CompareTag("Rabbit"))
 			{
 				touchingRabbit = true;
+				objectCollided = collision.gameObject;
 			}
-			objectCollided = collision.gameObject;
 		}
 
 		private void OnTriggerExit2D(Collider2D collision)
@@ -115,8 +114,8 @@ namespace Online.BinkyPursuit
 			if (collision.gameObject.CompareTag("Rabbit"))
 			{
 				touchingRabbit = false;
+				objectCollided = null;
 			}
-			//objectCollided = null;
 		}
 
 		public void CatchButtonHandler()
@@ -138,14 +137,20 @@ namespace Online.BinkyPursuit
 		private void CmdScorePoint(int amount, int playerIdentity)
 		{
 			scoreController.PlayerScorePoints(amount, playerIdentity);
+			//NetworkServer.UnSpawn(objectCollided);
 			RpcDestroyEnemyOnClients();
+			
+			if (objectCollided)
+				Destroy(objectCollided);
 		}
 
 		[ClientRpc]
 		private void RpcDestroyEnemyOnClients()
 		{
 			Debug.Log($"Is enemy null? {objectCollided}");
-			Destroy(objectCollided);
+
+			if (objectCollided)
+				Destroy(objectCollided);
 		}
 	}
 }

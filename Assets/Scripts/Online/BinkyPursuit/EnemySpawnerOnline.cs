@@ -123,7 +123,7 @@ namespace Online.BinkyPursuit
                 //GameObject enemy = objectPoolerService.SpawnFromPool("RabbitPursuit", spawnPoints[randomSpot].transform.position, Quaternion.identity);
                 GameObject enemy = Instantiate(enemyPrefab, spawnPoints[randomSpot].transform.position, Quaternion.identity);
                 NetworkServer.Spawn(enemy);
-                OnEnemySpawn?.Invoke(enemy);
+                //OnEnemySpawn?.Invoke(enemy);
             }
         }
         private void RestartTimings()
