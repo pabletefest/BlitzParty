@@ -67,7 +67,7 @@ namespace Online.BinkyPursuit
 			#endif
 
 			ControlJoystickInput();
-			PerformAction();
+			//PerformAction();
 		}
 
 		void FixedUpdate()

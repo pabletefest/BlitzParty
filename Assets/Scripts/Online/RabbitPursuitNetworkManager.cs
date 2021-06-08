@@ -62,6 +62,12 @@ namespace Online
                     Debug.Log($"Player {player.GetComponent<PlayerMovementOnline>().PlayerNumber} was given authority");
                     i++;
                 }
+                panelHandler.RpcActivateBinkyPursuitVisualElements();
+                
+                foreach (var playerConn in PlayersConnections)
+                {
+                    panelHandler.RpcAnchorCatchButtonToPlayer(playerConn.Value);
+                }
                 
                 foreach (var playerConn in PlayersConnections)
                 {
@@ -71,7 +77,7 @@ namespace Online
                 timerUI.InitializeTimer();
                 StartCoroutine(timerUI.StartTimer());
                 CreateSpawner();
-                panelHandler.RpcActivateBinkyPursuitVisualElements();
+                
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using Mirror;
+﻿using System;
+using Mirror;
 using Online;
 using Online.BinkyPursuit;
 using Online.WhackAMole;
@@ -64,6 +65,9 @@ public class PanelHandlerOnline : NetworkBehaviour
 
     [SerializeField]
     private GameObject catchButton;
+    
+    [SerializeField]
+    private GameObject catchButton2;
 
     [SerializeField]
     private GameFinisher cowboyDuelFinisher;
@@ -103,11 +107,38 @@ public class PanelHandlerOnline : NetworkBehaviour
     [ClientRpc]
     public void RpcActivateBinkyPursuitVisualElements()
     {
+        Debug.Log("Activating joystick and pause button");
         joystick.GetComponent<Canvas>().enabled = true;
-        catchButton.GetComponent<Image>().enabled = true;
-        catchButton.GetComponent<Button>().enabled = true;
+        //catchButton.GetComponent<Image>().enabled = true;
+        //catchButton.GetComponent<Button>().enabled = true;
         pauseButton.SetActive(true);
         //AnchorCatchButtonToPlayer();
+    }
+
+    [TargetRpc]
+    public void RpcAnchorCatchButtonToPlayer(NetworkConnection target)
+    {
+        Debug.Log("Activating catch buttons for players");
+        Debug.Log($"I'm connection {target}");
+
+        PlayerMovementOnline player = target.identity.GetComponent<PlayerMovementOnline>();
+
+        int playerNumber = player.playerNumber;
+
+        if (playerNumber == 1)
+        {
+            catchButton.GetComponent<Image>().enabled = true;
+            Button button = catchButton.GetComponent<Button>();
+            button.enabled = true;
+            button.onClick.AddListener(player.CatchButtonHandler);
+        }
+        else if (playerNumber == 2)
+        {
+            catchButton2.GetComponent<Image>().enabled = true;
+            Button button = catchButton2.GetComponent<Button>();
+            button.enabled = true;
+            button.onClick.AddListener(player.CatchButtonHandler);
+        }
     }
     
     [ClientRpc]
