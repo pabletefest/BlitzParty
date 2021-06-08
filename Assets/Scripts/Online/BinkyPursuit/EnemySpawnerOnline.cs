@@ -93,8 +93,8 @@ namespace Online.BinkyPursuit
                 float totalChronometerTime = chronometerService.GetTotalTime();
                 float chronometerTime = chronometerService.GetCurrentTime();
             
-                Debug.Log($"Total chronometer time: {totalChronometerTime}");
-                Debug.Log($"Current chronometer time: {chronometerTime}");
+                //Debug.Log($"Total chronometer time: {totalChronometerTime}");
+                //Debug.Log($"Current chronometer time: {chronometerTime}");
 
                 if (chronometerTime >= totalChronometerTime / 2)
                 {

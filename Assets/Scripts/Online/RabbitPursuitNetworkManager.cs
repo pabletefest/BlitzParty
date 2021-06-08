@@ -110,13 +110,19 @@ namespace Online
         {
             foreach (var player in clients)
             {
+                //Debug.Log($"Unspawning player {player}");
                 NetworkServer.UnSpawn(player);
+                Destroy(player);
             }
+            
+            clients.Clear();
         }
 
         private void UnSpawnSpawner()
         {
-            NetworkServer.UnSpawn(spawner);
+            //Debug.Log($"Unspawning spawner {spawner}");
+            //NetworkServer.UnSpawn(spawner);
+            Destroy(spawner);
         }
 
         private void UnSpawnEnemies()
@@ -125,7 +131,9 @@ namespace Online
 
             foreach (var enemy in enemiesOnScene)
             {
+                //Debug.Log($"Unspawning enemy {enemy}");
                 NetworkServer.UnSpawn(enemy);
+                Destroy(enemy);
             }
         }
     }

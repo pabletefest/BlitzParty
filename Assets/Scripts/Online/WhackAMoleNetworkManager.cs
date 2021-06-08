@@ -91,14 +91,18 @@ namespace Online
             foreach (var player in clients)
             {
                 NetworkServer.UnSpawn(player);
+                Destroy(player);
             }
+            
+            clients.Clear();
         }
 
         private void UnSpawnSpawners()
         {
             foreach (var spawner in spawners)
             {   
-                NetworkServer.UnSpawn(spawner);
+                //NetworkServer.UnSpawn(spawner);
+                Destroy(spawner);
             }
         }
     
@@ -109,8 +113,8 @@ namespace Online
             foreach (var hammer in hammers)
             {
                 NetworkServer.UnSpawn(hammer);
+                Destroy(hammer);
             }
-
             //hammerSpawner.enabled = false;
         }
     }
