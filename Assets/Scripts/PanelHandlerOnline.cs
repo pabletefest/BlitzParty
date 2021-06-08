@@ -146,6 +146,12 @@ public class PanelHandlerOnline : NetworkBehaviour
     {
         pauseButton.SetActive(true);
     }
+    
+    [ClientRpc]
+    public void RpcActivateCowboyDuelVisualElements()
+    {
+        pauseButton.SetActive(true);
+    }
 
     
 

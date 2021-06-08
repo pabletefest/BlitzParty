@@ -29,4 +29,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Online/WhackAMoleOnline.unity
     guid: 4a1de7a7d292d344391b84445811500d
+  - enabled: 1
+    path: Assets/Scenes/Online/CowboyDuelOnline.unity
+    guid: 9b78e3ee355bdca4c9699554ab47bc48
   m_configObjects: {}

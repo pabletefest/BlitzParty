@@ -507,6 +507,13 @@ public class MainMenu : MonoBehaviour
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
         StartTransition();
     }
+    
+    public void StartCowboyDuelGameOnline()
+    {
+        nextScene = "CowboyDuelOnline";
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
+        StartTransition();
+    }
 
     private void StartTransition()
     {

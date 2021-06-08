@@ -42,7 +42,7 @@ namespace Online.WhackAMole
             if (clicked && !hammerInUse)
             {
                 hammerInUse = true;
-                //ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("HammerSwing");
+                ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("HammerSwing");
                 SpawnHammerOnNetwork(clickPosition, Quaternion.identity);
                 StartCoroutine(FreeHammer());
             }

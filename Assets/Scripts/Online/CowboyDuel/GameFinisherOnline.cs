@@ -1,13 +1,16 @@
-﻿using UnityEngine;
+﻿using System;
+using Mirror;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Online.CowboyDuel
 {
-    public class GameFinisheOnline : MonoBehaviour
+    public class GameFinisherOnline : NetworkBehaviour
     {
+        public event Action OnGameEnd;
 
         [SerializeField] private WinnerCheckerOnline winnerChecker;
-        [SerializeField] private PanelHandler finalPanel;
+        [SerializeField] private PanelHandlerOnline finalPanel;
 
         // Start is called before the first frame update
         void Start()
@@ -33,6 +36,9 @@ namespace Online.CowboyDuel
 
         public void GameEnded()
         {
+            if (!isServer) return;
+            
+            OnGameEnd?.Invoke();
             finalPanel.ShowCowboyDuelPanel();
         }
 

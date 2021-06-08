@@ -1,18 +1,24 @@
 ﻿using System;
 using CowboyDuel;
+using Mirror;
 using UnityEngine;
 
 namespace Online.CowboyDuel
 {
-    public class PlayerShootOnline : MonoBehaviour, IShootable
+    public class PlayerShootOnline : NetworkBehaviour, IShootable
     {
-        public event Action<string, float> OnShot;
+        public event Action<int, float> OnShot;
         
         [SerializeField] private CountdownUIOnline countdownUI;
         [SerializeField] private Animator playerAnimator;
+        [SerializeField] private WinnerCheckerOnline winnerChecker;
         
+        [SyncVar]
         private bool canShoot;
+        
         private bool hasShotEarly;
+        
+        [SyncVar]
         private bool hasShootAppeared;
 
         private float timeSinceReady;
@@ -20,8 +26,13 @@ namespace Online.CowboyDuel
         private Camera mainCamera;
         
         private float limitShootTime = 1.2f;
+        
+        [SyncVar]
+        public int playerNumber;
 
-        private void OnEnable()
+        public int PlayerNumber => playerNumber;
+
+        /*private void OnEnable()
         {
             countdownUI.OnCountdownOver += ShootingTime;
             countdownUI.OnShootAppeared += EnableCorrectShoot;
@@ -31,16 +42,23 @@ namespace Online.CowboyDuel
         {
             countdownUI.OnCountdownOver -= ShootingTime;
             countdownUI.OnShootAppeared -= EnableCorrectShoot;
-        }
+        }*/
 
-        void Awake()
+        public override void OnStartClient()
         {
             mainCamera = Camera.main;
+            countdownUI = GameObject.Find("GUIController").GetComponent<CountdownUIOnline>();
+            countdownUI.OnCountdownOver += ShootingTime;
+            countdownUI.OnShootAppeared += EnableCorrectShoot;
+            winnerChecker = GameObject.Find("WinnerController").GetComponent<WinnerCheckerOnline>();
         }
+        
 
         // Update is called once per frame
         void Update()
         {
+            if (!isLocalPlayer) return;
+            
             if (canShoot)
             {
                 #if UNITY_EDITOR
@@ -105,25 +123,46 @@ namespace Online.CowboyDuel
             // Debug.Log($"timeSinceReady: {timeSinceReady}");
             // Debug.Log($"limitShootTime: {limitShootTime}");
             
-            OnShot?.Invoke(gameObject.tag, timeSinceReady);
+            //OnShot?.Invoke(PlayerNumber, timeSinceReady);
+            Debug.Log($"Player {PlayerNumber} sending data to server, shoot time: {timeSinceReady}");
+            CmdPassShotDataToServer();
             
             // Debug.Log($"hasShootAppeared: {hasShootAppeared}");
-            canShoot = false;
+            //canShoot = false;
+            CmdDisablePlayersShoot();
             limitShootTime = 1.2f;
             timeSinceReady = 0;
-            hasShootAppeared = false;
+            //hasShootAppeared = false;
             
             Debug.Log("Player shot");
+        }
+
+        [Command]
+        private void CmdPassShotDataToServer(NetworkConnectionToClient  sender = null)
+        {
+            //OnShot?.Invoke(PlayerNumber, timeSinceReady);
+            winnerChecker.RecieveClientsData(timeSinceReady, sender);
+        }
+
+        [Command]
+        private void CmdDisablePlayersShoot()
+        {
+            canShoot = false;
+            hasShootAppeared = false;
         }
     
         private void ShootingTime()
         {
+            if (!isServer) return;
+            
             canShoot = true;
             Debug.Log("Player can shoot now");
         }
         
         private void EnableCorrectShoot(bool shootAppeared)
         {
+            if (!isServer) return;
+            
             hasShootAppeared = shootAppeared;
         }
 
@@ -152,6 +191,12 @@ namespace Online.CowboyDuel
             }
 
             return false;
+        }
+
+        [ClientRpc]
+        public void RpcEnablePlayerAnimator()
+        {
+            playerAnimator.enabled = true;
         }
     }
 }

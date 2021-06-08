@@ -55,7 +55,7 @@ namespace Online.WhackAMole
 
             if (other.CompareTag("Mole"))
             {
-                //SpawnSoundEffect(other.tag);
+                SpawnSoundEffect(other.tag);
                 animator.SetTrigger("MoleHit");
                 int playerId = playerOwner.PlayerNumber;
                 scoreController.PlayerScorePoints(1, playerId);
@@ -63,7 +63,7 @@ namespace Online.WhackAMole
             }
             else if (other.CompareTag("GoldMole"))
             {
-                //SpawnSoundEffect(other.tag);
+                SpawnSoundEffect(other.tag);
                 animator.SetTrigger("GoldMoleHit");
                 int playerId = playerOwner.PlayerNumber;
                 scoreController.PlayerScorePoints(5, playerId);
@@ -71,7 +71,7 @@ namespace Online.WhackAMole
             }
             else if (other.CompareTag("ZoomyWhackAMole"))
             {
-                //SpawnSoundEffect(other.tag);
+                SpawnSoundEffect(other.tag);
                 animator.SetTrigger("ZoomyHit");
                 int playerId = playerOwner.PlayerNumber;
                 scoreController.PlayerScorePoints(-3, playerId);
@@ -82,8 +82,7 @@ namespace Online.WhackAMole
 
             other.enabled = false;
         }
-
-        [TargetRpc]
+        
         private void SpawnSoundEffect(string tag) 
         {
             if (tag == "Mole")

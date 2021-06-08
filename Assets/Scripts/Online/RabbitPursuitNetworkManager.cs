@@ -13,7 +13,7 @@ namespace Online
         [SerializeField] private PlayerIndicatorUI playerIndicatorUI;
         [SerializeField] private PanelHandlerOnline panelHandler;
 
-        private int clientNumber = 0;
+        private int clientNumber;
 
         //[SerializeField] private GameObject[] enemySpawners;
 
