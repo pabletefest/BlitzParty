@@ -65,7 +65,7 @@ public class EarnAcornsOnline : MonoBehaviour
                 break;
         }
         
-        int acornsEarned = 20 + moreAcorns;
+        int acornsEarned = 20 + moreAcorns + 2000;
 
         return acornsEarned;
     }

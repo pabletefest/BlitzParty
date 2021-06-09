@@ -13,14 +13,16 @@ namespace Online.CowboyDuel
         [SerializeField] private Animator playerAnimator;
         [SerializeField] private WinnerCheckerOnline winnerChecker;
         
-        [SyncVar]
-        private bool canShoot;
+        // [SyncVar]
+        [SerializeField]private bool canShoot;
         
+        [SyncVar]
         private bool hasShotEarly;
         
         [SyncVar]
         private bool hasShootAppeared;
 
+        [SyncVar]
         private float timeSinceReady;
 
         private Camera mainCamera;
@@ -47,18 +49,25 @@ namespace Online.CowboyDuel
         public override void OnStartClient()
         {
             mainCamera = Camera.main;
+            
+            winnerChecker = GameObject.Find("WinnerController").GetComponent<WinnerCheckerOnline>();
+        }
+
+        public override void OnStartServer()
+        {
             countdownUI = GameObject.Find("GUIController").GetComponent<CountdownUIOnline>();
             countdownUI.OnCountdownOver += ShootingTime;
             countdownUI.OnShootAppeared += EnableCorrectShoot;
             winnerChecker = GameObject.Find("WinnerController").GetComponent<WinnerCheckerOnline>();
         }
-        
+
 
         // Update is called once per frame
         void Update()
         {
             if (!isLocalPlayer) return;
-            
+            Debug.Log($"Can I shoot? {canShoot}");
+                
             if (canShoot)
             {
                 #if UNITY_EDITOR
@@ -91,7 +100,7 @@ namespace Online.CowboyDuel
                     } 
                     else
                     {
-                        Debug.Log("Auto shoot");
+                        Debug.Log("Auto shoot " + PlayerNumber);
                         Shoot();
                     }
                 }
@@ -102,7 +111,8 @@ namespace Online.CowboyDuel
         {
             if (!hasShootAppeared)
             {
-                hasShotEarly = true;
+                //hasShotEarly = true;
+                CmdTouchedBeforeLabel();
             }
             
             //Debug.Log($"hasShotEarly: {hasShotEarly}");
@@ -111,8 +121,9 @@ namespace Online.CowboyDuel
             {
                 // Debug.Log("Shot Miss");
                 playerAnimator.SetTrigger("ShotMiss");
-                timeSinceReady = 2f;
-                hasShotEarly = false;
+                CmdShotEarly();
+                // timeSinceReady = 2f;
+                // hasShotEarly = false;
             }
             else
             {
@@ -125,38 +136,90 @@ namespace Online.CowboyDuel
             
             //OnShot?.Invoke(PlayerNumber, timeSinceReady);
             Debug.Log($"Player {PlayerNumber} sending data to server, shoot time: {timeSinceReady}");
-            CmdPassShotDataToServer();
+            CmdPassShotDataToServer(timeSinceReady);
             
             // Debug.Log($"hasShootAppeared: {hasShootAppeared}");
             //canShoot = false;
-            CmdDisablePlayersShoot();
+            //CmdDisablePlayersShoot();
+            
+            /*canShoot = false;
+            hasShootAppeared = false;
             limitShootTime = 1.2f;
-            timeSinceReady = 0;
+            timeSinceReady = 0;*/
+            
             //hasShootAppeared = false;
             
             Debug.Log("Player shot");
         }
 
         [Command]
-        private void CmdPassShotDataToServer(NetworkConnectionToClient  sender = null)
+        private void CmdPassShotDataToServer(float time, NetworkConnectionToClient  sender = null)
         {
             //OnShot?.Invoke(PlayerNumber, timeSinceReady);
-            winnerChecker.RecieveClientsData(timeSinceReady, sender);
+            uint playerNetId = sender.identity.netId;
+
+            if (playerNetId == 4)
+            {
+                winnerChecker.RecieveClient1Data(time);
+            }
+            else if (playerNetId == 5)
+            {
+                winnerChecker.RecieveClient2Data(time);
+            }
+
+            TargetRestartShootData();
         }
 
+        [TargetRpc]
+        private void TargetRestartShootData()
+        {
+            canShoot = false;
+            hasShootAppeared = false;
+            limitShootTime = 1.2f;
+            timeSinceReady = 0;
+        }
+        
         [Command]
+        private void CmdTouchedBeforeLabel()
+        {
+            hasShotEarly = true;
+        }
+        
+        [Command]
+        private void CmdShotEarly()
+        {
+            timeSinceReady = 2f;
+            hasShotEarly = false;
+        }
+
+        /*[Command]
         private void CmdDisablePlayersShoot()
         {
             canShoot = false;
             hasShootAppeared = false;
-        }
+        }*/
     
-        private void ShootingTime()
+        public void ShootingTime()
         {
             if (!isServer) return;
+
+            var playerConns = ((CowboyDuelNetworkManager) NetworkManager.singleton).PlayersConnections;
             
+            foreach (var playerConn in playerConns)
+            {
+                TargetAllowPlayerToShot(playerConn.Value);
+            }
+            
+            // canShoot = true;
+            //countdownUI.OnCountdownOver -= ShootingTime;
+            //RpcAllowPlayersToShot();
+            Debug.Log($"Player {PlayerNumber} can shoot now");
+        }
+
+        [TargetRpc]
+        private void TargetAllowPlayerToShot(NetworkConnection target)
+        {
             canShoot = true;
-            Debug.Log("Player can shoot now");
         }
         
         private void EnableCorrectShoot(bool shootAppeared)
@@ -170,7 +233,15 @@ namespace Online.CowboyDuel
         {
             if (Input.touches.Length > 0)
             {
-                return true;
+                Ray ray = mainCamera.ScreenPointToRay(Input.GetTouch(0).position);
+                RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
+                
+                if (hit.collider.CompareTag("Background"))
+                {
+                    return true;
+                    //Debug.Log("Player clicked the screen");
+                }
+                //return true;
             }
 
             return false;
@@ -197,6 +268,12 @@ namespace Online.CowboyDuel
         public void RpcEnablePlayerAnimator()
         {
             playerAnimator.enabled = true;
+        }
+        
+        [ClientRpc]
+        public void RpcSubscribeToShootingEvent()
+        {
+            countdownUI.OnCountdownOver += ShootingTime;
         }
     }
 }

@@ -40,23 +40,24 @@ namespace Online.CowboyDuel
             enemyShoot.OnShot -= CheckSetup;
         }*/
 
-        public void RecieveClientsData(float timeSinceReady, NetworkConnectionToClient sender)
+        [Command(requiresAuthority = false)]
+        public void RecieveClient1Data(float timeSinceReady)
         {
-            int playerNumber = sender.identity.GetComponent<PlayerShootOnline>().PlayerNumber;
-            //if (!isServer) return;
-            //Debug.Log("Yeeeeeeeeeeeeeeeeeeeeeee im the server");
-            if (playerNumber == 1)
-            {
-                playerShot = true;
-                playerTime = timeSinceReady;
-                Debug.Log($"Player 1 shoot time: {playerTime}");
-            }
-            else if (playerNumber == 2)
-            {
-                player2Shot = true;
-                player2Time = timeSinceReady;
-                Debug.Log($"Player 2 shoot time: {player2Time}");
-            }
+            if (!isServer) return;
+
+            playerShot = true;
+            playerTime = timeSinceReady;
+            Debug.Log($"Player 1 shoot time: {playerTime}");
+        }
+        
+        [Command(requiresAuthority = false)]
+        public void RecieveClient2Data(float timeSinceReady)
+        {
+            if (!isServer) return;
+
+            player2Shot = true;
+            player2Time = timeSinceReady;
+            Debug.Log($"Player 2 shoot time: {player2Time}");
         }
 
         private void CheckRoundWinner()
@@ -67,17 +68,21 @@ namespace Online.CowboyDuel
                 Debug.Log($"Player 1 time: {playerTime} && Player 2 shot {player2Time}");
                 if (playerTime < player2Time)
                 {
-                    scoreController.P1ScorePoints(1);
-                    player2Animator.SetTrigger("Death");
+                    scoreController.PlayerScorePoints(1, 1);
+                    //player2Animator.SetTrigger("Death");
+                    RpcSetDeathAnimationPlayer(2, player2Animator.gameObject);
                     winnerLabel.text = "RED POINT";
                     winnerLabel.gameObject.SetActive(true);
+                    RpcShowWinnerOnClients("RED POINT");
                 }
                 else if (playerTime > player2Time)
                 {
-                    scoreController.P2ScorePoints(1);
-                    playerAnimator.SetTrigger("Death");
+                    scoreController.PlayerScorePoints(1, 2);
+                    //playerAnimator.SetTrigger("Death");
+                    RpcSetDeathAnimationPlayer(1, playerAnimator.gameObject);
                     winnerLabel.text = "BLUE POINT";
                     winnerLabel.gameObject.SetActive(true);
+                    RpcShowWinnerOnClients("BLUE POINT");
                 }
                 else
                 {
@@ -85,11 +90,15 @@ namespace Online.CowboyDuel
 
                     if (randomWinner == 1)
                     {
-                        scoreController.P1ScorePoints(1);
+                        scoreController.PlayerScorePoints(1, 1);
+                        //player2Animator.SetTrigger("Death");
+                        RpcSetDeathAnimationPlayer(2, player2Animator.gameObject);
                     }
                     else
                     {
-                        scoreController.P2ScorePoints(1);
+                        scoreController.PlayerScorePoints(1, 2);
+                        //playerAnimator.SetTrigger("Death");
+                        RpcSetDeathAnimationPlayer(1, playerAnimator.gameObject);
                     }
                 }
                 playerShot = false;
@@ -100,23 +109,68 @@ namespace Online.CowboyDuel
         
         }
 
+        [ClientRpc]
+        private void RpcShowWinnerOnClients(string winner)
+        {
+            winnerLabel.text = winner;
+            winnerLabel.gameObject.SetActive(true);
+        }
+        
+        [ClientRpc]
+        private void RpcSetDeathAnimationPlayer(int playerDead, GameObject player)
+        {
+            if (playerDead == 1)
+            {
+                player.GetComponent<Animator>().SetTrigger("Death");
+            }
+            else if (playerDead == 2)
+            {
+                player.GetComponent<Animator>().SetTrigger("Death");
+            }
+        }
+
         // Update is called once per frame
         void Update()
         {
-            ObtainPlayersReference();
+            ObtainPlayersReference(); //For client animations
+            
+            if (!isServer) return;
+            //Debug.Log($"Player 1 shot: {playerShot} && Player 2 shot {player2Shot}");
+            //ObtainPlayersReference();
             CheckRoundWinner();
         }
 
         private IEnumerator FinishRound()
         {
+            RpcRestartRoundOnClients(playerAnimator.gameObject, player2Animator.gameObject);
             shootLabel.SetActive(false);
 
             yield return new WaitForSeconds(3f);
 
             winnerLabel.gameObject.SetActive(false);
 
-            playerAnimator.SetTrigger("RoundFinish");
-            player2Animator.SetTrigger("RoundFinish");
+            //playerAnimator.SetTrigger("RoundFinish");
+            //player2Animator.SetTrigger("RoundFinish");
+        }
+        
+        private IEnumerator FinishRoundOnClients(GameObject player, GameObject player2)
+        {
+            shootLabel.SetActive(false);
+
+            yield return new WaitForSeconds(3f);
+
+            winnerLabel.gameObject.SetActive(false);
+            
+            // player.GetComponent<PlayerShootOnline>().RpcSubscribeToShootingEvent();
+            // player2.GetComponent<PlayerShootOnline>().RpcSubscribeToShootingEvent();
+            player.GetComponent<Animator>().SetTrigger("RoundFinish");
+            player2.GetComponent<Animator>().SetTrigger("RoundFinish");
+        }
+
+        [ClientRpc]
+        private void RpcRestartRoundOnClients(GameObject player, GameObject player2)
+        {
+            StartCoroutine(FinishRoundOnClients(player, player2));
         }
 
         private void CheckEndGame()
@@ -132,7 +186,14 @@ namespace Online.CowboyDuel
             {
                 OnGameEnd?.Invoke();
                 shootLabel.SetActive(false);
+                RpcDisableShootLabel();
             }
+        }
+
+        [ClientRpc]
+        private void RpcDisableShootLabel()
+        {
+            shootLabel.SetActive(false);
         }
 
         private void ObtainPlayersReference()

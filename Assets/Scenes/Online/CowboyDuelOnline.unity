@@ -1679,6 +1679,7 @@ MonoBehaviour:
   startingTime: 3
   countdownText: {fileID: 169401578}
   shootLabel: {fileID: 382356813}
+  player: {fileID: 0}
 --- !u!1 &688508337
 GameObject:
   m_ObjectHideFlags: 0
@@ -4258,12 +4259,12 @@ MonoBehaviour:
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 626191188601489047, guid: 53d53a7b27f49ce4fb02cd0c76bfb023,
+  playerPrefab: {fileID: 637447171919077628, guid: 53d53a7b27f49ce4fb02cd0c76bfb023,
     type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs:
-  - {fileID: 5761128480402268029, guid: 4c6e9fb2e2cf1644aa423fe47a7ba105, type: 3}
+  - {fileID: 5504628059954058219, guid: 4c6e9fb2e2cf1644aa423fe47a7ba105, type: 3}
   playerIndicatorUI: {fileID: 595125587}
   panelHandler: {fileID: 595125588}
   gameFinisher: {fileID: 317213064}

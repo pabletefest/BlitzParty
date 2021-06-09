@@ -105,7 +105,7 @@ namespace Online.PlayFab
 
         private void ShowLoginErrorMessage()
         {
-            if (emailField.text == string.Empty || usernameField.text == string.Empty ||
+            if (usernameField.text == string.Empty ||
                 passwordField.text == string.Empty)
             {
                 errorText.text = "Please, check that there are no empty fields!";
