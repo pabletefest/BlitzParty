@@ -95,7 +95,7 @@ namespace Online
         private void TimerEnded()
         {
             Debug.Log("Server recieved OnTimerEnd event!!");
-            UnSpawnPlayers();
+            //UnSpawnPlayers();
             UnSpawnSpawner();
             UnSpawnEnemies();
         }

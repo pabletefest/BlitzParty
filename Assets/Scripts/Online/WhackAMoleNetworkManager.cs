@@ -67,7 +67,7 @@ namespace Online
         {
             Debug.Log("Server recieved OnTimerEnd event!!");
             DestroyRemainingHammers();
-            UnSpawnPlayers();
+            //UnSpawnPlayers();
             UnSpawnSpawners();
         }
 

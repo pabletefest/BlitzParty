@@ -2,6 +2,7 @@
 using Mirror;
 using Online;
 using Online.BinkyPursuit;
+using Online.CowboyDuel;
 using Online.WhackAMole;
 using Services;
 using UnityEngine;
@@ -275,10 +276,12 @@ public class PanelHandlerOnline : NetworkBehaviour
 
     public void ShowCowboyDuelPanel()
     {
+        if (!isServer) return;
+        
         panel.SetActive(true);
         //gameObject.SetActive(true);
         pauseButton.SetActive(false);
-        if (database.IsBattleMode())
+        /*if (database.IsBattleMode())
         {
             menuButton.SetActive(false);
             restartButton.SetActive(false);
@@ -297,7 +300,7 @@ public class PanelHandlerOnline : NetworkBehaviour
             menuButton.SetActive(true);
             restartButton.SetActive(true);
             nextMinigameButton.SetActive(false);
-        }
+        }*/
         CheckResult(scoreController.FindWinner(), "CowboyDuel");
         // acornsText.text = earnAcorns.CalculateAcornsEarned("CowboyDuel").ToString();
         // earnAcorns.AcornsCowboyDuel();
@@ -370,10 +373,10 @@ public class PanelHandlerOnline : NetworkBehaviour
                 SetClientResult(player2Conn, minigame, isP2Winner);
                 break;
             case "CowboyDuelOnline":
-                player1Conn = ((WhackAMoleNetworkManager) NetworkManager.singleton).PlayersConnections[1];
+                player1Conn = ((CowboyDuelNetworkManager) NetworkManager.singleton).PlayersConnections[1];
                 SetClientResult(player1Conn, minigame, isP1Winner);
             
-                player2Conn = ((WhackAMoleNetworkManager) NetworkManager.singleton).PlayersConnections[2];
+                player2Conn = ((CowboyDuelNetworkManager) NetworkManager.singleton).PlayersConnections[2];
                 SetClientResult(player2Conn, minigame, isP2Winner);
                 break;
         }
@@ -458,7 +461,7 @@ public class PanelHandlerOnline : NetworkBehaviour
                 StoreAcornsLocallyOnWinnerClient(sender, acornsEarned, minigame);
                 break;
             case "CowboyDuel":
-                playerNumber = sender.identity.gameObject.GetComponent<HammerSpawnerOnline>().PlayerNumber;
+                playerNumber = sender.identity.gameObject.GetComponent<PlayerShootOnline>().PlayerNumber;
                 Debug.Log($"PlayerNumber is: {playerNumber}");
                 acornsEarned = earnAcorns.CalculateAcornsEarned(minigame, playerNumber);
                 Debug.Log($"AcornsEarned: {acornsEarned}");

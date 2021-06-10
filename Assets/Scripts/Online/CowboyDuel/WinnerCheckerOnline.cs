@@ -26,6 +26,7 @@ namespace Online.CowboyDuel
     
         private bool player2Shot;
         private float player2Time = 2f;
+        
 
         /*private void OnEnable()
         {
@@ -70,18 +71,18 @@ namespace Online.CowboyDuel
                 {
                     scoreController.PlayerScorePoints(1, 1);
                     //player2Animator.SetTrigger("Death");
-                    RpcSetDeathAnimationPlayer(2, player2Animator.gameObject);
-                    winnerLabel.text = "RED POINT";
-                    winnerLabel.gameObject.SetActive(true);
+                    RpcSetDeathAnimationPlayer(player2Animator.gameObject);
+                    // winnerLabel.text = "RED POINT";
+                    // winnerLabel.gameObject.SetActive(true);
                     RpcShowWinnerOnClients("RED POINT");
                 }
                 else if (playerTime > player2Time)
                 {
                     scoreController.PlayerScorePoints(1, 2);
                     //playerAnimator.SetTrigger("Death");
-                    RpcSetDeathAnimationPlayer(1, playerAnimator.gameObject);
-                    winnerLabel.text = "BLUE POINT";
-                    winnerLabel.gameObject.SetActive(true);
+                    RpcSetDeathAnimationPlayer(playerAnimator.gameObject);
+                    // winnerLabel.text = "BLUE POINT";
+                    // winnerLabel.gameObject.SetActive(true);
                     RpcShowWinnerOnClients("BLUE POINT");
                 }
                 else
@@ -92,13 +93,13 @@ namespace Online.CowboyDuel
                     {
                         scoreController.PlayerScorePoints(1, 1);
                         //player2Animator.SetTrigger("Death");
-                        RpcSetDeathAnimationPlayer(2, player2Animator.gameObject);
+                        RpcSetDeathAnimationPlayer(player2Animator.gameObject);
                     }
                     else
                     {
                         scoreController.PlayerScorePoints(1, 2);
                         //playerAnimator.SetTrigger("Death");
-                        RpcSetDeathAnimationPlayer(1, playerAnimator.gameObject);
+                        RpcSetDeathAnimationPlayer(playerAnimator.gameObject);
                     }
                 }
                 playerShot = false;
@@ -117,21 +118,16 @@ namespace Online.CowboyDuel
         }
         
         [ClientRpc]
-        private void RpcSetDeathAnimationPlayer(int playerDead, GameObject player)
+        private void RpcSetDeathAnimationPlayer(GameObject player)
         {
-            if (playerDead == 1)
-            {
-                player.GetComponent<Animator>().SetTrigger("Death");
-            }
-            else if (playerDead == 2)
-            {
-                player.GetComponent<Animator>().SetTrigger("Death");
-            }
+            Debug.Log(player);
+            player.GetComponent<Animator>().SetTrigger("Death");
         }
 
         // Update is called once per frame
         void Update()
         {
+            //if (!isSetReference)
             ObtainPlayersReference(); //For client animations
             
             if (!isServer) return;
@@ -140,14 +136,14 @@ namespace Online.CowboyDuel
             CheckRoundWinner();
         }
 
-        private IEnumerator FinishRound()
+        private void FinishRound()
         {
             RpcRestartRoundOnClients(playerAnimator.gameObject, player2Animator.gameObject);
-            shootLabel.SetActive(false);
-
-            yield return new WaitForSeconds(3f);
-
-            winnerLabel.gameObject.SetActive(false);
+            // shootLabel.SetActive(false);
+            //
+            // yield return new WaitForSeconds(3f);
+            //
+            // winnerLabel.gameObject.SetActive(false);
 
             //playerAnimator.SetTrigger("RoundFinish");
             //player2Animator.SetTrigger("RoundFinish");
@@ -180,7 +176,7 @@ namespace Online.CowboyDuel
 
             if (player1Score < 2 && player2Score < 2)
             {
-                StartCoroutine(FinishRound());
+                FinishRound();
             } 
             else if (player1Score == 2 || player2Score == 2)
             {
@@ -222,6 +218,7 @@ namespace Online.CowboyDuel
                     //player2Shoot.OnShot += CheckSetup;
                 }
             }
+            
         }
     }
 }
