@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using Mirror;
 using Online;
 using Online.BinkyPursuit;
@@ -203,6 +204,11 @@ public class PanelHandlerOnline : NetworkBehaviour
         battleModeHandler.StartNextMinigame();
     }
 
+    private IEnumerator PrepareNextOnlineGame()
+    {
+        yield break;
+    }
+
     public void ShowRabbitPursuitPanel()
     {
         if (!isServer) return;
@@ -239,6 +245,7 @@ public class PanelHandlerOnline : NetworkBehaviour
         // acornsText.text = earnAcorns.CalculateAcornsEarned("RabbitPursuit").ToString();
         // earnAcorns.AcornsRabbitPursuit();
         // database.AddPlayerRabbitPursuitGames();
+        StartCoroutine(PrepareNextOnlineGame());
     }
 
     public void ShowWhackAMolePanel()
@@ -277,6 +284,7 @@ public class PanelHandlerOnline : NetworkBehaviour
         //acornsText.text = earnAcorns.CalculateAcornsEarned("WhackAMole").ToString();
         //earnAcorns.AcornsWhackAMole();
         //database.AddPlayerWhackAMoleGames();
+        StartCoroutine(PrepareNextOnlineGame());
     }
 
 
