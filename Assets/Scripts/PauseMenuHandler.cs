@@ -34,34 +34,48 @@ public class PauseMenuHandler : MonoBehaviour
 
     public void ShowRabbitPursuitPauseMenu()
     {
-        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
-        musicSlider.value = database.LoadMusicVolume();
-        sfxSlider.value = database.LoadSFXVolume();
-        pausePanel.SetActive(true);
         Time.timeScale = 0;
+        PreparePauseMenu();
         joystick.GetComponent<Canvas>().enabled = false;
         catchButton.SetActive(false);
-        pauseButton.SetActive(false);
     }
 
     public void ShowWhackAMolePauseMenu()
     {
-        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
-        musicSlider.value = database.LoadMusicVolume();
-        sfxSlider.value = database.LoadSFXVolume();
-        pausePanel.SetActive(true);
         Time.timeScale = 0;
+        PreparePauseMenu();
         DestroyRemainingHammers();
-        pauseButton.SetActive(false);
     }
 
     public void ShowCowboyDuelPauseMenu()
+    {
+        Time.timeScale = 0;
+        PreparePauseMenu();
+    }
+    
+    public void ShowRabbitPursuitPauseMenuOnline()
+    {
+        PreparePauseMenu();
+        joystick.GetComponent<Canvas>().enabled = false;
+        catchButton.SetActive(false);
+    }
+
+    public void ShowWhackAMolePauseMenuOnline()
+    {
+        PreparePauseMenu();
+    }
+
+    public void ShowCowboyDuelPauseMenuOnline()
+    {
+        PreparePauseMenu();
+    }
+
+    private void PreparePauseMenu()
     {
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
         musicSlider.value = database.LoadMusicVolume();
         sfxSlider.value = database.LoadSFXVolume();
         pausePanel.SetActive(true);
-        Time.timeScale = 0;
         pauseButton.SetActive(false);
     }
 

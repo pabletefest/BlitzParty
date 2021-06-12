@@ -59,6 +59,8 @@ namespace Online
 					i++;
 				}
 				
+				panelHandler.RpcDisableWaitingPlayersPanel();
+				
 				foreach (var playerConn in PlayersConnections)
 				{
 					playerIndicatorUI.StartAnimationIndicator(playerConn.Value, playerConn.Key);

@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using Online;
 using Online.PlayFab;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -190,6 +191,8 @@ public class MainMenu : MonoBehaviour
     {
         Time.timeScale = 1;
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
+        
+        GameObject.Find("NetworkTypeChecker").GetComponent<NetworkTypeChecker>().SelectNetworkType(0);
 
         //acornLabel.text = database.LoadAcorns().ToString();
         //musicSlider.value = database.LoadMusicVolume();
@@ -221,7 +224,7 @@ public class MainMenu : MonoBehaviour
                 error => Debug.LogError($"Couldn't login on MainMenu: {error.GenerateErrorReport()}"));
         }
 
-        if (!database.IsBattleMode())
+        /*if (!database.IsBattleMode())
         {
             orientationManager.ChangeScreenPortrait(true);
             //acornLabel.text = database.LoadAcorns().ToString();
@@ -240,7 +243,7 @@ public class MainMenu : MonoBehaviour
         {
             nextScene = database.LoadCurrentBattleMinigame();
             StartTransition();
-        }
+        }*/
     }
 
     private void UpdateUserData(Dictionary<string, string> cloudUserData)

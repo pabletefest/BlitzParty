@@ -107,7 +107,7 @@ namespace Online.CowboyDuel
                 }
             }
         }
-
+        
         public void Shoot()
         {
             if (!hasShootAppeared)

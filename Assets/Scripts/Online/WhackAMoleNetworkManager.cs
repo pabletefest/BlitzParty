@@ -40,6 +40,8 @@ namespace Online
 
             if (numPlayers == 2)
             {
+                panelHandler.RpcDisableWaitingPlayersPanel();
+                    
                 foreach (var playerConn in PlayersConnections)
                 {
                     playerIndicatorUI.StartAnimationIndicator(playerConn.Value, playerConn.Key);

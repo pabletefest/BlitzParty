@@ -62,6 +62,9 @@ namespace Online
                     Debug.Log($"Player {player.GetComponent<PlayerMovementOnline>().PlayerNumber} was given authority");
                     i++;
                 }
+                
+                panelHandler.RpcDisableWaitingPlayersPanel();
+                
                 panelHandler.RpcActivateBinkyPursuitVisualElements();
                 
                 foreach (var playerConn in PlayersConnections)
