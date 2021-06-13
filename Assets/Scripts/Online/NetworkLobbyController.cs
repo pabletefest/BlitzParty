@@ -57,8 +57,10 @@ namespace Online
                     
                     if (discoveredServers.Count > 0)
                     {
+                        long matchKey = discoveredServers.First().Key;
                         ServerResponse response = discoveredServers.First().Value;
                         StartClient(response);
+                        discoveredServers.Remove(matchKey);
                     }
                     else
                     {
@@ -67,7 +69,7 @@ namespace Online
                     
                     yield return new WaitForSeconds(3f);
                     
-                    discoveredServers.Clear();
+                    // discoveredServers.Clear();
                     
                     break;
                 
