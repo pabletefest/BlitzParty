@@ -1,4 +1,6 @@
 ﻿using System;
+using Mirror;
+using Online;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -77,7 +79,20 @@ public class LoadSceneController : MonoBehaviour
             CancelInvoke("UpdateProgress");
             transitionScreen.SetActive(false);
             fakeTransition.SetActive(true);
+            // StopServerBeforeLoading(nextScene);
             SceneManager.LoadScene(nextScene);
+        }
+    }
+
+    private void StopServerBeforeLoading(string minigame)
+    {
+        if (minigame == "WhackAMoleOnline")
+        {
+            ((RabbitPursuitNetworkManager) NetworkManager.singleton).ShutdownServer();
+        }
+        else if (minigame == "CowboyDuelOnline")
+        {
+            ((WhackAMoleNetworkManager) NetworkManager.singleton).ShutdownServer();
         }
     }
 }

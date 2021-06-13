@@ -76,8 +76,12 @@ public class TimerUIOnline : NetworkBehaviour
         
         Debug.Log($"Am I client? {isClient}");
         Debug.Log($"Am I server? {isServer}");
+        
         OnTimerEnd?.Invoke();
         
+        DisableTimerOnClients();
+        sandClock.GetComponent<Animator>().enabled = false;
+        timeUI.SetActive(false);
         
         string sceneName = SceneManager.GetActiveScene().name;
         switch (sceneName)
@@ -93,13 +97,7 @@ public class TimerUIOnline : NetworkBehaviour
         //Time.timeScale = 0;
 
         chronometer.OnTimerOver -= EnableResultPanelOnline;
-        
-
-
         //EnableResultPanelOnClients();
-        DisableTimerOnClients();
-        sandClock.GetComponent<Animator>().enabled = false;
-        timeUI.SetActive(false);
     }
 
     

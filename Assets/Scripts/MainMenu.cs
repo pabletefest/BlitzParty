@@ -227,6 +227,8 @@ public class MainMenu : MonoBehaviour
                 error => Debug.LogError($"Couldn't login on MainMenu: {error.GenerateErrorReport()}"));
         }
 
+        acornLabel.text = database.LoadAcorns().ToString();
+
         /*if (!database.IsBattleMode())
         {
             orientationManager.ChangeScreenPortrait(true);
@@ -251,6 +253,7 @@ public class MainMenu : MonoBehaviour
 
     private void UpdateUserData(Dictionary<string, string> cloudUserData)
     {
+        database.SaveAcorns(int.Parse(cloudUserData["Acorns"]));
         acornLabel.text = cloudUserData["Acorns"];
         musicSlider.value = float.Parse(cloudUserData["MusicVolume"]);
         sfxSlider.value = float.Parse(cloudUserData["SFXVolume"]);

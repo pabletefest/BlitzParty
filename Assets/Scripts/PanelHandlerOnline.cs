@@ -211,15 +211,23 @@ public class PanelHandlerOnline : NetworkBehaviour
     
     private IEnumerator PrepareNextOnlineGame(string minigame)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         
         GetComponent<LoadSceneController>().StartNextMinigameOnline(minigame);
     }
     
     private IEnumerator ReturningMainMenuAfterOnline()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
 
+        // ((CowboyDuelNetworkManager) NetworkManager.singleton).ShutdownServer();
+
+        RpcReturnToMainMenu();
+    }
+
+    [ClientRpc]
+    private void RpcReturnToMainMenu()
+    {
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -227,7 +235,7 @@ public class PanelHandlerOnline : NetworkBehaviour
     {
         foreach (var playerConn in playersConnections)
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2f);
             RpcStartNextScene(playerConn.Value, minigame);
         }
     }

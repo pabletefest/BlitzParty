@@ -119,5 +119,20 @@ namespace Online
             }
             //hammerSpawner.enabled = false;
         }
+        
+        public override void OnDestroy()
+        {
+            Debug.Log("NetworkManager being destroyed");
+            //base.OnDestroy();
+            // NetworkServer.Shutdown();
+            // ShutdownServer();
+            Shutdown();
+        }
+
+        public void ShutdownServer()
+        {
+            UnSpawnPlayers();
+            StopServer();
+        }
     }
 }
