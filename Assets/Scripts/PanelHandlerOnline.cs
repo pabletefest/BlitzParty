@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using Mirror;
 using Online;
 using Online.BinkyPursuit;
@@ -163,8 +164,6 @@ public class PanelHandlerOnline : NetworkBehaviour
     {
         multiplayerMessagePanel.SetActive(false);
     }
-    
-
 
     public void RestartButtonHandler()
     {
@@ -204,11 +203,35 @@ public class PanelHandlerOnline : NetworkBehaviour
         battleModeHandler.StartNextMinigame();
     }
 
-    private IEnumerator PrepareNextOnlineGame()
+    [TargetRpc]
+    private void RpcStartNextScene(NetworkConnection target, string minigame)
     {
-        yield break;
+        StartCoroutine(PrepareNextOnlineGame(minigame));
+    }
+    
+    private IEnumerator PrepareNextOnlineGame(string minigame)
+    {
+        yield return new WaitForSeconds(1f);
+        
+        GetComponent<LoadSceneController>().StartNextMinigameOnline(minigame);
+    }
+    
+    private IEnumerator ReturningMainMenuAfterOnline()
+    {
+        yield return new WaitForSeconds(3f);
+
+        SceneManager.LoadScene("MainMenu");
     }
 
+    private IEnumerator PrepareNextSceneClients(Dictionary<int, NetworkConnection> playersConnections, string minigame)
+    {
+        foreach (var playerConn in playersConnections)
+        {
+            yield return new WaitForSeconds(1f);
+            RpcStartNextScene(playerConn.Value, minigame);
+        }
+    }
+    
     public void ShowRabbitPursuitPanel()
     {
         if (!isServer) return;
@@ -245,7 +268,8 @@ public class PanelHandlerOnline : NetworkBehaviour
         // acornsText.text = earnAcorns.CalculateAcornsEarned("RabbitPursuit").ToString();
         // earnAcorns.AcornsRabbitPursuit();
         // database.AddPlayerRabbitPursuitGames();
-        StartCoroutine(PrepareNextOnlineGame());
+        var playersConnections = ((RabbitPursuitNetworkManager) NetworkManager.singleton).PlayersConnections;
+        StartCoroutine(PrepareNextSceneClients(playersConnections, "WhackAMoleOnline"));
     }
 
     public void ShowWhackAMolePanel()
@@ -284,7 +308,9 @@ public class PanelHandlerOnline : NetworkBehaviour
         //acornsText.text = earnAcorns.CalculateAcornsEarned("WhackAMole").ToString();
         //earnAcorns.AcornsWhackAMole();
         //database.AddPlayerWhackAMoleGames();
-        StartCoroutine(PrepareNextOnlineGame());
+        
+        var playersConnections = ((WhackAMoleNetworkManager) NetworkManager.singleton).PlayersConnections;
+        StartCoroutine(PrepareNextSceneClients(playersConnections, "CowboyDuelOnline"));
     }
 
 
@@ -319,6 +345,7 @@ public class PanelHandlerOnline : NetworkBehaviour
         // acornsText.text = earnAcorns.CalculateAcornsEarned("CowboyDuel").ToString();
         // earnAcorns.AcornsCowboyDuel();
         // database.AddPlayerCowboyDuelGames();
+        StartCoroutine(ReturningMainMenuAfterOnline());
     }
 
     //[Command(requiresAuthority = false)]

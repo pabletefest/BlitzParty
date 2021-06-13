@@ -79,6 +79,20 @@ public class PauseMenuHandler : MonoBehaviour
         pauseButton.SetActive(false);
     }
 
+    public void HidePauseMenuOnline()
+    {
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
+        pausePanel.SetActive(false);
+        pauseButton.SetActive(true);
+    }
+
+    public void HidePauseMenuBinkyPursuitOnline()
+    {
+        HidePauseMenuOnline();
+        joystick.GetComponent<Canvas>().enabled = true;
+        catchButton.SetActive(true);
+    }
+    
     public void HideRabbitPursuitPauseMenu()
     {
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");

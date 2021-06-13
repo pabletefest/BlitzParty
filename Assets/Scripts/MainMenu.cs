@@ -178,6 +178,9 @@ public class MainMenu : MonoBehaviour
     [SerializeField]
     private GameObject creditsMenu;
 
+    [SerializeField] private GameObject loadingScreenPrefab;
+    [SerializeField] private GameObject fakeTransitionPrefab;
+
     private int progress;
 
     private string nextScene;
@@ -515,6 +518,18 @@ public class MainMenu : MonoBehaviour
     {
         nextScene = "CowboyDuelOnline";
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
+        StartTransition();
+    }
+
+    public void StartNextMinigameOnline(string minigame)
+    {
+        transitionScreen = Instantiate(loadingScreenPrefab);
+        transitionScreen.transform.SetParent(GameObject.Find("Canvas").transform);
+        transitionScreen.SetActive(false);
+        fakeTransition = Instantiate(fakeTransitionPrefab);
+        fakeTransition.transform.SetParent(GameObject.Find("Canvas").transform);
+        fakeTransition.SetActive(false);
+        nextScene = minigame;
         StartTransition();
     }
 

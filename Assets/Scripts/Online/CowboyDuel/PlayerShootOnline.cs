@@ -305,5 +305,10 @@ namespace Online.CowboyDuel
         {
             countdownUI.OnCountdownOver += ShootingTime;
         }
+
+        private void OnDestroy()
+        {
+            
+        }
     }
 }

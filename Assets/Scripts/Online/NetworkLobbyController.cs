@@ -65,6 +65,10 @@ namespace Online
                         StartHost();
                     }
                     
+                    yield return new WaitForSeconds(3f);
+                    
+                    discoveredServers.Clear();
+                    
                     break;
                 
                 case NetworkType.WAN:
