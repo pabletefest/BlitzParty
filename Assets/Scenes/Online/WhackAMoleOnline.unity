@@ -1943,7 +1943,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1955060432}
+      - m_Target: {fileID: 1260839773}
         m_MethodName: MenuButtonHandler
         m_Mode: 1
         m_Arguments:

@@ -129,6 +129,15 @@ public class PauseMenuHandler : MonoBehaviour
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
 
     }
+    
+    public void MenuButtonHandlerOnline()
+    {
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
+        orientationManager.ChangeScreenPortrait(true);
+        SceneManager.LoadScene("MainMenu");
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
+
+    }
 
     private void DestroyRemainingHammers()
     {

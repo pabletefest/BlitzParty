@@ -195,6 +195,7 @@ public class PanelHandlerOnline : NetworkBehaviour
         orientationManager.ChangeScreenPortrait(true);
         SceneManager.LoadScene("MainMenu");
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
+        GameObject.Find("NetworkTypeChecker").GetComponent<NetworkTypeChecker>().SelectNetworkType(0);
     }
 
     public void NextMinigameButtonHandler()
@@ -235,7 +236,7 @@ public class PanelHandlerOnline : NetworkBehaviour
     {
         foreach (var playerConn in playersConnections)
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(4f);
             RpcStartNextScene(playerConn.Value, minigame);
         }
     }
