@@ -195,8 +195,6 @@ public class MainMenu : MonoBehaviour
         Time.timeScale = 1;
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
         
-        GameObject.Find("NetworkTypeChecker").GetComponent<NetworkTypeChecker>().SelectNetworkType(0);
-
         //acornLabel.text = database.LoadAcorns().ToString();
         //musicSlider.value = database.LoadMusicVolume();
         //sfxSlider.value = database.LoadSFXVolume();
@@ -249,6 +247,11 @@ public class MainMenu : MonoBehaviour
             nextScene = database.LoadCurrentBattleMinigame();
             StartTransition();
         }*/
+    }
+
+    private void Start()
+    {
+        NetworkTypeChecker.Instance.SelectNetworkType(0);
     }
 
     private void UpdateUserData(Dictionary<string, string> cloudUserData)

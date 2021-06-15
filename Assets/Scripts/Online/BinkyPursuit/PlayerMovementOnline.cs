@@ -1,4 +1,5 @@
-﻿using Mirror;
+﻿using System;
+using Mirror;
 using Services;
 using UnityEngine;
 
@@ -249,6 +250,11 @@ namespace Online.BinkyPursuit
 				enemiesCollided.Remove(enemyKilled);
 				Destroy(enemyKilled);
 			}
+		}
+
+		private void OnDestroy()
+		{
+			NetworkClient.Shutdown();
 		}
 	}
 }

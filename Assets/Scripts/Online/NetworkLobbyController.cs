@@ -49,6 +49,7 @@ namespace Online
             switch (networkTypeChecker.NetType)
             {
                 case NetworkType.LAN:
+                    Debug.Log("LAN multiplayer getting called");
                     StartServerDiscovery();
                     
                     multiplayerMessagePanel.SetActive(true);

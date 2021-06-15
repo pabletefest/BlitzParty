@@ -121,6 +121,11 @@ namespace Online.WhackAMole
             yield return new WaitForSeconds(hitRate);
             hammerInUse = false;
         }
+        
+        private void OnDestroy()
+        {
+            NetworkClient.Shutdown();
+        }
     }
 }
 

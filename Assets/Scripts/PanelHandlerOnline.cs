@@ -193,9 +193,9 @@ public class PanelHandlerOnline : NetworkBehaviour
     {
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
         orientationManager.ChangeScreenPortrait(true);
-        SceneManager.LoadScene("MainMenu");
+        NetworkTypeChecker.Instance.SelectNetworkType(0);
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
-        GameObject.Find("NetworkTypeChecker").GetComponent<NetworkTypeChecker>().SelectNetworkType(0);
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void NextMinigameButtonHandler()
