@@ -44,7 +44,21 @@ namespace Online.BinkyPursuit
 
 		private void OnEnemyKilled(SyncList<GameObject>.Operation op, int itemindex, GameObject olditem, GameObject newitem)
 		{
-			Destroy(newitem);
+			switch (op)
+			{
+				case SyncList<GameObject>.Operation.OP_ADD:
+					CmdRemoveEnemyFromList(newitem);
+					Destroy(newitem);
+					objectCollided = null;
+					break;
+			}
+			Debug.Log("Killing new enemy");
+		}
+
+		[Command(requiresAuthority = false)]
+		private void CmdRemoveEnemyFromList(GameObject enemy)
+		{
+			enemiesCollided.Remove(enemy);
 		}
 
 		public override void OnStartClient()
@@ -165,6 +179,7 @@ namespace Online.BinkyPursuit
 			{
 				touchingRabbit = true;
 				objectCollided = collision.gameObject;
+				Debug.Log($"Enemy entered the collider: {objectCollided}");
 			}
 		}
 
@@ -174,7 +189,8 @@ namespace Online.BinkyPursuit
 			{
 				Debug.Log("Enemy got out");
 				touchingRabbit = false;
-				//objectCollided = null;
+				Debug.Log($"Enemy exited the collider: {objectCollided}");
+				objectCollided = null;
 			}
 		}
 
@@ -200,6 +216,7 @@ namespace Online.BinkyPursuit
 			
 			if (touchingRabbit && isEnemyAlive)
 			{
+				var enemyToKill = objectCollided;
 				touchingRabbit = false;
 				rabbitHide.IsAlive = false;
 				//Destroy(objectCollided);
@@ -207,12 +224,13 @@ namespace Online.BinkyPursuit
 				Debug.Log($"Player {PlayerNumber} is catching some weird mammal");
 				//scoreController.PlayerScorePoints(1, PlayerNumber);
 				//objectCollided.GetComponent<RabbitHideOnline>().DestroyEnemy();
-				CmdScorePoint(1, PlayerNumber);
+				if (enemyToKill)
+					CmdScorePoint(1, PlayerNumber, enemyToKill);
 			}
 		}
 
 		[Command]
-		private void CmdScorePoint(int amount, int playerIdentity)
+		private void CmdScorePoint(int amount, int playerIdentity, GameObject enemy)
 		{
 			Debug.Log($"Is touching rabbit? {touchingRabbit}");
 			/*if (objectCollided)
@@ -220,7 +238,7 @@ namespace Online.BinkyPursuit
 			
 			if (objectCollided)
 				Destroy(objectCollided);*/
-			enemiesCollided.Add(objectCollided);
+			enemiesCollided.Add(enemy);
 			scoreController.PlayerScorePoints(amount, playerIdentity);
 			
 			//RpcDestroyEnemyOnClients();

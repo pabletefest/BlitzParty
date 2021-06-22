@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 namespace Online.BinkyPursuit
 {
-    public class RabbitHideOnline: NetworkBehaviour
+    public class RabbitHideOnline: MonoBehaviour
     {
         public static event Action<GameObject> OnEnemyHidden;
         private IObjectPooler objectPooler;
