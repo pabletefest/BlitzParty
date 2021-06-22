@@ -5,6 +5,7 @@ using Mirror;
 using Online;
 using Online.BinkyPursuit;
 using Online.CowboyDuel;
+using Online.PlayFab;
 using Online.WhackAMole;
 using Services;
 using UnityEngine;
@@ -169,6 +170,22 @@ public class PanelHandlerOnline : NetworkBehaviour
     {
         ServiceLocator.Instance.GetService<IObjectPooler>().ClearAllPools();
         battleModeHandler.StartNextMinigame();
+    }
+    
+    private void StoreUserDataOnCloud()
+    {
+        string playFabId = database.GetPlayFabId();
+        string username = database.GetUsername();
+        
+        int acorns = database.LoadAcorns();
+        
+        float musicVolume = database.LoadMusicVolume();
+        float sfxVolume = database.LoadSFXVolume();
+        GameSettings gameSettings = new GameSettings(musicVolume, sfxVolume);
+
+        CloudStoragePlayFab cloudStorage = new CloudStoragePlayFab();
+        
+        cloudStorage.SetUserData(playFabId, username, acorns, gameSettings);
     }
 
     [TargetRpc]
@@ -464,6 +481,8 @@ public class PanelHandlerOnline : NetworkBehaviour
                 break;
         }
 
+        StoreUserDataOnCloud();
+        
         panel.SetActive(true);
         settingsButton.SetActive(false);
         
@@ -522,6 +541,8 @@ public class PanelHandlerOnline : NetworkBehaviour
                 database.AddPlayerCowboyDuelGames();
                 break;
         }
+        
+        StoreUserDataOnCloud();
     }
 
     private void UpdateWins(string minigame)

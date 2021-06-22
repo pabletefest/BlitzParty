@@ -2402,7 +2402,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cc71c637d6f9674182db0dc6b2876b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emailField: {fileID: 0}
   usernameField: {fileID: 0}
   passwordField: {fileID: 0}
   errorText: {fileID: 0}
@@ -10051,7 +10050,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e89dbd787cb76df428eb33c2616e3ef0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 91e36edd80ac0124b9e9ec48e675ca60, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

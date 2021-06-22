@@ -1,4 +1,5 @@
-﻿using RabbitPursuit;
+﻿using Online.PlayFab;
+using RabbitPursuit;
 using Services;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -113,6 +114,22 @@ public class PanelHandler : MonoBehaviour
         ServiceLocator.Instance.GetService<IObjectPooler>().ClearAllPools();
         battleModeHandler.StartNextMinigame();
     }
+    
+    private void StoreUserDataOnCloud()
+    {
+        string playFabId = database.GetPlayFabId();
+        string username = database.GetUsername();
+        
+        int acorns = database.LoadAcorns();
+        
+        float musicVolume = database.LoadMusicVolume();
+        float sfxVolume = database.LoadSFXVolume();
+        GameSettings gameSettings = new GameSettings(musicVolume, sfxVolume);
+
+        CloudStoragePlayFab cloudStorage = new CloudStoragePlayFab();
+        
+        cloudStorage.SetUserData(playFabId, username, acorns, gameSettings);
+    }
 
     public void ShowRabbitPursuitPanel()
     {
@@ -145,6 +162,7 @@ public class PanelHandler : MonoBehaviour
         acornsText.text = earnAcorns.CalculateAcornsEarned("RabbitPursuit").ToString();
         earnAcorns.AcornsRabbitPursuit();
         database.AddPlayerRabbitPursuitGames();
+        StoreUserDataOnCloud();
     }
 
     public void ShowWhackAMolePanel()
@@ -176,6 +194,7 @@ public class PanelHandler : MonoBehaviour
         acornsText.text = earnAcorns.CalculateAcornsEarned("WhackAMole").ToString();
         earnAcorns.AcornsWhackAMole();
         database.AddPlayerWhackAMoleGames();
+        StoreUserDataOnCloud();
     }
 
     public void ShowCowboyDuelPanel()
@@ -206,6 +225,7 @@ public class PanelHandler : MonoBehaviour
         acornsText.text = earnAcorns.CalculateAcornsEarned("CowboyDuel").ToString();
         earnAcorns.AcornsCowboyDuel();
         database.AddPlayerCowboyDuelGames();
+        StoreUserDataOnCloud();
     }
 
     public void CheckResult(Results winner, string minigame)

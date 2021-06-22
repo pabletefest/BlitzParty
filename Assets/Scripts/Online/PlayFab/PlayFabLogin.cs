@@ -8,7 +8,6 @@ namespace Online.PlayFab
 {
     public class PlayFabLogin : MonoBehaviour
     {
-        [SerializeField] private InputField emailField;
         [SerializeField] private InputField usernameField;
         [SerializeField] private InputField passwordField;
         [SerializeField] private Text errorText;
@@ -45,7 +44,7 @@ namespace Online.PlayFab
         {
             PlayFabClientAPI.RegisterPlayFabUser(new RegisterPlayFabUserRequest()
             {
-                Email = emailField.text,
+                Email = usernameField.text + "@blitzparty.com",
                 Username = usernameField.text,
                 Password = passwordField.text
 
@@ -54,7 +53,9 @@ namespace Online.PlayFab
                 SessionTicket = result.SessionTicket;
                 PlayFabId = result.PlayFabId;
                 localDatabase.SetAccountActiveToken(1);
+                localDatabase.SaveAcorns(0);
                 StoreUserDataLocalDB(PlayFabId, result.Username, passwordField.text);
+                StoreNewAccountOnCloud(PlayFabId, result.Username, 0);
                 LoadMainMenu();
             
             }, error =>
@@ -88,7 +89,7 @@ namespace Online.PlayFab
 
         private void ShowRegisterErrorMessage()
         {
-            if (emailField.text == string.Empty || usernameField.text == string.Empty ||
+            if (usernameField.text == string.Empty ||
                 passwordField.text == string.Empty)
             {
                 errorText.text = "Please, check that there are no empty fields!";
@@ -141,6 +142,13 @@ namespace Online.PlayFab
             CloudStoragePlayFab cloudStorage = new CloudStoragePlayFab();
         
             cloudStorage.SetUserData(playFabId, username, acorns, gameSettings);
+        }
+
+        private void StoreNewAccountOnCloud(string playFabId, string username, int acorns)
+        {
+            CloudStoragePlayFab cloudStorage = new CloudStoragePlayFab();
+        
+            cloudStorage.SetNewUserData(playFabId, username, acorns);
         }
     }
 }

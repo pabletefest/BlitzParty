@@ -188,7 +188,7 @@ public class MainMenu : MonoBehaviour
     private Dictionary<string, string> userData;
     private string playFabId;
 
-    private static bool isFirstLoad;
+    private static bool isFirstLoad = true;
 
     private void Awake()
     {
@@ -209,23 +209,34 @@ public class MainMenu : MonoBehaviour
                 {
                     Debug.Log($"LoggedIn on MainMenu");
 
-                    if (!isFirstLoad)
+                    if (isFirstLoad)
                     {
                         PlayFabLogin.SessionTicket = result.SessionTicket;
                         PlayFabLogin.PlayFabId = result.PlayFabId;
                         Debug.Log(PlayFabLogin.PlayFabId);
                         
                         CloudStoragePlayFab cloudStorage = new CloudStoragePlayFab();
+                        cloudStorage.OnDataReceived += UpdateUserData;
                         cloudStorage.GetUserData(PlayFabLogin.PlayFabId);
-                        cloudStorage.OnDataRecieved += UpdateUserData;
                         
-                        isFirstLoad = true;
+                        isFirstLoad = false;
                     }
                 },
                 error => Debug.LogError($"Couldn't login on MainMenu: {error.GenerateErrorReport()}"));
         }
 
-        acornLabel.text = database.LoadAcorns().ToString();
+        if (PlayFabLogin.PlayFabId != default)
+        {
+            CloudStoragePlayFab cloudStorageData = new CloudStoragePlayFab();
+            cloudStorageData.OnDataReceived += UpdateUserData;
+            cloudStorageData.GetUserData(PlayFabLogin.PlayFabId);
+        }
+        else
+        {
+            acornLabel.text = database.LoadAcorns().ToString();
+        }
+        
+        //acornLabel.text = database.LoadAcorns().ToString();
 
         /*if (!database.IsBattleMode())
         {

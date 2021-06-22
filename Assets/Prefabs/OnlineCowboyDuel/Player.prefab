@@ -139,6 +139,7 @@ MonoBehaviour:
   countdownUI: {fileID: 0}
   playerAnimator: {fileID: 637447171919077631}
   winnerChecker: {fileID: 0}
+  canShoot: 0
   playerNumber: 0
 --- !u!114 &3746064625653839860
 MonoBehaviour:
@@ -154,7 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  clientAuthority: 0
+  clientAuthority: 1
   animator: {fileID: 637447171919077631}
 --- !u!1 &637447172196868579
 GameObject:

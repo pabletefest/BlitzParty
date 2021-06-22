@@ -9,7 +9,7 @@ namespace Online.PlayFab
 {
     public class CloudStoragePlayFab
     {
-        public event Action<Dictionary<string, string>> OnDataRecieved;
+        public event Action<Dictionary<string, string>> OnDataReceived;
         public event Action OnDataStored;
         
         public CloudStoragePlayFab(){}
@@ -24,6 +24,30 @@ namespace Online.PlayFab
                         {"Acorns", acornsEarned.ToString()},
                         {"MusicVolume", gameSettings.MusicVolume.ToString()},
                         {"SFXVolume", gameSettings.SFXVolume.ToString()}
+                    }
+                },
+                result =>
+                {
+                    Debug.Log("Successfully updated user data");
+                    OnDataStored?.Invoke();
+                },
+                error => {
+                    Debug.Log("Got error setting user data Ancestor to Arthur");
+                    Debug.Log(error.GenerateErrorReport());
+                });
+            
+        }
+        
+        public void SetNewUserData(string playFabId, string username, int acornsEarned)
+        {
+            PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest() {
+                    Data = new Dictionary<string, string>()
+                    {
+                        {"PlayFabId", playFabId},
+                        {"Username", username},
+                        {"Acorns", acornsEarned.ToString()},
+                        {"MusicVolume", "1"},
+                        {"SFXVolume", "1"}
                     }
                 },
                 result =>
@@ -60,7 +84,7 @@ namespace Online.PlayFab
                     {"SFXVolume", result.Data["SFXVolume"].Value}
                 };
                 
-                OnDataRecieved?.Invoke(obtainedData);
+                OnDataReceived?.Invoke(obtainedData);
 
             }, (error) => {
                 Debug.Log("Got error retrieving user data:");
