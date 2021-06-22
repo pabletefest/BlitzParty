@@ -565,6 +565,10 @@ public class MainMenu : MonoBehaviour
                 messageText.text = "Travel to the Wild West to take part in an epic duel. Wait until the signal and shoot before your opponent. Become the fastest Cowboy alive!";
                 fakeTransition.GetComponent<Image>().sprite = Resources.Load<Sprite>("FakeTransition/CowboyDuelTransition");
                 break;
+            case "RabbitPursuitOnline":
+                messageText.text = "A plague of Binkies has been found in the forest clearing.  What a great opportunity to have a little duel. Let's see who catches the most Binkies!";
+                fakeTransition.GetComponent<Image>().sprite = Resources.Load<Sprite>("FakeTransition/RabbitPursuitTransition");
+                break;
         }
     }
 

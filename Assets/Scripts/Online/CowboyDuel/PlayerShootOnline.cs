@@ -121,7 +121,7 @@ namespace Online.CowboyDuel
             if (hasShotEarly)
             {
                 // Debug.Log("Shot Miss");
-                playerAnimator.SetTrigger("ShotMiss");
+                playerAnimator.GetComponent<NetworkAnimator>().SetTrigger("ShotMiss");
                 // CmdShotEarly();
                 timeSinceReady = 2f;
                 hasShotEarly = false;
@@ -129,7 +129,7 @@ namespace Online.CowboyDuel
             else
             {
                 // Debug.Log("Correct Shot");
-                playerAnimator.SetTrigger("Shoot");
+                playerAnimator.GetComponent<NetworkAnimator>().SetTrigger("Shoot");
             }
             
             // Debug.Log($"timeSinceReady: {timeSinceReady}");

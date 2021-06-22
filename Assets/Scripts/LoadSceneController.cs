@@ -51,15 +51,15 @@ public class LoadSceneController : MonoBehaviour
     {
         switch (nextScene)
         {
-            case "RabbitPursuit":
+            case "RabbitPursuitOnline":
                 messageText.text = "A plague of Binkies has been found in the forest clearing.  What a great opportunity to have a little duel. Let's see who catches the most Binkies!";
                 fakeTransition.GetComponent<Image>().sprite = Resources.Load<Sprite>("FakeTransition/RabbitPursuitTransition");
                 break;
-            case "Whack-a-Mole":
+            case "WhackAMoleOnline":
                 messageText.text = "Something has made the moles act aggressive. Smack them with the hammer when they come out of their burrows but watch out for the Zoomies!";
                 fakeTransition.GetComponent<Image>().sprite = Resources.Load<Sprite>("FakeTransition/WhackAMoleTransition");
                 break;
-            case "CowboyDuel":
+            case "CowboyDuelOnline":
                 messageText.text = "Travel to the Wild West to take part in an epic duel. Wait until the signal and shoot before your opponent. Become the fastest Cowboy alive!";
                 fakeTransition.GetComponent<Image>().sprite = Resources.Load<Sprite>("FakeTransition/CowboyDuelTransition");
                 break;

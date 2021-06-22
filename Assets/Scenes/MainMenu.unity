@@ -10285,18 +10285,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1357264447}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 435670711}
-        m_MethodName: SettingsTab
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1357264447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14221,6 +14210,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 360791463}
     m_Modifications:
+    - target: {fileID: 1955337027642863755, guid: bf33a67bf8589424e855f92d22905c2f,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1955337027734025802, guid: bf33a67bf8589424e855f92d22905c2f,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14330,6 +14324,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Loading Screen
+      objectReference: {fileID: 0}
+    - target: {fileID: 1955337027734025803, guid: bf33a67bf8589424e855f92d22905c2f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf33a67bf8589424e855f92d22905c2f, type: 3}

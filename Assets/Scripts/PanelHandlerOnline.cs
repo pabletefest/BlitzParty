@@ -229,6 +229,7 @@ public class PanelHandlerOnline : NetworkBehaviour
     [ClientRpc]
     private void RpcReturnToMainMenu()
     {
+        orientationManager.ChangeScreenPortrait(true);
         SceneManager.LoadScene("MainMenu");
     }
 

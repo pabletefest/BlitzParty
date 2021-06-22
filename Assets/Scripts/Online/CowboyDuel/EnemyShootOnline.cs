@@ -1,5 +1,6 @@
 ﻿using System;
 using CowboyDuel;
+using Mirror;
 using UnityEngine;
 
 namespace Online.CowboyDuel
@@ -55,7 +56,7 @@ namespace Online.CowboyDuel
 
         public void Shoot()
         {
-            enemyAnimator.SetTrigger("Shoot");
+            enemyAnimator.GetComponent<NetworkAnimator>().SetTrigger("Shoot");
             canShoot = false;
             OnShot?.Invoke(gameObject.tag, shootTime);
             Debug.Log("Enemy shot");

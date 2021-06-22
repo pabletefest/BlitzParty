@@ -121,7 +121,8 @@ namespace Online.CowboyDuel
         private void RpcSetDeathAnimationPlayer(GameObject player)
         {
             Debug.Log(player);
-            player.GetComponent<Animator>().SetTrigger("Death");
+            //player.GetComponent<Animator>().SetTrigger("Death");
+            player.GetComponent<NetworkAnimator>().SetTrigger("Death");
         }
 
         // Update is called once per frame
@@ -159,8 +160,10 @@ namespace Online.CowboyDuel
             
             // player.GetComponent<PlayerShootOnline>().RpcSubscribeToShootingEvent();
             // player2.GetComponent<PlayerShootOnline>().RpcSubscribeToShootingEvent();
-            player.GetComponent<Animator>().SetTrigger("RoundFinish");
-            player2.GetComponent<Animator>().SetTrigger("RoundFinish");
+            // player.GetComponent<Animator>().SetTrigger("RoundFinish");
+            // player2.GetComponent<Animator>().SetTrigger("RoundFinish");
+            player.GetComponent<NetworkAnimator>().SetTrigger("RoundFinish");
+            player2.GetComponent<NetworkAnimator>().SetTrigger("RoundFinish");
         }
 
         [ClientRpc]
