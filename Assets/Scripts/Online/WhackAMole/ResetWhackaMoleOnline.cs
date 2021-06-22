@@ -16,8 +16,16 @@ namespace Online.WhackAMole
             hammerSpawners = FindObjectsOfType<HammerSpawnerOnline>();
         }
 
+        [TargetRpc]
+        public void TargetGetCharacterControllers(NetworkConnection target)
+        {
+            hammerSpawners = FindObjectsOfType<HammerSpawnerOnline>();
+        }
+        
         public void Reset()
         {
+            if (!isLocalPlayer) return;
+            
             foreach (var hammerSpawner in hammerSpawners)
             {
                 hammerSpawner.enabled = false;
