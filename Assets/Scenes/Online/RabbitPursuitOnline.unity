@@ -1482,6 +1482,7 @@ MonoBehaviour:
   Port: 7777
   NoDelay: 1
   Interval: 10
+  Timeout: 10000
   FastResend: 2
   CongestionWindow: 0
   SendWindowSize: 4096
@@ -4035,7 +4036,7 @@ MonoBehaviour:
   restartButton: {fileID: 0}
   nextMinigameButton: {fileID: 2081894800}
   battleModeHandler: {fileID: 1955060432}
-  resetRabbitPursuitController: {fileID: 0}
+  resetRabbitPursuitController: {fileID: 1955060428}
   joystick: {fileID: 8170153793531787833}
   catchButton: {fileID: 389748451}
   catchButton2: {fileID: 576504542}
@@ -5421,6 +5422,7 @@ GameObject:
   - component: {fileID: 1955060431}
   - component: {fileID: 1955060432}
   - component: {fileID: 1955060430}
+  - component: {fileID: 1955060428}
   m_Layer: 0
   m_Name: RabbitPursuitManager
   m_TagString: Untagged
@@ -5454,6 +5456,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1955060428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1955060425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a9d92bb1293d154fa303a0601e7414e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  characterControllers: []
 --- !u!114 &1955060429
 MonoBehaviour:
   m_ObjectHideFlags: 0

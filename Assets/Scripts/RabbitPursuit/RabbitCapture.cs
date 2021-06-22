@@ -13,7 +13,7 @@ namespace RabbitPursuit
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(collision.gameObject.tag == "Rabbit")
+            if(collision.gameObject.CompareTag("Rabbit"))
             {
                 //Destroy(collision.gameObject);
                 //ServiceLocator.Instance.GetService<>

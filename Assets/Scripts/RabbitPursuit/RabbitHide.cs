@@ -21,7 +21,8 @@ namespace RabbitPursuit
 
         private void OnEnable()
         {
-            StartCoroutine(DisableColliderSpawnHole());        
+            StartCoroutine(DisableColliderSpawnHole());    
+            IsAlive = true;
         }
 
         void OnTriggerEnter2D(Collider2D other)

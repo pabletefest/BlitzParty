@@ -48,15 +48,6 @@ public class PanelHandlerOnline : NetworkBehaviour
     private GameObject settingsButton;
 
     [SerializeField]
-    private GameObject menuButton;
-
-    [SerializeField]
-    private GameObject restartButton;
-
-    [SerializeField]
-    private GameObject nextMinigameButton;
-
-    [SerializeField]
     private BattleModeHandler battleModeHandler;
 
     //RabbitPursuit attributes
@@ -165,30 +156,6 @@ public class PanelHandlerOnline : NetworkBehaviour
         multiplayerMessagePanel.SetActive(false);
     }
 
-    public void RestartButtonHandler()
-    {
-        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
-        string sceneName = SceneManager.GetActiveScene().name;
-        switch (sceneName)
-        {
-            case "RabbitPursuit":
-                resetRabbitPursuitController.ResetGame();
-                break;
-            case "Whack-a-Mole":
-                resetWhackAMoleController.ResetGame();
-                break;
-            case "CowboyDuel":
-                cowboyDuelFinisher.GameRestarter();
-                break;
-        }
-
-        gameObject.SetActive(false);
-        //ServiceLocator.Instance.GetService<ITimer>().RestartTimer();
-        //SceneManager.UnloadSceneAsync("RabbitPursuit");
-        //SceneManager.LoadScene("RabbitPursuit", LoadSceneMode.Additive);
-        //StartCoroutine(RestartRabbitPursuitScene());
-    }
-
     public void MenuButtonHandler()
     {
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
@@ -272,6 +239,7 @@ public class PanelHandlerOnline : NetworkBehaviour
 
         Destroy(joystick);
         Destroy(catchButton);
+        RpcResetPlayersVelocity();
         //joystick.GetComponent<Canvas>().enabled = false;
         //catchButton.SetActive(false);
         CheckClientsResult("RabbitPursuit");
@@ -280,6 +248,12 @@ public class PanelHandlerOnline : NetworkBehaviour
         // database.AddPlayerRabbitPursuitGames();
         var playersConnections = ((RabbitPursuitNetworkManager) NetworkManager.singleton).PlayersConnections;
         StartCoroutine(PrepareNextSceneClients(playersConnections, "WhackAMoleOnline"));
+    }
+
+    [ClientRpc]
+    private void RpcResetPlayersVelocity()
+    {
+        resetRabbitPursuitController.Reset();
     }
 
     public void ShowWhackAMolePanel()
@@ -312,6 +286,7 @@ public class PanelHandlerOnline : NetworkBehaviour
             nextMinigameButton.SetActive(false);
         }
         */
+        RpcResetPlayersHammer();
         
         CheckClientsResult("WhackAMole");
         //CheckResult(scoreController.FindWinner(), "WhackAMole");
@@ -321,6 +296,12 @@ public class PanelHandlerOnline : NetworkBehaviour
         
         var playersConnections = ((WhackAMoleNetworkManager) NetworkManager.singleton).PlayersConnections;
         StartCoroutine(PrepareNextSceneClients(playersConnections, "CowboyDuelOnline"));
+    }
+    
+    [ClientRpc]
+    private void RpcResetPlayersHammer()
+    {
+        resetWhackAMoleController.Reset();
     }
 
 
@@ -558,27 +539,6 @@ public class PanelHandlerOnline : NetworkBehaviour
                 break;
         }
     }
-
-    private void DestroyRemainingHammers()
-    {
-        GameObject[] hammers = GameObject.FindGameObjectsWithTag("Hammer");
-
-        foreach (var hammer in hammers)
-        {
-            Destroy(hammer);
-        }
-
-        hammerSpawner.enabled = false;
-    }
-
-    /*[TargetRpc]
-    public void AnchorCatchButtonToPlayer(NetworkConnection target, int playerNumber)
-    {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-
-        GameObject clientPlayer = Array.Find(players, player => player.GetComponent<PlayerMovementOnline>().playerNumber == playerNumber);
-        catchButton.GetComponent<Button>().onClick.AddListener(clientPlayer.GetComponent<PlayerMovementOnline>().CatchButtonHandler);
-    }*/
 
     public void AnchorCatchButtonToPlayer(UnityAction call)
     {

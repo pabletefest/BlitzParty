@@ -88,8 +88,8 @@ namespace RabbitPursuit
 			if (collision.gameObject.CompareTag("Rabbit"))
 			{
 				touchingRabbit = true;
+				objectCollided = collision.gameObject;
 			}
-			objectCollided = collision.gameObject;
 		}
 
 		private void OnTriggerExit2D(Collider2D collision)
@@ -97,13 +97,13 @@ namespace RabbitPursuit
 			if (collision.gameObject.CompareTag("Rabbit"))
 			{
 				touchingRabbit = false;
+				objectCollided = null;
 			}
-			objectCollided = null;
 		}
 
 		public void CatchButtonHandler()
 		{
-			animator.SetTrigger("Catching");
+			//animator.SetTrigger("Catching");
 			ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("NetSwing");
 			
 			
@@ -120,14 +120,14 @@ namespace RabbitPursuit
 				isEnemyAlive = false;
 			}
 			
-			
 			if (touchingRabbit && isEnemyAlive)
 			{
 				touchingRabbit = false;
 				rabbitHide.IsAlive = false;
 				//Destroy(objectCollided);
 				ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("CaptureBinkySFX");
-				objectCollided.SetActive(false);
+				var enemyToKill = objectCollided;
+				enemyToKill.SetActive(false);
 				scoreController.P1ScorePoints(1);
 			}
 		}

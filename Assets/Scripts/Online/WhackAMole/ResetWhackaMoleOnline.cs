@@ -1,36 +1,27 @@
 ﻿using System;
+using Mirror;
 using Services;
 using UnityEngine;
 using WhackAMole;
 
 namespace Online.WhackAMole
 {
-    public class ResetWhackaMoleOnline : MonoBehaviour
+    public class ResetWhackaMoleOnline : NetworkBehaviour
     {
-        public static event Action OnSceneRestarted;
-
         [SerializeField]
-        private PlayersScoreOnline scoreController;
-            
-        [SerializeField]
-        private GameObject pauseButton;
-
-        [SerializeField]
-        private HammerSpawnerOnline hammerSpawner;
-
-        private void Awake()
+        private HammerSpawnerOnline[] hammerSpawners;
+        
+        public override void OnStartClient()
         {
-            ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMinigameTheme("Whack-a-moleTheme");
+            hammerSpawners = FindObjectsOfType<HammerSpawnerOnline>();
         }
-    
-        public void ResetGame()
+
+        public void Reset()
         {
-            scoreController.ResetWhackAMoleScore();
-            OnSceneRestarted?.Invoke();
-            ServiceLocator.Instance.GetService<ITimer>().ResetTimer();
-            Time.timeScale = 1f;
-            pauseButton.SetActive(true);
-            hammerSpawner.enabled = true;
+            foreach (var hammerSpawner in hammerSpawners)
+            {
+                hammerSpawner.enabled = false;
+            }
         }
     }
 }

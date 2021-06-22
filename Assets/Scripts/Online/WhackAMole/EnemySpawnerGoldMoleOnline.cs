@@ -32,7 +32,7 @@ namespace Online.WhackAMole
         private IObjectPooler objectPoolerService;
 
 
-        private void OnEnable()
+        /*private void OnEnable()
         {
             //MainMenu.OnRabbitPursuitLoaded += SceneLoaded;
             ResetWhackaMoleOnline.OnSceneRestarted += SceneRestarted;
@@ -43,7 +43,7 @@ namespace Online.WhackAMole
         {
             //MainMenu.OnRabbitPursuitLoaded -= SceneLoaded;
             ResetWhackaMoleOnline.OnSceneRestarted -= SceneRestarted;
-        }
+        }*/
 
         /*
         private void SceneLoaded()

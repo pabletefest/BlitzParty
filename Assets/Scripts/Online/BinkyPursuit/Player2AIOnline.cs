@@ -35,7 +35,6 @@ namespace Online.BinkyPursuit
         {
             EnemySpawnerOnline.OnEnemySpawn += EnemySpawned;
             RabbitCaptureOnline.OnEnemyCaptured += EnemyCapturedOrHidden;
-            ResetRabbitPursuitOnline.OnSceneRestarted += SceneRestarted;
             RabbitHideOnline.OnEnemyHidden += EnemyCapturedOrHidden;
         }
 
@@ -43,7 +42,6 @@ namespace Online.BinkyPursuit
         {
             EnemySpawnerOnline.OnEnemySpawn -= EnemySpawned;
             RabbitCaptureOnline.OnEnemyCaptured -= EnemyCapturedOrHidden;
-            ResetRabbitPursuitOnline.OnSceneRestarted -= SceneRestarted;
             RabbitHideOnline.OnEnemyHidden -= EnemyCapturedOrHidden;
         }
 

@@ -3449,16 +3449,13 @@ MonoBehaviour:
   acornsText: {fileID: 509048329}
   database: {fileID: 1955060430}
   settingsButton: {fileID: 1176865272}
-  menuButton: {fileID: 0}
-  restartButton: {fileID: 0}
-  nextMinigameButton: {fileID: 1480032674}
   battleModeHandler: {fileID: 1955060433}
   resetRabbitPursuitController: {fileID: 0}
   joystick: {fileID: 0}
   catchButton: {fileID: 0}
   catchButton2: {fileID: 0}
   cowboyDuelFinisher: {fileID: 0}
-  resetWhackAMoleController: {fileID: 0}
+  resetWhackAMoleController: {fileID: 1955060428}
   hammerSpawner: {fileID: 0}
   panel: {fileID: 174698073}
   multiplayerMessagePanel: {fileID: 1131861280}
@@ -4717,6 +4714,7 @@ MonoBehaviour:
   Port: 7777
   NoDelay: 1
   Interval: 10
+  Timeout: 10000
   FastResend: 2
   CongestionWindow: 0
   SendWindowSize: 4096
@@ -5031,9 +5029,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c48a33c766c73344d87a2a34da9cef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreController: {fileID: 1553071695}
-  pauseButton: {fileID: 1176865272}
-  hammerSpawner: {fileID: 0}
+  syncMode: 0
+  syncInterval: 0.1
+  hammerSpawners: []
 --- !u!114 &1955060429
 MonoBehaviour:
   m_ObjectHideFlags: 0
