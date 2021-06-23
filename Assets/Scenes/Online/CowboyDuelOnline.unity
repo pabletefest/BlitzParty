@@ -2049,9 +2049,6 @@ MonoBehaviour:
   acornsText: {fileID: 205905649}
   database: {fileID: 876428271}
   settingsButton: {fileID: 703281438}
-  menuButton: {fileID: 0}
-  restartButton: {fileID: 0}
-  nextMinigameButton: {fileID: 2124542292}
   battleModeHandler: {fileID: 876428273}
   resetRabbitPursuitController: {fileID: 0}
   joystick: {fileID: 0}
@@ -4470,6 +4467,7 @@ MonoBehaviour:
   Port: 7777
   NoDelay: 1
   Interval: 10
+  Timeout: 10000
   FastResend: 2
   CongestionWindow: 0
   SendWindowSize: 4096

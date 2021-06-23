@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayFabEditorPrefsSO
   m_EditorClassIdentifier: 
   DevAccountEmail: swiftergamesteam@gmail.com
-  DevAccountToken: k6mmqos7pskxmaiaxuqdn944iemcuoj8rqsmaifn3qigaih7it1ec5ksskd9mtstzfd6n5q5sid91ut5go1zgsxaxsixi4w4own3ded5hq1xnnku948oeab5u6czr49xrp3unbeyy1fuuc86jcjkdm3jjqboz3kpneyo7nsk6eydyab7f9pgtojbqtjmnegt37cu1kb7
+  DevAccountToken: 8rpkjtsm11gyhff3wzbzxjifmgttr6zo5ckbxqrzomw3gkhxmhgypw5oct71soohw9wu3swb7u3fdomf8qjipnwcxi5zfkyrrxkdqfxipyxidpstaombhdqr5atckgccxenykjp5yj5nci8pjzu88q8yb1wmjxjmkenekfm1r15yra34s1irz8f35n88s95kxy43ictb
   SelectedStudio: 
   SdkPath: Assets/PlayFabSDK
   EdExPath: 
