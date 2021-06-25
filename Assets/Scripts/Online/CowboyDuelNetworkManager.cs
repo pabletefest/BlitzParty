@@ -32,6 +32,7 @@ namespace Online
 				GameObject player = Instantiate(playerPrefab, Vector3.zero + new Vector3(-2,-2.7f,0), Quaternion.identity);
 				player.GetComponent<PlayerShootOnline>().playerNumber = ++clientNumber;
 				player.name = $"Player {clientNumber}";
+				// conn.identity.name = $"Player {clientNumber}";
 				clients.Add(player);
 				PlayersConnections.Add(clientNumber, conn);
 				//NetworkServer.AddPlayerForConnection(conn, player);
@@ -41,6 +42,7 @@ namespace Online
 				GameObject player = Instantiate(spawnPrefabs.Find(prefab => prefab.name == "Player 2"), Vector3.zero + new Vector3(2,-2.7f,0), Quaternion.identity);
 				player.GetComponent<PlayerShootOnline>().playerNumber = ++clientNumber;
 				player.name = $"Player {clientNumber}";
+				// conn.identity.name = $"Player {clientNumber}";
 				clients.Add(player);
 				PlayersConnections.Add(clientNumber, conn);
 				//NetworkServer.AddPlayerForConnection(conn, player);

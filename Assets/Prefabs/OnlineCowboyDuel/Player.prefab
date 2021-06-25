@@ -138,9 +138,12 @@ MonoBehaviour:
   syncInterval: 0.1
   countdownUI: {fileID: 0}
   playerAnimator: {fileID: 637447171919077631}
+  networkAnimator: {fileID: 0}
   winnerChecker: {fileID: 0}
   canShoot: 0
   playerNumber: 0
+  isDead: 0
+  isRoundOver: 0
 --- !u!114 &3746064625653839860
 MonoBehaviour:
   m_ObjectHideFlags: 0

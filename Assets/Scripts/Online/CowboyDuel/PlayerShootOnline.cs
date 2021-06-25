@@ -11,6 +11,7 @@ namespace Online.CowboyDuel
         
         [SerializeField] private CountdownUIOnline countdownUI;
         [SerializeField] private Animator playerAnimator;
+        [SerializeField] private NetworkAnimator networkAnimator;
         [SerializeField] private WinnerCheckerOnline winnerChecker;
         
         // [SyncVar]
@@ -33,7 +34,16 @@ namespace Online.CowboyDuel
         public int playerNumber;
 
         public int PlayerNumber => playerNumber;
+        
+        
+        // [SyncVar(hook = nameof(OnPlayerDead))] 
+        // public bool isDead;
+        //
+        // [SyncVar(hook = nameof(OnRoundOver))] 
+        // public bool isRoundOver;
 
+        // private int numberOfCalls;
+        
         /*private void OnEnable()
         {
             countdownUI.OnCountdownOver += ShootingTime;
@@ -48,18 +58,57 @@ namespace Online.CowboyDuel
 
         public override void OnStartClient()
         {
+            Debug.Log("OnStartClient getting called!!");
+            Debug.Log($"I have authority {hasAuthority} and I'm player {PlayerNumber}");
             mainCamera = Camera.main;
+
+            networkAnimator = GetComponent<NetworkAnimator>();
             
             winnerChecker = GameObject.Find("WinnerController").GetComponent<WinnerCheckerOnline>();
+            Debug.Log($"OnStartClient called, is winnerChecker null? {winnerChecker}");
+            winnerChecker.SetPlayer(this, PlayerNumber);
+            
         }
 
         public override void OnStartServer()
         {
+            Debug.Log("OnStartServer getting called!!");
             countdownUI = GameObject.Find("GUIController").GetComponent<CountdownUIOnline>();
             countdownUI.OnCountdownOver += ShootingTime;
             countdownUI.OnShootAppeared += EnableCorrectShoot;
+            
             winnerChecker = GameObject.Find("WinnerController").GetComponent<WinnerCheckerOnline>();
+            Debug.Log($"OnStartServer called, is winnerChecker null? {winnerChecker}");
+            //winnerChecker.SetPlayer(this, PlayerNumber);
         }
+
+        /*private void OnPlayerDead(bool oldValue, bool newValue)
+        {
+            Debug.Log("OnPlayerDead called!!");
+            Debug.Log($"Checking value isDead before: {isDead} in player {PlayerNumber}");
+            // if (newValue & hasAuthority)
+            if (newValue)
+            {
+                networkAnimator.SetTrigger("Death");
+                isDead = false;
+            }
+            Debug.Log($"Checking value isDead after: {isDead} in player {PlayerNumber}");
+        }
+        
+        private void OnRoundOver(bool oldValue, bool newValue)
+        {
+            numberOfCalls++;
+            Debug.Log(numberOfCalls);
+            Debug.Log("OnRoundOver called!!");
+            Debug.Log($"Checking value isRoundOver before: {isRoundOver} in player {PlayerNumber}");
+            // if (newValue & hasAuthority)
+            if (newValue)
+            {
+                networkAnimator.SetTrigger("RoundFinish");
+                isRoundOver = false;
+            }
+            Debug.Log($"Checking value isRoundOver after: {isRoundOver} in player {PlayerNumber}");
+        }*/
 
 
         // Update is called once per frame
@@ -112,8 +161,8 @@ namespace Online.CowboyDuel
         {
             if (!hasShootAppeared)
             {
-                hasShotEarly = true;
-                // CmdTouchedBeforeLabel();
+                // hasShotEarly = true;
+                CmdTouchedBeforeLabel();
             }
             
             //Debug.Log($"hasShotEarly: {hasShotEarly}");
@@ -122,9 +171,9 @@ namespace Online.CowboyDuel
             {
                 // Debug.Log("Shot Miss");
                 playerAnimator.GetComponent<NetworkAnimator>().SetTrigger("ShotMiss");
-                // CmdShotEarly();
-                timeSinceReady = 2f;
-                hasShotEarly = false;
+                CmdShotEarly();
+                // timeSinceReady = 2f;
+                // hasShotEarly = false;
             }
             else
             {
@@ -304,6 +353,22 @@ namespace Online.CowboyDuel
         public void RpcSubscribeToShootingEvent()
         {
             countdownUI.OnCountdownOver += ShootingTime;
+        }
+
+        [ClientRpc]
+        public void RpcSetDeathAnimation()
+        {
+            if (!isLocalPlayer) return;
+            
+            networkAnimator.SetTrigger("Death");
+        }
+        
+        [ClientRpc]
+        public void RpcSetRoundFinishAnimation()
+        {
+            if (!isLocalPlayer) return;
+            
+            networkAnimator.SetTrigger("RoundFinish");
         }
         
         private void OnDestroy()

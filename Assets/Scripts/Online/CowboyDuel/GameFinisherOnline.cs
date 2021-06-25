@@ -24,6 +24,11 @@ namespace Online.CowboyDuel
         
         }
 
+        public override void OnStartServer()
+        {
+            winnerChecker.OnGameEnd += GameEnded;
+        }
+
         private void OnEnable()
         {
             winnerChecker.OnGameEnd += GameEnded;
@@ -40,6 +45,7 @@ namespace Online.CowboyDuel
             
             OnGameEnd?.Invoke();
             finalPanel.ShowCowboyDuelPanel();
+            winnerChecker.OnGameEnd -= GameEnded;
         }
 
         public void GameRestarter()

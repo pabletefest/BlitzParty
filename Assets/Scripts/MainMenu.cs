@@ -194,6 +194,8 @@ public class MainMenu : MonoBehaviour
     {
         Time.timeScale = 1;
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
+
+        acornLabel = GameObject.Find("AcornLabel").GetComponent<Text>();
         
         //acornLabel.text = database.LoadAcorns().ToString();
         //musicSlider.value = database.LoadMusicVolume();
@@ -235,7 +237,10 @@ public class MainMenu : MonoBehaviour
         {
             acornLabel.text = database.LoadAcorns().ToString();
         }
-        
+
+        if (acornLabel.text == "-")
+            acornLabel.text = database.LoadAcorns().ToString();
+
         //acornLabel.text = database.LoadAcorns().ToString();
 
         /*if (!database.IsBattleMode())
@@ -268,7 +273,11 @@ public class MainMenu : MonoBehaviour
     private void UpdateUserData(Dictionary<string, string> cloudUserData)
     {
         database.SaveAcorns(int.Parse(cloudUserData["Acorns"]));
-        acornLabel.text = cloudUserData["Acorns"];
+        Debug.Log($"AcornsLabel: {acornLabel}");
+        if (acornLabel != null && acornLabel.text != null)
+        {
+            acornLabel.text = cloudUserData["Acorns"];
+        }
         musicSlider.value = float.Parse(cloudUserData["MusicVolume"]);
         sfxSlider.value = float.Parse(cloudUserData["SFXVolume"]);
         playFabId = PlayFabLogin.PlayFabId ?? cloudUserData["PlayFabId"] ?? database.GetPlayFabId();

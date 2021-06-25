@@ -1128,6 +1128,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   winnerLabel: {fileID: 9125771}
+  player1: {fileID: 0}
+  player2: {fileID: 0}
   playerShoot: {fileID: 0}
   player2Shoot: {fileID: 0}
   playerAnimator: {fileID: 0}

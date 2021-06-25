@@ -37,6 +37,13 @@ public class ProfileMenuHandler : MonoBehaviour
         if (usernameCloud == null)
             return;
         
+        if (username == null || rabbitPursuitGames == null || rabbitPursuitWins == null ||
+            whackAMoleGames == null || whackAMoleWins == null || cowboyDuelGames == null ||
+            cowboyDuelWins == null) return;
+        
+        if (username.text == null || rabbitPursuitGames.text == null || rabbitPursuitWins.text == null ||
+            whackAMoleGames.text == null || whackAMoleWins.text == null || cowboyDuelGames.text == null ||
+            cowboyDuelWins.text == null) return;
         //username.text = database.LoadUsername();
         username.text = usernameCloud;
 
