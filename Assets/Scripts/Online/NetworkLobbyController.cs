@@ -40,12 +40,14 @@ namespace Online
         // Start is called before the first frame update
         void Start()
         {
+            // Debug.Log("Starting network discovery and hosting!!");
             StartCoroutine(StartGameConnection());
         }
         
 
         private IEnumerator StartGameConnection()
         {
+            Debug.Log($"My NetType is: {networkTypeChecker.NetType.ToString()}");
             switch (networkTypeChecker.NetType)
             {
                 case NetworkType.LAN:

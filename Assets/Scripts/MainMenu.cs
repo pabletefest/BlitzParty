@@ -265,10 +265,10 @@ public class MainMenu : MonoBehaviour
         }*/
     }
 
-    private void Start()
-    {
-        NetworkTypeChecker.Instance.SelectNetworkType(0);
-    }
+    // private void Start()
+    // {
+    //     NetworkTypeChecker.Instance.SelectNetworkType(0);
+    // }
 
     private void UpdateUserData(Dictionary<string, string> cloudUserData)
     {
@@ -516,6 +516,7 @@ public class MainMenu : MonoBehaviour
     {
         nextScene = "RabbitPursuitOnline";
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
+        NetworkTypeChecker.Instance.SelectNetworkType(NetworkType.LAN);
         StartTransition();
     }
 
@@ -530,6 +531,7 @@ public class MainMenu : MonoBehaviour
     {
         nextScene = "WhackAMoleOnline";
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
+        NetworkTypeChecker.Instance.SelectNetworkType(NetworkType.LAN);
         StartTransition();
     }
     
@@ -544,6 +546,7 @@ public class MainMenu : MonoBehaviour
     {
         nextScene = "CowboyDuelOnline";
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
+        NetworkTypeChecker.Instance.SelectNetworkType(NetworkType.LAN);
         StartTransition();
     }
 

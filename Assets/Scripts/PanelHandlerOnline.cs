@@ -161,8 +161,9 @@ public class PanelHandlerOnline : NetworkBehaviour
     {
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("ButtonClickSFX");
         orientationManager.ChangeScreenPortrait(true);
-        NetworkTypeChecker.Instance.SelectNetworkType(0);
+        NetworkTypeChecker.Instance.SelectNetworkType(NetworkType.OFF);
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
+        // GameObject.Find("NetworkTypeChecker").GetComponent<NetworkTypeChecker>().SelectNetworkType(0);
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -196,7 +197,7 @@ public class PanelHandlerOnline : NetworkBehaviour
     
     private IEnumerator PrepareNextOnlineGame(string minigame)
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
         
         GetComponent<LoadSceneController>().StartNextMinigameOnline(minigame);
     }
@@ -311,8 +312,9 @@ public class PanelHandlerOnline : NetworkBehaviour
         //earnAcorns.AcornsWhackAMole();
         //database.AddPlayerWhackAMoleGames();
         
-        var playersConnections = ((WhackAMoleNetworkManager) NetworkManager.singleton).PlayersConnections;
-        StartCoroutine(PrepareNextSceneClients(playersConnections, "CowboyDuelOnline"));
+        // var playersConnections = ((WhackAMoleNetworkManager) NetworkManager.singleton).PlayersConnections;
+        // StartCoroutine(PrepareNextSceneClients(playersConnections, "CowboyDuelOnline"));
+        StartCoroutine(ReturningMainMenuAfterOnline());
     }
     
     [ClientRpc]

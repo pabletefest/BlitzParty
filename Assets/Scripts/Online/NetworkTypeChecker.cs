@@ -26,9 +26,9 @@ namespace Online
             DontDestroyOnLoad(gameObject);
         }
 
-        public void SelectNetworkType(int type)
+        public void SelectNetworkType(NetworkType type)
         {
-            netType = (NetworkType) type;
+            netType = type;
         }
     }
 }
