@@ -8263,7 +8263,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 435670711}
-        m_MethodName: StartCowboyDuelGameOnline
+        m_MethodName: StartCowboyDuelGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11457,7 +11457,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Fight in a 1 vs 1 battle consisting of 3 random minigames
+  m_Text: Fight in a 1 vs 1 battle consisting of 2 random minigames
 --- !u!222 &1840544816
 CanvasRenderer:
   m_ObjectHideFlags: 0

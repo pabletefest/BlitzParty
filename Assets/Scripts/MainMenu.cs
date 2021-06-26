@@ -280,6 +280,8 @@ public class MainMenu : MonoBehaviour
         }
         musicSlider.value = float.Parse(cloudUserData["MusicVolume"]);
         sfxSlider.value = float.Parse(cloudUserData["SFXVolume"]);
+        database.SaveMusicVolume(float.Parse(cloudUserData["MusicVolume"]));
+        database.SaveSFXVolume(float.Parse(cloudUserData["SFXVolume"]));
         playFabId = PlayFabLogin.PlayFabId ?? cloudUserData["PlayFabId"] ?? database.GetPlayFabId();
         profileMenuHandler.UpdateProfileData(cloudUserData["Username"]);
         userData = cloudUserData;
