@@ -193,6 +193,7 @@ public class MainMenu : MonoBehaviour
     private void Awake()
     {
         Time.timeScale = 1;
+        orientationManager.ChangeScreenPortrait(true);
         ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMainTheme();
 
         acornLabel = GameObject.Find("AcornLabel").GetComponent<Text>();
