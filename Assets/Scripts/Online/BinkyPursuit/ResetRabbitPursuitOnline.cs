@@ -12,7 +12,11 @@ namespace Online.BinkyPursuit
     {
         [SerializeField]
         private CharacterControllerOnline[] characterControllers;
-  
+
+        private void Awake()
+        {
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        }
 
         public override void OnStartClient()
         {

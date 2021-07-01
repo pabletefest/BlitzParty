@@ -43,6 +43,7 @@ namespace RabbitPursuit
         private void Awake()
         {
             ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMinigameTheme("RabbitPursuitTheme");
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
         }
 
         private void Start()

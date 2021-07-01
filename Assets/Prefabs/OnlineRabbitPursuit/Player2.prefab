@@ -117,7 +117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  m_MovementSmoothing: 0.05
+  m_MovementSmoothing: 0
 --- !u!114 &2111707180759140582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +179,8 @@ MonoBehaviour:
   localScaleSensitivity: 0.01
   compressRotation: 0
   interpolateScale: 0
+  interpolateRotation: 1
+  interpolatePosition: 1
   syncScale: 1
 --- !u!114 &5804167208394019341
 MonoBehaviour:

@@ -20,6 +20,7 @@ namespace WhackAMole
         private void Awake()
         {
             ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMinigameTheme("Whack-a-moleTheme");
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
         }
     
         public void ResetGame()

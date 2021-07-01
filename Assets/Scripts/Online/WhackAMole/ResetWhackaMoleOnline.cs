@@ -10,7 +10,12 @@ namespace Online.WhackAMole
     {
         [SerializeField]
         private HammerSpawnerOnline[] hammerSpawners;
-        
+
+        private void Awake()
+        {
+            Screen.sleepTimeout = SleepTimeout.NeverSleep;
+        }
+
         public override void OnStartClient()
         {
             hammerSpawners = FindObjectsOfType<HammerSpawnerOnline>();
