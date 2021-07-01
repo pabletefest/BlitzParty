@@ -170,7 +170,8 @@ namespace Online.CowboyDuel
             if (hasShotEarly)
             {
                 // Debug.Log("Shot Miss");
-                playerAnimator.GetComponent<NetworkAnimator>().SetTrigger("ShotMiss");
+                //playerAnimator.GetComponent<NetworkAnimator>().SetTrigger("ShotMiss");
+                CmdAnimationShotMiss();
                 CmdShotEarly();
                 // timeSinceReady = 2f;
                 // hasShotEarly = false;
@@ -178,7 +179,8 @@ namespace Online.CowboyDuel
             else
             {
                 // Debug.Log("Correct Shot");
-                playerAnimator.GetComponent<NetworkAnimator>().SetTrigger("Shoot");
+                CmdAnimationShoot();
+                //playerAnimator.GetComponent<NetworkAnimator>().SetTrigger("Shoot");
             }
             
             // Debug.Log($"timeSinceReady: {timeSinceReady}");
@@ -240,6 +242,18 @@ namespace Online.CowboyDuel
         private void RpcTouchedBeforeLabel()
         {
             hasShotEarly = true;
+        }
+
+        [Command]
+        private void CmdAnimationShotMiss()
+        {
+            networkAnimator.SetTrigger("ShotMiss");
+        }
+        
+        [Command]
+        private void CmdAnimationShoot()
+        {
+            networkAnimator.SetTrigger("Shoot");
         }
         
         [Command]
@@ -360,6 +374,13 @@ namespace Online.CowboyDuel
         {
             if (!isLocalPlayer) return;
             
+            CmdAnimationDeath();
+            // networkAnimator.SetTrigger("Death");
+        }
+
+        [Command]
+        private void CmdAnimationDeath()
+        {
             networkAnimator.SetTrigger("Death");
         }
         
@@ -367,7 +388,14 @@ namespace Online.CowboyDuel
         public void RpcSetRoundFinishAnimation()
         {
             if (!isLocalPlayer) return;
-            
+
+            CmdAnimationRoundFinish();
+            // networkAnimator.SetTrigger("RoundFinish");
+        }
+        
+        [Command]
+        private void CmdAnimationRoundFinish()
+        {
             networkAnimator.SetTrigger("RoundFinish");
         }
         
