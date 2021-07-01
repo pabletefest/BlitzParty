@@ -53,6 +53,18 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!114 &-6218613893076928277
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0dd325f104db6fc42899b913cde70309, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1101 &-5809677393667921984
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -93,7 +105,7 @@ AnimatorState:
   - {fileID: 6110148203534971403}
   - {fileID: 3577737974191517778}
   m_StateMachineBehaviours:
-  - {fileID: 2626150432996232490}
+  - {fileID: -6218613893076928277}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1
@@ -210,7 +222,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Player 1 CowboyDuel
+  m_Name: Player 1 CowboyDuel Online
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Shoot
@@ -339,18 +351,6 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!114 &2626150432996232490
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0f63b62536f1a04cb59afc8ffbc370d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1101 &3577737974191517778
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
