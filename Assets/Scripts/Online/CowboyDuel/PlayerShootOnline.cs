@@ -225,7 +225,7 @@ namespace Online.CowboyDuel
         {
             canShoot = false;
             hasShootAppeared = false;
-            //limitShootTime = 1.2f;
+            limitShootTime = 1.2f;
             timeSinceReady = 0;
         }
         

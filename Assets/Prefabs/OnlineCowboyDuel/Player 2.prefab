@@ -294,6 +294,7 @@ GameObject:
   - component: {fileID: 5504628059954058214}
   - component: {fileID: 3884597934430975504}
   - component: {fileID: 5141349973243183916}
+  - component: {fileID: -2511894398502560111}
   m_Layer: 0
   m_Name: Player 2
   m_TagString: Player
@@ -422,8 +423,6 @@ MonoBehaviour:
   winnerChecker: {fileID: 0}
   canShoot: 0
   playerNumber: 0
-  isDead: 0
-  isRoundOver: 0
 --- !u!114 &5141349973243183916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -440,3 +439,26 @@ MonoBehaviour:
   syncInterval: 0.1
   clientAuthority: 1
   animator: {fileID: 5504628059954058216}
+--- !u!114 &-2511894398502560111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5504628059954058219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 1
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
+  compressRotation: 0
+  interpolateScale: 1
+  interpolateRotation: 1
+  interpolatePosition: 1
+  syncScale: 1

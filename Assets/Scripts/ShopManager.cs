@@ -62,6 +62,12 @@ public class ShopManager : MonoBehaviour
 
     [SerializeField]
     private Text acornLabel;
+    
+    [SerializeField]
+    private GameObject confirmationText;
+
+    [SerializeField]
+    private GameObject confirmationButton;
 
 
     private GameObject selectedItem;
@@ -82,7 +88,17 @@ public class ShopManager : MonoBehaviour
         string itemCost = selectedItem.GetComponentInChildren<Text>().text;
 
         confirmationMenu.SetActive(true);
-        confirmationMenu.GetComponentInChildren<Button>().GetComponentInChildren<Text>().text = itemCost;
+        bool enoughAcorns = database.LoadAcorns() >= Int32.Parse(itemCost);
+        if (enoughAcorns)
+        {
+            confirmationButton.SetActive(true);
+            confirmationButton.GetComponentInChildren<Text>().text = itemCost;
+            confirmationText.SetActive(true);
+        }
+        else
+        {
+            errorText.SetActive(true);
+        }
 
         EnableButtons(false);
     }
@@ -117,20 +133,12 @@ public class ShopManager : MonoBehaviour
         string itemName = selectedItem.name;
         int itemCost = Int32.Parse(selectedItem.GetComponentInChildren<Text>().text);
         errorText.SetActive(false);
-        bool enoughAcorns = database.LoadAcorns() >= itemCost;
-        if (enoughAcorns)
-        {
-            ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("BuyItemSFX");
-            database.SaveAcorns(database.LoadAcorns() - itemCost);
-            acornLabel.text = database.LoadAcorns().ToString();
-            PurchaseItem(itemName);
-            confirmationMenu.SetActive(false);
-            EnableButtons(true);
-        }
-        else 
-        {
-            errorText.SetActive(true);
-        }
+        ServiceLocator.Instance.GetService<ISoundAdapter>().PlaySoundFX("BuyItemSFX");
+        database.SaveAcorns(database.LoadAcorns() - itemCost);
+        acornLabel.text = database.LoadAcorns().ToString();
+        PurchaseItem(itemName);
+        confirmationMenu.SetActive(false);
+        EnableButtons(true);
     }
 
     private void PurchaseItem(string itemName)
