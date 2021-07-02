@@ -234,7 +234,7 @@ namespace Online.CowboyDuel
             hasShootAppeared = false;
             limitShootTime = 1.2f;
             timeSinceReady = 0;
-            networkAnimator.ResetTrigger("Shoot");
+            //networkAnimator.ResetTrigger("Shoot");
         }
         
         [Command]
@@ -279,6 +279,7 @@ namespace Online.CowboyDuel
         {
             timeSinceReady = 2f;
             hasShotEarly = false;
+            //networkAnimator.ResetTrigger("ShotMiss");
         }
 
         /*[Command]
