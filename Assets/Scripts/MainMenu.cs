@@ -202,7 +202,7 @@ public class MainMenu : MonoBehaviour
         //musicSlider.value = database.LoadMusicVolume();
         //sfxSlider.value = database.LoadSFXVolume();
         
-        if (!PlayFabClientAPI.IsClientLoggedIn() || database.GetAccountActiveToken() == 1)
+        if (!PlayFabClientAPI.IsClientLoggedIn() && database.GetAccountActiveToken() == 1)
         {
             PlayFabClientAPI.LoginWithPlayFab(new LoginWithPlayFabRequest()
             {

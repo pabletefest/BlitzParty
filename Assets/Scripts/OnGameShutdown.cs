@@ -16,7 +16,7 @@ public class OnGameShutdown : MonoBehaviour
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        InvokeRepeating("StoreOnCloudUserData", 60f, 60f);
+        //InvokeRepeating("StoreOnCloudUserData", 60f, 60f);
     }
 
     private void OnApplicationPause(bool pauseStatus)
