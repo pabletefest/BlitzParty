@@ -152,6 +152,8 @@ namespace Online.CowboyDuel
                         Debug.Log("Auto shoot " + PlayerNumber);
                         Shoot();
                         limitShootTime = 1.2f;
+                        canShoot = false;
+                        hasShootAppeared = false;
                     }
                 }
             }
@@ -180,6 +182,8 @@ namespace Online.CowboyDuel
             {
                 // Debug.Log("Correct Shot");
                 CmdAnimationShoot();
+                canShoot = false;
+                hasShootAppeared = false;
                 //playerAnimator.GetComponent<NetworkAnimator>().SetTrigger("Shoot");
             }
             
@@ -254,6 +258,12 @@ namespace Online.CowboyDuel
         private void CmdAnimationShoot()
         {
             networkAnimator.SetTrigger("Shoot");
+            Debug.Log("CanShoot at shooting moment is " + canShoot);
+            Debug.Log("LimitShootTime at shooting moment is " + limitShootTime);
+            Debug.Log("HasShootAppeared at shooting moment is " + hasShootAppeared);
+            canShoot = false;
+            hasShootAppeared = false;
+           
         }
         
         [Command]
@@ -293,6 +303,7 @@ namespace Online.CowboyDuel
             //countdownUI.OnCountdownOver -= ShootingTime;
             //RpcAllowPlayersToShot();
             Debug.Log($"Player {PlayerNumber} can shoot now");
+            Debug.Log($"Limit shoot for Player {PlayerNumber} time at shoot appear is " + limitShootTime);
         }
 
         [TargetRpc]
