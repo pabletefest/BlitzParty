@@ -172,8 +172,8 @@ namespace Online.CowboyDuel
             if (hasShotEarly)
             {
                 // Debug.Log("Shot Miss");
-                //playerAnimator.GetComponent<NetworkAnimator>().SetTrigger("ShotMiss");
-                CmdAnimationShotMiss();
+                networkAnimator.SetTrigger("ShotMiss");
+                //CmdAnimationShotMiss();
                 CmdShotEarly();
                 // timeSinceReady = 2f;
                 // hasShotEarly = false;
@@ -181,10 +181,10 @@ namespace Online.CowboyDuel
             else
             {
                 // Debug.Log("Correct Shot");
-                CmdAnimationShoot();
+                //CmdAnimationShoot();
+                networkAnimator.SetTrigger("Shoot");
                 canShoot = false;
                 hasShootAppeared = false;
-                //playerAnimator.GetComponent<NetworkAnimator>().SetTrigger("Shoot");
             }
             
             // Debug.Log($"timeSinceReady: {timeSinceReady}");
@@ -260,10 +260,7 @@ namespace Online.CowboyDuel
             networkAnimator.SetTrigger("Shoot");
             Debug.Log("CanShoot at shooting moment is " + canShoot);
             Debug.Log("LimitShootTime at shooting moment is " + limitShootTime);
-            Debug.Log("HasShootAppeared at shooting moment is " + hasShootAppeared);
-            canShoot = false;
-            hasShootAppeared = false;
-           
+            Debug.Log("HasShootAppeared at shooting moment is " + hasShootAppeared);          
         }
         
         [Command]
@@ -385,8 +382,8 @@ namespace Online.CowboyDuel
         {
             if (!isLocalPlayer) return;
             
-            CmdAnimationDeath();
-            // networkAnimator.SetTrigger("Death");
+            //CmdAnimationDeath();
+             networkAnimator.SetTrigger("Death");
         }
 
         [Command]
@@ -400,8 +397,8 @@ namespace Online.CowboyDuel
         {
             if (!isLocalPlayer) return;
 
-            CmdAnimationRoundFinish();
-            // networkAnimator.SetTrigger("RoundFinish");
+            //CmdAnimationRoundFinish();
+             networkAnimator.SetTrigger("RoundFinish");
         }
         
         [Command]
