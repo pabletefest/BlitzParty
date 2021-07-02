@@ -185,6 +185,7 @@ namespace Online.CowboyDuel
                 networkAnimator.SetTrigger("Shoot");
                 canShoot = false;
                 hasShootAppeared = false;
+                
             }
             
             // Debug.Log($"timeSinceReady: {timeSinceReady}");
@@ -233,6 +234,7 @@ namespace Online.CowboyDuel
             hasShootAppeared = false;
             limitShootTime = 1.2f;
             timeSinceReady = 0;
+            networkAnimator.ResetTrigger("Shoot");
         }
         
         [Command]
@@ -260,7 +262,8 @@ namespace Online.CowboyDuel
             networkAnimator.SetTrigger("Shoot");
             Debug.Log("CanShoot at shooting moment is " + canShoot);
             Debug.Log("LimitShootTime at shooting moment is " + limitShootTime);
-            Debug.Log("HasShootAppeared at shooting moment is " + hasShootAppeared);          
+            Debug.Log("HasShootAppeared at shooting moment is " + hasShootAppeared);
+            
         }
         
         [Command]
