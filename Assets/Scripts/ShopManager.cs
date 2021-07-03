@@ -94,10 +94,13 @@ public class ShopManager : MonoBehaviour
             confirmationButton.SetActive(true);
             confirmationButton.GetComponentInChildren<Text>().text = itemCost;
             confirmationText.SetActive(true);
+            errorText.SetActive(false);
         }
         else
         {
             errorText.SetActive(true);
+            confirmationButton.SetActive(false);
+            confirmationText.SetActive(false);
         }
 
         EnableButtons(false);
@@ -105,15 +108,6 @@ public class ShopManager : MonoBehaviour
 
     private void EnableButtons(bool disabled)
     {
-        item1.interactable = disabled;
-        item2.interactable = disabled;
-        item3.interactable = disabled;
-        item4.interactable = disabled;
-        item5.interactable = disabled;
-        item6.interactable = disabled;
-        item7.interactable = disabled;
-        item8.interactable = disabled;
-        item9.interactable = disabled;
         shopButton.interactable = disabled;
         zoomyButton.interactable = disabled;
         mainButton.interactable = disabled;
