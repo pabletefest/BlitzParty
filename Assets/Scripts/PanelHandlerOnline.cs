@@ -312,9 +312,9 @@ public class PanelHandlerOnline : NetworkBehaviour
         //earnAcorns.AcornsWhackAMole();
         //database.AddPlayerWhackAMoleGames();
         
-        // var playersConnections = ((WhackAMoleNetworkManager) NetworkManager.singleton).PlayersConnections;
-        // StartCoroutine(PrepareNextSceneClients(playersConnections, "CowboyDuelOnline"));
-        StartCoroutine(ReturningMainMenuAfterOnline());
+        var playersConnections = ((WhackAMoleNetworkManager) NetworkManager.singleton).PlayersConnections;
+        StartCoroutine(PrepareNextSceneClients(playersConnections, "CowboyDuelOnline"));
+        // StartCoroutine(ReturningMainMenuAfterOnline());
     }
     
     [ClientRpc]
