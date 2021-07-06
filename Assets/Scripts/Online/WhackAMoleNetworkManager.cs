@@ -12,7 +12,7 @@ namespace Online
         [SerializeField] private TimerUIOnline timerUI;
         [SerializeField] private PlayerIndicatorUI playerIndicatorUI;
         [SerializeField] private PanelHandlerOnline panelHandler;
-        [SerializeField] private ResetWhackaMoleOnline resetController;
+        [SerializeField] private ResetWhackAMoleOnline resetController;
 
         //[SerializeField] private GameObject[] enemySpawners;
 

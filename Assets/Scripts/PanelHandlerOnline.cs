@@ -71,7 +71,7 @@ public class PanelHandlerOnline : NetworkBehaviour
     //Whack-a-Mole attributes
 
     [SerializeField]
-    private ResetWhackaMoleOnline resetWhackAMoleController;
+    private ResetWhackAMoleOnline resetWhackAMoleController;
 
     [SerializeField]
     private HammerSpawnerOnline hammerSpawner;

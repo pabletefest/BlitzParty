@@ -6,7 +6,7 @@ using WhackAMole;
 
 namespace Online.WhackAMole
 {
-    public class ResetWhackaMoleOnline : NetworkBehaviour
+    public class ResetWhackAMoleOnline : NetworkBehaviour
     {
         [SerializeField]
         private HammerSpawnerOnline[] hammerSpawners;
