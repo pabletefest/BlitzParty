@@ -35,6 +35,8 @@ namespace Online
         private void Awake()
         {
             networkTypeChecker = GameObject.Find("NetworkTypeChecker").GetComponent<NetworkTypeChecker>();
+            networkDiscovery = GetComponent<NetworkDiscovery>();
+            networkDiscovery.OnServerFound.AddListener(OnDiscoveredServer);
         }
 
         // Start is called before the first frame update
