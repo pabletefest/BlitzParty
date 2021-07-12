@@ -60,6 +60,9 @@ namespace Online
                     
                     yield return new WaitForSeconds(3f);
                     
+                    Debug.Log($"Is discoveredServers null? {discoveredServers}");
+                    Debug.Log($"How many servers were discovered? {discoveredServers.Count}");
+                    
                     if (discoveredServers.Count > 0)
                     {
                         long matchKey = discoveredServers.First().Key;
@@ -97,7 +100,9 @@ namespace Online
         private void StartHost()
         {
             discoveredServers.Clear();
+            Debug.Log($"Is NetworkManager null? {NetworkManager.singleton}");
             NetworkManager.singleton.StartHost();
+            Debug.Log($"Is NetworkDiscovery null? {networkDiscovery}");
             networkDiscovery.AdvertiseServer();
         }
 
@@ -116,6 +121,8 @@ namespace Online
         public void OnDiscoveredServer(ServerResponse info)
         {
             // Note that you can check the versioning to decide if you can connect to the server or not using this method
+            Debug.Log("Server discovered!!");
+            Debug.Log($"Is discoveredServers null? {discoveredServers}");
             discoveredServers[info.serverId] = info;
         }
     }

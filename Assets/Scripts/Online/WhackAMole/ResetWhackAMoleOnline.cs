@@ -14,6 +14,7 @@ namespace Online.WhackAMole
         private void Awake()
         {
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
+            ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMinigameTheme("Whack-a-moleTheme");
         }
 
         public override void OnStartClient()

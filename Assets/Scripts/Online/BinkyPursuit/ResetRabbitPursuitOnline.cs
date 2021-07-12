@@ -16,6 +16,7 @@ namespace Online.BinkyPursuit
         private void Awake()
         {
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
+            ServiceLocator.Instance.GetService<ISoundAdapter>().PlayMinigameTheme("RabbitPursuitTheme");
         }
 
         public override void OnStartClient()
