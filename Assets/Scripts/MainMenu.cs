@@ -285,6 +285,12 @@ public class MainMenu : MonoBehaviour
         database.SaveSFXVolume(float.Parse(cloudUserData["SFXVolume"]));
         playFabId = PlayFabLogin.PlayFabId ?? cloudUserData["PlayFabId"] ?? database.GetPlayFabId();
         profileMenuHandler.UpdateProfileData(cloudUserData["Username"]);
+        database.SavePlayerRabbitPursuitGames(int.Parse(cloudUserData["RabbitPursuitGames"]));
+        database.SavePlayerRabbitPursuitWins(int.Parse(cloudUserData["RabbitPursuitWins"]));
+        database.SavePlayerWhackAMoleGames(int.Parse(cloudUserData["WhackAMoleGames"]));
+        database.SavePlayerWhackAMoleWins(int.Parse(cloudUserData["WhackAMoleWins"]));
+        database.SavePlayerCowboyDuelGames(int.Parse(cloudUserData["CowboyDuelGames"]));
+        database.SavePlayerCowboyDuelWins(int.Parse(cloudUserData["CowboyDuelWins"]));
         userData = cloudUserData;
     }
 

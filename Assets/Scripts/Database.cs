@@ -136,6 +136,11 @@ public class Database : MonoBehaviour
         return PlayerPrefs.GetInt("user" + LoadCurrentUser().Substring(4) + "rabbitPursuitGames", 0);
     }
 
+    public void SavePlayerRabbitPursuitGames(int rabbitPursuitGames)
+    {
+        PlayerPrefs.SetInt("user" + LoadCurrentUser().Substring(4) + "rabbitPursuitGames", rabbitPursuitGames);
+    }
+
     public void AddPlayerRabbitPursuitWins()
     {
         PlayerPrefs.SetInt("user" + LoadCurrentUser().Substring(4) + "rabbitPursuitWins", LoadPlayerRabbitPursuitWins() + 1);
@@ -144,6 +149,10 @@ public class Database : MonoBehaviour
     public int LoadPlayerRabbitPursuitWins()
     {
         return PlayerPrefs.GetInt("user" + LoadCurrentUser().Substring(4) + "rabbitPursuitWins", 0);
+    }
+    public void SavePlayerRabbitPursuitWins(int rabbitPursuitWins)
+    {
+        PlayerPrefs.SetInt("user" + LoadCurrentUser().Substring(4) + "rabbitPursuitWins", rabbitPursuitWins);
     }
 
     public void AddPlayerWhackAMoleGames()
@@ -156,6 +165,11 @@ public class Database : MonoBehaviour
         return PlayerPrefs.GetInt("user" + LoadCurrentUser().Substring(4) + "whackAMoleGames", 0);
     }
 
+    public void SavePlayerWhackAMoleGames(int WhackAMoleGames)
+    {
+        PlayerPrefs.SetInt("user" + LoadCurrentUser().Substring(4) + "whackAMoleGames", WhackAMoleGames);
+    }
+
     public void AddPlayerWhackAMoleWins()
     {
         PlayerPrefs.SetInt("user" + LoadCurrentUser().Substring(4) + "whackAMoleWins", LoadPlayerWhackAMoleWins() + 1);
@@ -164,6 +178,11 @@ public class Database : MonoBehaviour
     public int LoadPlayerWhackAMoleWins()
     {
         return PlayerPrefs.GetInt("user" + LoadCurrentUser().Substring(4) + "whackAMoleWins", 0);
+    }
+
+    public void SavePlayerWhackAMoleWins(int whackAMoleWins)
+    {
+        PlayerPrefs.SetInt("user" + LoadCurrentUser().Substring(4) + "whackAMoleWins", whackAMoleWins);
     }
 
     public void AddPlayerCowboyDuelGames()
@@ -176,6 +195,11 @@ public class Database : MonoBehaviour
         return PlayerPrefs.GetInt("user" + LoadCurrentUser().Substring(4) + "cowboyDuelGames", 0);
     }
 
+    public void SavePlayerCowboyDuelGames(int cowboyDuelGames)
+    {
+        PlayerPrefs.SetInt("user" + LoadCurrentUser().Substring(4) + "cowboyDuelGames", cowboyDuelGames);
+    }
+
     public void AddPlayerCowboyDuelWins()
     {
         PlayerPrefs.SetInt("user" + LoadCurrentUser().Substring(4) + "cowboyDuelWins", LoadPlayerCowboyDuelWins() + 1);
@@ -184,6 +208,11 @@ public class Database : MonoBehaviour
     public int LoadPlayerCowboyDuelWins()
     {
         return PlayerPrefs.GetInt("user" + LoadCurrentUser().Substring(4) + "cowboyDuelWins", 0);
+    }
+
+    public void SavePlayerCowboyDuelWins(int cowboyDuelWins)
+    {
+        PlayerPrefs.SetInt("user" + LoadCurrentUser().Substring(4) + "cowboyDuelWins", cowboyDuelWins);
     }
 
     public void SaveMusicVolume(float musicVolume)

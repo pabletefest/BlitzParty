@@ -50,10 +50,16 @@ public class OnGameShutdown : MonoBehaviour
         float musicVolume = localDatabase.LoadMusicVolume();
         float sfxVolume = localDatabase.LoadSFXVolume();
         GameSettings gameSettings = new GameSettings(musicVolume, sfxVolume);
+        int RabbitGames = localDatabase.LoadPlayerRabbitPursuitGames();
+        int MoleGames = localDatabase.LoadPlayerWhackAMoleGames();
+        int CowboyGames = localDatabase.LoadPlayerCowboyDuelGames();
+        int RabbitWins = localDatabase.LoadPlayerRabbitPursuitWins();
+        int MoleWins = localDatabase.LoadPlayerWhackAMoleWins();
+        int CowboyWins = localDatabase.LoadPlayerCowboyDuelWins();
 
         CloudStoragePlayFab cloudStorage = new CloudStoragePlayFab();
 
-        cloudStorage.SetUserData(playFabId, username, acorns, gameSettings);
+        cloudStorage.SetUserData(playFabId, username, acorns, gameSettings, RabbitGames, MoleGames, CowboyGames, RabbitWins, MoleWins, CowboyWins);
         Debug.Log("Storing data");
     
     }

@@ -14,7 +14,7 @@ namespace Online.PlayFab
         
         public CloudStoragePlayFab(){}
 
-        public void SetUserData(string playFabId, string username, int acornsEarned, GameSettings gameSettings)
+        public void SetUserData(string playFabId, string username, int acornsEarned, GameSettings gameSettings, int RabbitPursuitGames, int WhackAMoleGames, int CowboyDuelGames, int RabbitPursuitWins, int WhackAMoleWins, int CowboyDuelWins)
         {
             PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest() {
                     Data = new Dictionary<string, string>()
@@ -23,7 +23,13 @@ namespace Online.PlayFab
                         {"Username", username},
                         {"Acorns", acornsEarned.ToString()},
                         {"MusicVolume", gameSettings.MusicVolume.ToString()},
-                        {"SFXVolume", gameSettings.SFXVolume.ToString()}
+                        {"SFXVolume", gameSettings.SFXVolume.ToString()},
+                        {"RabbitPursuitGames", RabbitPursuitGames.ToString()},
+                        {"WhackAMoleGames", WhackAMoleGames.ToString()},
+                        {"CowboyDuelGames", CowboyDuelGames.ToString()},
+                        {"RabbitPursuitWins", RabbitPursuitWins.ToString()},
+                        {"WhackAMoleWins", WhackAMoleWins.ToString()},
+                        {"CowboyDuelWins", CowboyDuelWins.ToString()}
                     }
                 },
                 result =>
@@ -38,6 +44,7 @@ namespace Online.PlayFab
             
         }
         
+        
         public void SetNewUserData(string playFabId, string username, int acornsEarned)
         {
             PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest() {
@@ -47,7 +54,13 @@ namespace Online.PlayFab
                         {"Username", username},
                         {"Acorns", acornsEarned.ToString()},
                         {"MusicVolume", "1"},
-                        {"SFXVolume", "1"}
+                        {"SFXVolume", "1"},
+                        {"RabbitPursuitGames", "0"},
+                        {"WhackAMoleGames", "0"},
+                        {"CowboyDuelGames", "0"},
+                        {"RabbitPursuitWins", "0"},
+                        {"WhackAMoleWins", "0"},
+                        {"CowboyDuelWins", "0"}
                     }
                 },
                 result =>
@@ -81,7 +94,13 @@ namespace Online.PlayFab
                     {"Username", result.Data["Username"].Value},
                     {"Acorns", result.Data["Acorns"].Value},
                     {"MusicVolume", result.Data["MusicVolume"].Value},
-                    {"SFXVolume", result.Data["SFXVolume"].Value}
+                    {"SFXVolume", result.Data["SFXVolume"].Value},
+                    {"RabbitPursuitGames", result.Data["RabbitPursuitGames"].Value},
+                    {"WhackAMoleGames", result.Data["WhackAMoleGames"].Value},
+                    {"CowboyDuelGames", result.Data["CowboyDuelGames"].Value},
+                    {"RabbitPursuitWins", result.Data["RabbitPursuitWins"].Value},
+                    {"WhackAMoleWins", result.Data["WhackAMoleWins"].Value},
+                    {"CowboyDuelWins", result.Data["CowboyDuelWins"].Value}
                 };
                 
                 OnDataReceived?.Invoke(obtainedData);

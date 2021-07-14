@@ -126,9 +126,16 @@ public class PanelHandler : MonoBehaviour
         float sfxVolume = database.LoadSFXVolume();
         GameSettings gameSettings = new GameSettings(musicVolume, sfxVolume);
 
+        int RabbitGames = database.LoadPlayerRabbitPursuitGames();
+        int MoleGames = database.LoadPlayerWhackAMoleGames();
+        int CowboyGames = database.LoadPlayerCowboyDuelGames();
+        int RabbitWins = database.LoadPlayerRabbitPursuitWins();
+        int MoleWins = database.LoadPlayerWhackAMoleWins();
+        int CowboyWins = database.LoadPlayerCowboyDuelWins();
+
         CloudStoragePlayFab cloudStorage = new CloudStoragePlayFab();
-        
-        cloudStorage.SetUserData(playFabId, username, acorns, gameSettings);
+
+        cloudStorage.SetUserData(playFabId, username, acorns, gameSettings, RabbitGames, MoleGames, CowboyGames, RabbitWins, MoleWins, CowboyWins);
     }
 
     public void ShowRabbitPursuitPanel()
