@@ -14,7 +14,7 @@ namespace Online.PlayFab
         
         public CloudStoragePlayFab(){}
 
-        public void SetUserData(string playFabId, string username, int acornsEarned, GameSettings gameSettings, int RabbitPursuitGames, int WhackAMoleGames, int CowboyDuelGames, int RabbitPursuitWins, int WhackAMoleWins, int CowboyDuelWins)
+        public void SetUserData(string playFabId, string username, int acornsEarned, GameSettings gameSettings)
         {
             PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest() {
                     Data = new Dictionary<string, string>()
@@ -24,12 +24,6 @@ namespace Online.PlayFab
                         {"Acorns", acornsEarned.ToString()},
                         {"MusicVolume", gameSettings.MusicVolume.ToString()},
                         {"SFXVolume", gameSettings.SFXVolume.ToString()},
-                        {"RabbitPursuitGames", RabbitPursuitGames.ToString()},
-                        {"WhackAMoleGames", WhackAMoleGames.ToString()},
-                        {"CowboyDuelGames", CowboyDuelGames.ToString()},
-                        {"RabbitPursuitWins", RabbitPursuitWins.ToString()},
-                        {"WhackAMoleWins", WhackAMoleWins.ToString()},
-                        {"CowboyDuelWins", CowboyDuelWins.ToString()}
                     }
                 },
                 result =>
@@ -43,8 +37,33 @@ namespace Online.PlayFab
                 });
             
         }
-        
-        
+
+        public void SetUserStats(int RabbitPursuitGames, int WhackAMoleGames, int CowboyDuelGames, int RabbitPursuitWins, int WhackAMoleWins, int CowboyDuelWins)
+        {
+            PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest()
+            {
+                Data = new Dictionary<string, string>()
+                    {
+                        {"RabbitPursuitGames", RabbitPursuitGames.ToString()},
+                        {"WhackAMoleGames", WhackAMoleGames.ToString()},
+                        {"CowboyDuelGames", CowboyDuelGames.ToString()},
+                        {"RabbitPursuitWins", RabbitPursuitWins.ToString()},
+                        {"WhackAMoleWins", WhackAMoleWins.ToString()},
+                        {"CowboyDuelWins", CowboyDuelWins.ToString()}
+                    }
+            },
+                result =>
+                {
+                    Debug.Log("Successfully updated user data");
+                    OnDataStored?.Invoke();
+                },
+                error => {
+                    Debug.Log("Got error setting user data Ancestor to Arthur");
+                    Debug.Log(error.GenerateErrorReport());
+                });
+
+        }
+
         public void SetNewUserData(string playFabId, string username, int acornsEarned)
         {
             PlayFabClientAPI.UpdateUserData(new UpdateUserDataRequest() {

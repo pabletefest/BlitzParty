@@ -193,7 +193,8 @@ public class PanelHandlerOnline : NetworkBehaviour
 
         CloudStoragePlayFab cloudStorage = new CloudStoragePlayFab();
 
-        cloudStorage.SetUserData(playFabId, username, acorns, gameSettings, RabbitGames, MoleGames, CowboyGames, RabbitWins, MoleWins, CowboyWins);
+        cloudStorage.SetUserData(playFabId, username, acorns, gameSettings);
+        cloudStorage.SetUserStats(RabbitGames, MoleGames, CowboyGames, RabbitWins, MoleWins, CowboyWins);
     }
 
     [TargetRpc]

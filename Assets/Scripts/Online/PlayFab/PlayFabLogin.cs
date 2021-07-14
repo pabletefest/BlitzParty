@@ -147,7 +147,8 @@ namespace Online.PlayFab
 
             CloudStoragePlayFab cloudStorage = new CloudStoragePlayFab();
         
-            cloudStorage.SetUserData(playFabId, username, acorns, gameSettings, RabbitGames, MoleGames, CowboyGames, RabbitWins, MoleWins, CowboyWins);
+            cloudStorage.SetUserData(playFabId, username, acorns, gameSettings);
+            cloudStorage.SetUserStats(RabbitGames, MoleGames, CowboyGames, RabbitWins, MoleWins, CowboyWins);
         }
 
         private void StoreNewAccountOnCloud(string playFabId, string username, int acorns)
