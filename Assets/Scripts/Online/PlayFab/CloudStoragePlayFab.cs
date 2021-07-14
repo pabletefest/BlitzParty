@@ -95,12 +95,12 @@ namespace Online.PlayFab
                     {"Acorns", result.Data["Acorns"].Value},
                     {"MusicVolume", result.Data["MusicVolume"].Value},
                     {"SFXVolume", result.Data["SFXVolume"].Value},
-                    {"RabbitPursuitGames", result.Data["RabbitPursuitGames"].Value},
-                    {"WhackAMoleGames", result.Data["WhackAMoleGames"].Value},
-                    {"CowboyDuelGames", result.Data["CowboyDuelGames"].Value},
-                    {"RabbitPursuitWins", result.Data["RabbitPursuitWins"].Value},
-                    {"WhackAMoleWins", result.Data["WhackAMoleWins"].Value},
-                    {"CowboyDuelWins", result.Data["CowboyDuelWins"].Value}
+                    {"RabbitPursuitGames", result.Data.TryGetValue("RabbitPursuitGames", out UserDataRecord valueRabbitGames) ? valueRabbitGames.Value : "0" },
+                    {"WhackAMoleGames", result.Data.TryGetValue("WhackAMoleGames", out UserDataRecord valueWhackGames) ? valueWhackGames.Value : "0"},
+                    {"CowboyDuelGames", result.Data.TryGetValue("CowboyDuelGames", out UserDataRecord valueCowboyGames) ? valueCowboyGames.Value : "0"},
+                    {"RabbitPursuitWins", result.Data.TryGetValue("RabbitPursuitWins", out UserDataRecord valueRabbitWins) ? valueRabbitWins.Value : "0"},
+                    {"WhackAMoleWins", result.Data.TryGetValue("WhackAMoleWins", out UserDataRecord valueWhackWins) ? valueWhackWins.Value : "0"},
+                    {"CowboyDuelWins", result.Data.TryGetValue("CowboyDuelWins", out UserDataRecord valueCowboyWins) ? valueCowboyWins.Value : "0"}
                 };
                 
                 OnDataReceived?.Invoke(obtainedData);
