@@ -1,4 +1,4 @@
-# TFG_BlitzParty [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+# BlitzParty [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 <img width="512" height="512" alt="imagen" src="https://github.com/user-attachments/assets/69bbcacf-38a2-4ab9-882c-464ee3917d2b" />
 
